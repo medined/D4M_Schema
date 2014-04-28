@@ -62,7 +62,9 @@ Accumulo Mutations
    TedgeDegree    * STATE_NAME|MAINE                 * Degree                           * 1
    TedgeTranspose * CITY_NAME|AKRON                  * 9a127928-b661-4e46-9103-3fc024f4 * 1
    TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
-   TedgeTxt       * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON\tSTATE_NAME|MAINE
+   TedgeTxt       * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON
+                                                                                          \t
+                                                                                          STATE_NAME|MAINE
 ```
 
 Then see what changes when an additional record for the BOAZ city.
@@ -87,8 +89,14 @@ M  TedgeDegree    * STATE_NAME|MAINE                 * Degree                   
 A  TedgeTranspose * CITY_NAME|BOAZ                   * a1b4d569-ee45-4466-af2a-0960ccc1 * 1
    TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
 A  TedgeTranspose * STATE_NAME|MAINE                 * a1b4d569-ee45-4466-af2a-0960ccc1 * 1
-   TedgeTxt       * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON\tSTATE_NAME|MAINE
-A  TedgeTxt       * a1b4d569-ee45-4466-af2a-0960ccc1 * RawData                          * CITY_NAME|BOAZ\tSTATE_NAME|MAINE
+
+   TedgeTxt       * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON
+                                                                                          \t
+                                                                                          STATE_NAME|MAINE
+
+A  TedgeTxt       * a1b4d569-ee45-4466-af2a-0960ccc1 * RawData                          * CITY_NAME|BOAZ
+                                                                                          \t
+                                                                                          STATE_NAME|MAINE
 ```
 
 The 'A' lines were added. The 'M' line was modified. The rest stayed the same. 
