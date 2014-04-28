@@ -1,12 +1,11 @@
-A big shout of thanks to the folks at the MIT Lincoln Labs for both writing
+A big shout of thanks to the folks at MIT for both writing
 the software and helping me to understand the schema.
 
 There are many articles talking about the benefits of Big Data and how it can 
 knock down Data Silos and pool data together into a Data Lake. Most  are short 
-on specifics. In this project, I'll use D4M (from MIT Lincoln Labs - 
-http://www.mit.edu/~kepner/D4M/) to fill in some blanks. Hopefully, you'll 
-find some ideas here you haven't seen before and you'll get inspired to 
-known down some of your own Data Silos. It can done!
+on specifics. In this project, I'll use D4M (http:/d4m.mit.edu/) to fill in 
+some blanks. Hopefully, you'll find some ideas here you haven't seen before 
+and you'll get inspired to knock down some of your own Data Silos. It can done!
 
 D4M's main page says:
 
