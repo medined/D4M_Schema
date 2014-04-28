@@ -46,8 +46,6 @@ into the <i>TedgeDegree</i> table otherwise this can become a bottleneck.
 * The <i>TedgeTxt</i> table contains the original record. It can save a lot of 
 time when you just want pull out the whole record.
 
-<b>TODO: Discuss TedgeText table.</b>
-
 Below is a concrete example of how these tables are populated:
 
 ```
@@ -60,10 +58,11 @@ Accumulo Mutations
 -------------------------------------------------------------------------------------------------
    Tedge          * 9a127928-b661-4e46-9103-3fc024f4 * CITY_NAME|AKRON                  * 1
    Tedge          * 9a127928-b661-4e46-9103-3fc024f4 * STATE_NAME|MAINE                 * 1 
-   TedgeTranspose * CITY_NAME|AKRON                  * 9a127928-b661-4e46-9103-3fc024f4 * 1
-   TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
    TedgeDegree    * CITY_NAME|AKRON                  * Degree                           * 1
    TedgeDegree    * STATE_NAME|MAINE                 * Degree                           * 1
+   TedgeTranspose * CITY_NAME|AKRON                  * 9a127928-b661-4e46-9103-3fc024f4 * 1
+   TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
+   TedgeTxt       * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON\tSTATE_NAME|MAINE
 ```
 
 Then see what changes when an additional record for the BOAZ city.
@@ -81,13 +80,15 @@ Accumulo Mutations
    Tedge          * 9a127928-b661-4e46-9103-3fc024f4 * STATE_NAME|MAINE                 * 1 
 A  Tedge          * a1b4d569-ee45-4466-af2a-0960ccc1 * CITY_NAME|BOAZ                   * 1
 A  Tedge          * a1b4d569-ee45-4466-af2a-0960ccc1 * STATE_NAME|MAINE                 * 1
+   TedgeDegree    * CITY_NAME|AKRON                  * Degree                           * 1
+A  TedgeDegree    * CITY_NAME|BOAZ                   * Degree                           * 1
+M  TedgeDegree    * STATE_NAME|MAINE                 * Degree                           * 2
    TedgeTranspose * CITY_NAME|AKRON                  * 9a127928-b661-4e46-9103-3fc024f4 * 1
 A  TedgeTranspose * CITY_NAME|BOAZ                   * a1b4d569-ee45-4466-af2a-0960ccc1 * 1
    TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
 A  TedgeTranspose * STATE_NAME|MAINE                 * a1b4d569-ee45-4466-af2a-0960ccc1 * 1
-   TedgeDegree    * CITY_NAME|AKRON                  * Degree                           * 1
-A  TedgeDegree    * CITY_NAME|BOAZ                   * Degree                           * 1
-M  TedgeDegree    * STATE_NAME|MAINE                 * Degree                           * 2
+   TedgeTxt       * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON\tSTATE_NAME|MAINE
+A  TedgeTxt       * a1b4d569-ee45-4466-af2a-0960ccc1 * RawData                          * CITY_NAME|BOAZ\tSTATE_NAME|MAINE
 ```
 
 The 'A' lines were added. The 'M' line was modified. The rest stayed the same. 
@@ -105,7 +106,8 @@ reject this data until Latitude and Longitude values were added.
 
 Time has passed, geographic information has been added and another ingest 
 attempt is happening. This time our row value will be the City name and
-the geographic position.
+the geographic position. We'll ignore the TedgeDegree and TedgeText table 
+since they won't change.
 
 ```
 Relational Record
@@ -124,9 +126,6 @@ A  Tedge          * BOAZ|45.25|-69.44  * STATE_NAME|MAINE   * 1
 A  TedgeTranspose * CITY_NAME|BOAZ     * BOAZ|45.25|-69.44  * 1
    TedgeTranspose * STATE_NAME|MAINE   * AKRON|43.22|-70.79 * 1
 A  TedgeTranspose * STATE_NAME|MAINE   * BOAZ|45.25|-69.44  * 1
-   TedgeDegree    * CITY_NAME|AKRON    * Degree             * 1
-A  TedgeDegree    * CITY_NAME|BOAZ     * Degree             * 1
-M  TedgeDegree    * STATE_NAME|MAINE   * Degree             * 2
 ```
 
 Now we can re-ingest the data as often as needed without creating duplication 
@@ -163,10 +162,7 @@ Getting Started with D4M
 
 How to get started? Get D4M working. There are instructions how to create a 
 three-node Accumulo cluster and how to install D4M at 
-https://github.com/medined/Accumulo_1_5_0_By_Vagrant. Once you can start 
-Octave and run ls(DB) to see the tables into Accumulo, you're ready to read 
-further.
-
+https://github.com/medined/Accumulo_1_5_0_By_Vagrant. 
 
 ETL
 ---
