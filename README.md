@@ -34,20 +34,20 @@ together. This is a simplistic technique and should not be used in production.
 Each field name and field value (a fact) is stored twice - once in the Tedge 
 table and once in the TedgeTranspose table. 
 
-* The Tedge table allows rapid access to a whole record. 
+* The <i>Tedge</i> table allows rapid access to a whole record. 
 
-* The TedgeTranpose table allows rapid access to every record where a given 
+* The <i>TedgeTranpose</i> table allows rapid access to every record where a given 
 fact is referenced. 
 
-* The TedgeDegree table provides counts for each fact. It can be used for 
+* The <i>TedgeDegree</i> table provides counts for each fact. It can be used for 
 faceting.  If your goal is high speed inserts, you need to pre-sum the inserts 
-into the TedgeDegree table otherwise this can become a bottleneck.
+into the <i>TedgeDegree</i> table otherwise this can become a bottleneck.
 
 <b>TODO: Discuss TedgeText table.</b>
 
 Below is a concrete example of how these tables are populated:
 
-{noformat}
+```
 Relational Record
    CITY_NAME | STATE_NAME
    AKRON     | MAINE
@@ -61,11 +61,11 @@ Accumulo Mutations
    TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
    TedgeDegree    * CITY_NAME|AKRON                  * Degree                           * 1
    TedgeDegree    * STATE_NAME|MAINE                 * Degree                           * 1
-{noformat}
+```
 
 Then see what changes when an additional record for the BOAZ city.
 
-{noformat}
+```
 Relational Records
    CITY_NAME | STATE_NAME
    AKRON     | MAINE
@@ -85,7 +85,7 @@ A  TedgeTranspose * STATE_NAME|MAINE                 * a1b4d569-ee45-4466-af2a-0
    TedgeDegree    * CITY_NAME|AKRON                  * Degree                           * 1
 A  TedgeDegree    * CITY_NAME|BOAZ                   * Degree                           * 1
 M  TedgeDegree    * STATE_NAME|MAINE                 * Degree                           * 2
-{noformat}
+```
 
 The 'A' lines were added. The 'M' line was modified. The rest stayed the same. 
 
@@ -104,7 +104,7 @@ Time has passed, geographic information has been added and another ingest
 attempt is happening. This time our row value will be the City name and
 the geographic position.
 
-{noformat}
+```
 Relational Record
    CITY_NAME | STATE_NAME | LATITUDE | LONGITUDE
    AKRON     | MAINE      | 43.22    | -70.79
@@ -124,7 +124,7 @@ A  TedgeTranspose * STATE_NAME|MAINE   * BOAZ|45.25|-69.44  * 1
    TedgeDegree    * CITY_NAME|AKRON    * Degree             * 1
 A  TedgeDegree    * CITY_NAME|BOAZ     * Degree             * 1
 M  TedgeDegree    * STATE_NAME|MAINE   * Degree             * 2
-{noformat}
+```
 
 Now we can re-ingest the data as often as needed without creating duplication 
 in Accumulo. The new entries would overlay the old entries.
@@ -141,8 +141,6 @@ easier.
  * Rapidly changing leading values which provides automatic load balancing and 
 easy pre-splitting. For example, reversing an ingest date so that the faster
 changing seconds come first.
-
-
 
 Getting Started with D4M
 ------------------------
