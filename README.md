@@ -43,6 +43,9 @@ fact is referenced.
 faceting.  If your goal is high speed inserts, you need to pre-sum the inserts 
 into the <i>TedgeDegree</i> table otherwise this can become a bottleneck.
 
+* The <i>TedgeTxt</i> table contains the original record. It can save a lot of 
+time when you just want pull out the whole record.
+
 <b>TODO: Discuss TedgeText table.</b>
 
 Below is a concrete example of how these tables are populated:
@@ -141,6 +144,19 @@ easier.
  * Rapidly changing leading values which provides automatic load balancing and 
 easy pre-splitting. For example, reversing an ingest date so that the faster
 changing seconds come first.
+
+Digging a bit Deeper
+--------------------
+
+The mathematicians have probably already noticed that the D4M tables have
+the following properties:
+
+* Tedge and TedgeTranspose - the number of entries equals total number of entries.
+* TedgeDegree - the number of entries equals the number of ingested columns.
+* TedgeTxt - the number of entries equals the number of ingested rows.
+
+These three values are the fundamental dimensions of the sparse matrix that 
+is represented by the D4M schema.
 
 Getting Started with D4M
 ------------------------
