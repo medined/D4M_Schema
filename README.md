@@ -21,13 +21,13 @@ Load, and Query. I'm leaving the Extract phase as a reader exercise since
 so much depending on where your data is coming from.
 
 At this point, you might be thinking that I've forgotten to mention 
-something -- What is the Common Big Data Architecture? CBDA provides a NO-SQL 
-based schema that enables the Data Lake. All types of storage can be combined 
+something -- What is the DBM v2.0 Schema? It is a NO-SQL schema that enables 
+the Data Lake. All types of storage can be combined 
 into a set of three Accumulo tables that work together. The D4M project 
 provides plenty of documentation regarding query performance which I will 
 not repeat here.
 
-What is the Common Big Data Architecture?
+What is the D4M Schema?
 -----------------------------------------
 
 In this simple example, I'm just putting a fact table (cities in Maine) into 
