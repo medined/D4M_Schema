@@ -2,12 +2,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.affy</groupId>
-    <artifactId>Common-Big-Data-Architecture</artifactId>
+    <artifactId>d4m_schema</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Common-Big-Data-Architecture</name>
-    <url>https://github.com/medined/Common-Big-Data-Architecture</url>
+    <name>D4M Schema</name>
+    <url>https://github.com/medined/D4M_Schema</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
