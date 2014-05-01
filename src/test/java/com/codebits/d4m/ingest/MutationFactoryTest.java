@@ -14,7 +14,8 @@ public class MutationFactoryTest {
 
     private static final Value one = new Value("1".getBytes());
     private static final Text emptyCF = new Text("");
-    private static final Text degree = new Text("Degree");
+    private static final Text emptyCQ = new Text("");
+    private static final Text degree = new Text("degree");
     private static final Text rawData = new Text("RawData");
 
     MutationFactory instance = null;
@@ -121,7 +122,7 @@ public class MutationFactoryTest {
     @Test
     public void testGenerateDegree() {
         TestableMutation mutation = new TestableMutation("CITY_NAME|Akron");
-        mutation.put(degree, emptyCF, one);
+        mutation.put(emptyCF, degree, one);
         
         List<Mutation> expected = new ArrayList<Mutation>();
         expected.add(mutation);
@@ -138,7 +139,7 @@ public class MutationFactoryTest {
     @Test
     public void testGenerateText() {
         TestableMutation expected = new TestableMutation("AA");
-        expected.put(rawData, emptyCF, new Value("CITY_NAME|Akron".getBytes()));
+        expected.put(rawData, emptyCQ, new Value("CITY_NAME|Akron".getBytes()));
         
         Mutation actual = instance.generateText(row, fieldNames, fieldValues);
         assertEquals(expected, actual);
