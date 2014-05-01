@@ -17,11 +17,6 @@ import org.apache.accumulo.core.data.Value;
 import org.apache.accumulo.core.security.Authorizations;
 import com.codebits.d4m.PropertyManager;
 
-/*
- * Run 'mvn package' before running this class so the
- * property file is coped to the target directory.
-*/
-
 public class RowScanner {
 
     public static void main(String[] args) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, TableExistsException, IOException {
