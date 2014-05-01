@@ -19,7 +19,6 @@ public class MutationFactory {
     
     private static final Value one = new Value("1".getBytes());
     private static final Text emptyCF= new Text("");
-    private static final Text emptyCQ = new Text("");
     private static final Text degree = new Text("degree");
     private static final Text rawData = new Text("RawData");
     
@@ -47,7 +46,7 @@ public class MutationFactory {
         Mutation tEdge = new Mutation(new Text(row));
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
             Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
-            tEdge.put(fact, emptyCQ, one);
+            tEdge.put(emptyCF, fact, one);
         }
         return tEdge;
     }
@@ -59,7 +58,7 @@ public class MutationFactory {
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
             Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
             Mutation transpose = new Mutation(new Text(fact));
-            transpose.put(new Text(row), emptyCQ, one);
+            transpose.put(emptyCF, new Text(row), one);
             mutations.add(transpose);
         }
         return mutations;
@@ -104,7 +103,7 @@ public class MutationFactory {
             value.append(fact);
         }
         Mutation mutation = new Mutation(new Text(row));
-        mutation.put(rawData, emptyCQ, new Value(value.toString().getBytes()));
+        mutation.put(emptyCF, rawData, new Value(value.toString().getBytes()));
         return mutation;
     }
 

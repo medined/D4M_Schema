@@ -14,7 +14,6 @@ public class MutationFactoryTest {
 
     private static final Value one = new Value("1".getBytes());
     private static final Text emptyCF = new Text("");
-    private static final Text emptyCQ = new Text("");
     private static final Text degree = new Text("degree");
     private static final Text rawData = new Text("RawData");
 
@@ -91,7 +90,7 @@ public class MutationFactoryTest {
     @Test
     public void testGenerateEdge() {
         TestableMutation expectedEdges = new TestableMutation("AA");
-        expectedEdges.put(new Text("CITY_NAME|Akron"), emptyCF, one);
+        expectedEdges.put(emptyCF, new Text("CITY_NAME|Akron"), one);
 
         Mutation actual = instance.generateEdges(row, fieldNames, fieldValues);
         assertEquals(expectedEdges, actual);
@@ -105,7 +104,7 @@ public class MutationFactoryTest {
     @Test
     public void testGenerateTranspose() {
         TestableMutation transpose = new TestableMutation("CITY_NAME|Akron");
-        transpose.put(new Text("AA"), emptyCF, one);
+        transpose.put(emptyCF, new Text("AA"), one);
         
         List<Mutation> expected = new ArrayList<Mutation>();
         expected.add(transpose);
@@ -139,7 +138,7 @@ public class MutationFactoryTest {
     @Test
     public void testGenerateText() {
         TestableMutation expected = new TestableMutation("AA");
-        expected.put(rawData, emptyCQ, new Value("CITY_NAME|Akron".getBytes()));
+        expected.put(emptyCF, rawData, new Value("CITY_NAME|Akron".getBytes()));
         
         Mutation actual = instance.generateText(row, fieldNames, fieldValues);
         assertEquals(expected, actual);

@@ -59,7 +59,7 @@ Relational Record
    AKRON     | MAINE
 
 Accumulo Mutations
-   TABLE          * ROW                              * CF                               * VALUE
+   TABLE          * ROW                              * CQ                               * VALUE
 -------------------------------------------------------------------------------------------------
    Tedge          * 9a127928-b661-4e46-9103-3fc024f4 * CITY_NAME|AKRON                  * 1
    Tedge          * 9a127928-b661-4e46-9103-3fc024f4 * STATE_NAME|MAINE                 * 1 
@@ -81,15 +81,15 @@ Relational Records
 A  BOAZ      | MAINE
 
 Accumulo Mutations
-   TABLE          * ROW                              * CF                               * VALUE
+   TABLE          * ROW                              * CQ                               * VALUE
 -------------------------------------------------------------------------------------------------
    Tedge          * 9a127928-b661-4e46-9103-3fc024f4 * CITY_NAME|AKRON                  * 1
    Tedge          * 9a127928-b661-4e46-9103-3fc024f4 * STATE_NAME|MAINE                 * 1 
 A  Tedge          * a1b4d569-ee45-4466-af2a-0960ccc1 * CITY_NAME|BOAZ                   * 1
 A  Tedge          * a1b4d569-ee45-4466-af2a-0960ccc1 * STATE_NAME|MAINE                 * 1
-   TedgeDegree    * CITY_NAME|AKRON                  * Degree                           * 1
-A  TedgeDegree    * CITY_NAME|BOAZ                   * Degree                           * 1
-M  TedgeDegree    * STATE_NAME|MAINE                 * Degree                           * 2
+   TedgeDegree    * CITY_NAME|AKRON                  * degree                           * 1
+A  TedgeDegree    * CITY_NAME|BOAZ                   * degree                           * 1
+M  TedgeDegree    * STATE_NAME|MAINE                 * degree                           * 2
    TedgeTranspose * CITY_NAME|AKRON                  * 9a127928-b661-4e46-9103-3fc024f4 * 1
 A  TedgeTranspose * CITY_NAME|BOAZ                   * a1b4d569-ee45-4466-af2a-0960ccc1 * 1
    TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
@@ -129,7 +129,7 @@ Relational Record
    BOAZ      | MAINE      | 45.25    | -69.44
 
 Accumulo Mutations
-   TABLE          * ROW                              * CF                               * VALUE
+   TABLE          * ROW                * CQ                 * VALUE
 -------------------------------------------------------------------------------------------------
    Tedge          * AKRON|43.22|-70.79 * CITY_NAME|AKRON    * 1
    Tedge          * AKRON|43.22|-70.79 * STATE_NAME|MAINE   * 1 
