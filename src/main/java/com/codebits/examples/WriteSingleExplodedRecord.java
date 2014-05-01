@@ -4,7 +4,6 @@ import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
 import com.codebits.d4m.ingest.MutationFactory;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 import org.apache.accumulo.core.client.AccumuloException;
 import org.apache.accumulo.core.client.AccumuloSecurityException;
@@ -13,9 +12,8 @@ import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.TableNotFoundException;
 import org.apache.accumulo.core.client.ZooKeeperInstance;
 import org.apache.accumulo.core.data.Mutation;
-import org.apache.hadoop.io.Text;
 
-public class WriteExplodedRecord {
+public class WriteSingleExplodedRecord {
 
     String row = "ZIPCODE|51001";
 
@@ -32,7 +30,7 @@ public class WriteExplodedRecord {
     };
 
     public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException {
-        WriteExplodedRecord driver = new WriteExplodedRecord();
+        WriteSingleExplodedRecord driver = new WriteSingleExplodedRecord();
         driver.process();
     }
 
