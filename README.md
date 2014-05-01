@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/medined/D4M_Schema.svg?branch=master)](https://travis-ci.org/medined/D4M_Schema)
+
 A big shout of thanks to the folks at MIT for both writing
 the software and helping me to understand the schema.
 
