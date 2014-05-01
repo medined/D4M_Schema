@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/medined/D4M_Schema.svg?branch=master)](https://travis-ci.org/medined/D4M_Schema)<br/>
 [![Coverage Status](https://coveralls.io/repos/medined/D4M_Schema/badge.png)](https://coveralls.io/r/medined/D4M_Schema)<br/>
-[![Tips](https://www.gittip.com/medined/)](http://img.shields.io/gittip/medined.svg)<br/>
+[![Tips](http://img.shields.io/gittip/medined.svg)](https://www.gittip.com/medined/)<br/>
 
 A big shout of thanks to the folks at MIT for both writing
 the software and helping me to understand the schema.
