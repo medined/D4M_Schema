@@ -12,11 +12,10 @@ import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.TableNotFoundException;
 import org.apache.accumulo.core.client.ZooKeeperInstance;
 import org.apache.accumulo.core.data.Mutation;
-import org.apache.log4j.Logger;
 
 public class WriteMultipleExplodedRecords {
 
-    private static final Logger log = Logger.getLogger(WriteMultipleExplodedRecords.class);
+    //private static final Logger log = Logger.getLogger(WriteMultipleExplodedRecords.class);
 
     String[] fieldNames = {
         "CITY_NAME",
@@ -25,8 +24,10 @@ public class WriteMultipleExplodedRecords {
     };
 
     String[] records = {
-        "Akron\tIOWA\t51001",
-        "Fairfax\tVIRGINIA\t22033",};
+        "Akron\tIOWA\t51001"
+        ,"Fairfax\tVIRGINIA\t22033"
+        ,"Arlington\tVIRGINIA\t22101"
+    };
 
     public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException {
         WriteMultipleExplodedRecords driver = new WriteMultipleExplodedRecords();
