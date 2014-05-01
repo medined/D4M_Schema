@@ -185,5 +185,3 @@ https://github.com/medined/Accumulo_1_5_0_By_Vagrant.
 ETL
 ---
 
-
-
