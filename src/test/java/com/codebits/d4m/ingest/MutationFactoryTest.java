@@ -29,13 +29,25 @@ public class MutationFactoryTest {
         "Akron"
     };
 
+    // TODO: handle empty field value.
+
     @Before
     public void setup() {
         instance = new MutationFactory();
     }
-    
-    // TODO: handle empty field value.
 
+    @Test
+    public void testGetFieldDelimiter() {
+        instance.setFieldDelimiter("A");
+        assertEquals("A", instance.getFieldDelimiter());
+    }
+    
+    @Test
+    public void testGetFactDelimiter() {
+        instance.setFactDelimiter("B");
+        assertEquals("B", instance.getFactDelimiter());
+    }
+    
     @Test(expected = IllegalArgumentException.class)
     public void testGenerateEdge_with_null_row() {
         instance.generateEdges(null, fieldNames, fieldValues);
