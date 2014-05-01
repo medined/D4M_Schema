@@ -55,7 +55,7 @@ public class TableManager {
 
         IteratorSetting is = new IteratorSetting(7, SummingCombiner.class);
         SummingCombiner.setEncodingType(is, LongCombiner.Type.STRING);
-        SummingCombiner.setColumns(is, Collections.singletonList(new IteratorSetting.Column(":degree")));
+        SummingCombiner.setColumns(is, Collections.singletonList(new IteratorSetting.Column("", "degree")));
             
         tableOperations.attachIterator(getDegreeTable(), is);        
     }
