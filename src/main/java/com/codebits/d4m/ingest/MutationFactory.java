@@ -18,8 +18,9 @@ public class MutationFactory {
     private static final String DIFFERING_LENGTH_ERROR = "Field names and Field Values arrays should have the same length.";
     
     private static final Value one = new Value("1".getBytes());
+    private static final Text emptyCF= new Text("");
     private static final Text emptyCQ = new Text("");
-    private static final Text degree = new Text("Degree");
+    private static final Text degree = new Text("degree");
     private static final Text rawData = new Text("RawData");
     
     private String fieldDelimiter = "\t";
@@ -85,7 +86,7 @@ public class MutationFactory {
             String fact = entry.getKey();
             Integer factCount = entry.getValue();
             Mutation mutation = new Mutation(new Text(fact));
-            mutation.put(degree, emptyCQ, new Value(factCount.toString().getBytes()));
+            mutation.put(emptyCF, degree, new Value(factCount.toString().getBytes()));
             mutations.add(mutation);
         }
         return mutations;

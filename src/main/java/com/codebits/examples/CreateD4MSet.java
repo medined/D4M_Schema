@@ -28,6 +28,7 @@ public class CreateD4MSet {
         Connector connector = instance.getConnector(user, pass);
 
         TableManager tableManager = new TableManager(connector.tableOperations());
+        //tableManager.setBaseTableName("sample");
         tableManager.createTables();
         
     }

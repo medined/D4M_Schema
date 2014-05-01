@@ -31,7 +31,7 @@ public class DeleteD4MSet {
         TableOperations tableOperations = connector.tableOperations();
         
         TableManager tableManager = new TableManager(tableOperations);
-        tableManager.setBaseTableName("dmm");
+        //tableManager.setBaseTableName("sample");
         
         tableOperations.delete(tableManager.getEdgeTable());
         tableOperations.delete(tableManager.getTransposeTable());
