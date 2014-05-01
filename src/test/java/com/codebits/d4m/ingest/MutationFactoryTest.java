@@ -1,6 +1,5 @@
 package com.codebits.d4m.ingest;
 
-import com.codebits.cbda.ingest.MutationFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.accumulo.core.data.Mutation;
