@@ -68,6 +68,11 @@
                         <formats>
                             <format>xml</format>
                         </formats>
+                        <instrumentation>
+                            <excludes>
+                                <exclude>com/codebits/examples/*.class</exclude>
+                            </excludes>
+                        </instrumentation>                
                     </configuration>
                 </plugin>
             </plugins>
