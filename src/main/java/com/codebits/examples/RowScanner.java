@@ -27,7 +27,7 @@ public class RowScanner {
     public static void main(String[] args) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, TableExistsException, IOException {
 
         PropertyManager propertyManager = new PropertyManager();
-        propertyManager.setPropertyFilename("cbda.properties");
+        propertyManager.setPropertyFilename("d4m.properties");
         Properties properties = propertyManager.load();
 
         String instanceName = properties.getProperty("accumulo.instance.name");

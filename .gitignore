@@ -1,8 +1,4 @@
 /target/
-src/main/resources/cbda.properties
-
-src/main/java/org/cbda/Accumulo_Scan_A_Row_Driver.java
-
-src/main/resources/cbda.properties.affy-master
-
-src/main/resources/cbda.properties.bah
+src/main/resources/d4m.properties
+src/main/resources/d4m.properties.affy-master
+src/main/resources/d4m.properties.bah
