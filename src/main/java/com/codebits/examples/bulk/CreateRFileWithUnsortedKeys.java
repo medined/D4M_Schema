@@ -15,7 +15,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.security.AccessControlException;
 
-public class CreateRFile {
+public class CreateRFileWithUnsortedKeys {
     
     private static final String FILE_TYPE = "filetype";
 
@@ -48,10 +48,14 @@ public class CreateRFile {
         out.startDefaultLocalityGroup();
         long timestamp = (new Date()).getTime();
         
-        Key key = new Key(new Text("row_1"), new Text("cf"), new Text("cq"), new ColumnVisibility(), timestamp);
+        Key key = new Key(new Text("ZZZ"), new Text("cf"), new Text("cq"), new ColumnVisibility(), timestamp);
         Value value = new Value("".getBytes());
         out.append(key, value);
 
+        key = new Key(new Text("AAA"), new Text("cf"), new Text("cq"), new ColumnVisibility(), timestamp);
+        value = new Value("".getBytes());
+        out.append(key, value);
+        
         out.close();
     }
 }
