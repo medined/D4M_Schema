@@ -12,6 +12,9 @@ import org.apache.accumulo.core.client.ZooKeeperInstance;
 import org.apache.accumulo.core.client.admin.TableOperations;
 import org.apache.accumulo.core.util.CachedConfiguration;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.security.AccessControlException;
 
 public class ImportRFile {
 
@@ -33,6 +36,14 @@ public class ImportRFile {
         conf.set("fs.default.name", filesystemDefaultName);
         conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
         CachedConfiguration.setInstance(conf);
+
+        FileSystem fs = FileSystem.get(conf);
+
+        try {
+            fs.mkdirs(new Path(failure));
+        } catch (AccessControlException e) {
+            throw new RuntimeException("Please fix the permissions. Perhaps create parent directories?", e);
+        }
         
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);

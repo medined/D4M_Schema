@@ -1,7 +1,9 @@
 package com.codebits.examples.bulk;
 
+import com.codebits.d4m.PropertyManager;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Properties;
 import org.apache.accumulo.core.conf.AccumuloConfiguration;
 import org.apache.accumulo.core.data.Key;
 import org.apache.accumulo.core.data.Value;
@@ -20,17 +22,21 @@ public class CreateRFileWithUnsortedKeys {
     private static final String FILE_TYPE = "filetype";
 
     public static void main(String[] args) throws IOException {
+        PropertyManager propertyManager = new PropertyManager();
+        propertyManager.setPropertyFilename("d4m.properties");
+        Properties properties = propertyManager.load();
+
+        String filesystemDefaultName = properties.getProperty("fs.default.name");
+        
         Configuration conf = new Configuration();
-        conf.set("fs.default.name", "hdfs://affy-master:9000/");
+        conf.set("fs.default.name", filesystemDefaultName);
         conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
         FileSystem fs = FileSystem.get(conf);
 
         Path input = new Path("./input");
-        Path output = new Path("./output");
         
         try {
             fs.mkdirs(input);
-            fs.mkdirs(output);
         } catch (AccessControlException e) {
             throw new RuntimeException("Please fix the permissions. Perhaps create parent directories?", e);
         }
