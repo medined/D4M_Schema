@@ -19,33 +19,33 @@ import org.apache.hadoop.security.AccessControlException;
 
 public class CreateExampleRFile {
     
-    private static final String FILE_TYPE = "filetype";
-
     public static void main(String[] args) throws IOException {
         PropertyManager propertyManager = new PropertyManager();
         propertyManager.setPropertyFilename("d4m.properties");
         Properties properties = propertyManager.load();
 
         String filesystemDefaultName = properties.getProperty("fs.default.name");
+        String hadoopUserHomeDirectory = properties.getProperty("hadoop.user.home.directory");
 
         Configuration conf = new Configuration();
         conf.set("fs.default.name", filesystemDefaultName);
         conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
         FileSystem fs = FileSystem.get(conf);
 
-        Path input = new Path("./input");
+        String input = hadoopUserHomeDirectory + "/rfiles";
         
         try {
-            fs.mkdirs(input);
+            fs.delete(new Path(input), true);
+        } catch (AccessControlException e) {
+            // ignore
+        }
+        try {
+            fs.mkdirs(new Path(input));
         } catch (AccessControlException e) {
             throw new RuntimeException("Please fix the permissions. Perhaps create parent directories?", e);
         }
 
-        String extension = conf.get(FILE_TYPE);
-        if (extension == null || extension.isEmpty()) {
-            extension = RFile.EXTENSION;
-        }
-        String filename = "./input/testFile." + extension;
+        String filename = input + "/testFile.rf";
         Path file = new Path(filename);
         if (fs.exists(file)) {
             file.getFileSystem(conf).delete(file, false);

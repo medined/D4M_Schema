@@ -28,9 +28,10 @@ public class ImportExampleRFile {
         String user = properties.getProperty("accumulo.user");
         byte[] pass = properties.getProperty("accumulo.password").getBytes();
         String filesystemDefaultName = properties.getProperty("fs.default.name");
+        String hadoopUserHomeDirectory = properties.getProperty("hadoop.user.home.directory");
         
-        String input = "./input";
-        String failure = "./failures";
+        String input = hadoopUserHomeDirectory + "/rfiles";
+        String failure = hadoopUserHomeDirectory + "/failures";
 
         Configuration conf = new Configuration();
         conf.set("fs.default.name", filesystemDefaultName);
