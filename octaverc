@@ -1,0 +1,9 @@
+addpath('/home/vagrant/accumulo_home/bin/d4m_api/matlab_src');
+Assoc('','','');
+DBinit;
+hostname = getenv('ACCUMULO_HOST');
+instance_name = getenv('ACCUMULO_INSTANCE');
+username = getenv('ACCUMULO_USER');
+password = getenv('ACCUMULO_PASSWORD');
+DB = DBserver(hostname,'Accumulo', instance_name, username, password);
+disp("\nCustom initialization complete. Use 'DB' to access Accumulo!\n");
