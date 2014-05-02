@@ -17,7 +17,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.security.AccessControlException;
 
-public class CreateRFile {
+public class CreateExampleRFile {
     
     private static final String FILE_TYPE = "filetype";
 

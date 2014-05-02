@@ -1,6 +1,7 @@
 package com.codebits.examples.bulk;
 
 import com.codebits.d4m.PropertyManager;
+import com.codebits.d4m.TableManager;
 import java.io.IOException;
 import java.util.Properties;
 import org.apache.accumulo.core.client.AccumuloException;
@@ -16,7 +17,7 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.security.AccessControlException;
 
-public class ImportRFile {
+public class ImportD4MRFiles {
 
     public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException, TableExistsException {
         PropertyManager propertyManager = new PropertyManager();
@@ -28,9 +29,9 @@ public class ImportRFile {
         String user = properties.getProperty("accumulo.user");
         byte[] pass = properties.getProperty("accumulo.password").getBytes();
         String filesystemDefaultName = properties.getProperty("fs.default.name");
-        
-        String input = "./input";
-        String failure = "./failures";
+
+        String input = "/user/566453/rfiles";
+        String failure = "/user/566453/failures";
 
         Configuration conf = new Configuration();
         conf.set("fs.default.name", filesystemDefaultName);
@@ -40,19 +41,37 @@ public class ImportRFile {
         FileSystem fs = FileSystem.get(conf);
 
         try {
+            fs.delete(new Path(failure), true);
+        } catch (AccessControlException e) {
+            // ignore.
+        }
+        try {
             fs.mkdirs(new Path(failure));
         } catch (AccessControlException e) {
             throw new RuntimeException("Please fix the permissions. Perhaps create parent directories?", e);
         }
-        
+
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);
+
         TableOperations tableOperations = connector.tableOperations();
-        if (tableOperations.exists("mynewtesttable")) {
-            tableOperations.delete("mynewtesttable");
-        }
-        tableOperations.create("mynewtesttable");
-        tableOperations.importDirectory("mynewtesttable", input, failure, false);
+
+        TableManager tableManager = new TableManager(tableOperations);
+        tableManager.createTables();
+
+        String rfile;
+
+        rfile = String.format("%s/%s.rf", input, tableManager.getEdgeTable());
+        tableOperations.importDirectory(tableManager.getEdgeTable(), rfile, failure, false);
+
+        rfile = String.format("%s/%s.rf", input, tableManager.getTransposeTable());
+        tableOperations.importDirectory(tableManager.getTransposeTable(), rfile, failure, false);
+
+        rfile = String.format("%s/%s.rf", input, tableManager.getDegreeTable());
+        tableOperations.importDirectory(tableManager.getDegreeTable(), rfile, failure, false);
+
+        rfile = String.format("%s/%s.rf", input, tableManager.getTextTable());
+        tableOperations.importDirectory(tableManager.getTextTable(), rfile, failure, false);
     }
 
 }
