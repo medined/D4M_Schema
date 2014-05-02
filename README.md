@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/medined/D4M_Schema.svg?branch=master)](https://travis-ci.org/medined/D4M_Schema)<br/>
-[![Coverage Status](https://coveralls.io/repos/medined/D4M_Schema/badge.png)](https://coveralls.io/r/medined/D4M_Schema)<br/>
+[![Coverage Status](https://coveralls.io/repos/medined/D4M_Schema/badge.png?branch=master)](https://coveralls.io/r/medined/D4M_Schema?branch=master)<br/>
+
+Check the wiki at <a target='_blank' href='https://github.com/medined/D4M_Schema/wiki'>https://github.com/medined/D4M_Schema/wiki</a>.
 
 A big shout of thanks to the folks at MIT for both writing
 the software and helping me to understand the schema.
