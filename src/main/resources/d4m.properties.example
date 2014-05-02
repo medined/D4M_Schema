@@ -2,3 +2,4 @@ accumulo.instance.name=instance
 accumulo.zookeeper.ensemble=localhost:2181
 accumulo.user=root
 accumulo.password=secret
+fs.default.name=hdfs://affy-master:9000
