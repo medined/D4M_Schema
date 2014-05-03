@@ -78,7 +78,7 @@
                         <aggregate>true</aggregate>                        
                         <instrumentation>
                             <excludes>
-                                <exclude>com/codebits/examples/*.class</exclude>
+                                <exclude>com/codebits/examples/**/*.class</exclude>
                             </excludes>
                         </instrumentation>                
                     </configuration>
