@@ -10,6 +10,12 @@ import org.apache.accumulo.core.data.Value;
 import org.apache.commons.lang.Validate;
 import org.apache.hadoop.io.Text;
 
+/*
+ * The special field d4msha1 is ignored. It is designed to work with 
+ * ETL systems. As source material is read, the ETL system (think
+ * Pentaho or Storm) it can add a d4msha1 field which will be used as
+ * the Edge table row value.
+ */
 public class MutationFactory {
 
     private static final String ROW_VALUE_ERROR = "Please supply a Row value.";
@@ -24,6 +30,8 @@ public class MutationFactory {
     
     private String fieldDelimiter = "\t";
     private String factDelimiter = "|";
+    
+    // TODO: pull d4msha1 automatically for edges.
 
     private void checkParameters(String row, String[] fieldNames, String[] fieldValues) {
         Validate.notNull(row, ROW_VALUE_ERROR);
@@ -45,8 +53,12 @@ public class MutationFactory {
         
         Mutation tEdge = new Mutation(new Text(row));
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
-            Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
-            tEdge.put(emptyCF, fact, one);
+            if ("d4msha1".equals(fieldNames[nameIndex])) {
+                // Do not store the row key in the edge table to avoid duplication.
+            } else {
+                Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
+                tEdge.put(emptyCF, fact, one);
+            }
         }
         return tEdge;
     }
@@ -56,10 +68,14 @@ public class MutationFactory {
         
         List<Mutation> mutations = new ArrayList<Mutation>();
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
-            Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
-            Mutation transpose = new Mutation(new Text(fact));
-            transpose.put(emptyCF, new Text(row), one);
-            mutations.add(transpose);
+            if ("d4msha1".equals(fieldNames[nameIndex])) {
+                // Do not store the row key in the edge table to avoid duplication.
+            } else {
+                Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
+                Mutation transpose = new Mutation(new Text(fact));
+                transpose.put(emptyCF, new Text(row), one);
+                mutations.add(transpose);
+            }
         }
         return mutations;
     }
@@ -69,7 +85,7 @@ public class MutationFactory {
         
         Map<String, Integer> degrees = new HashMap<String, Integer>();
         for (int i = 0; i < fieldValues.length; i++) {
-            if (! fieldValues[i].isEmpty()) {
+            if (!fieldValues[i].isEmpty() && !"d4msha1".equals(fieldNames[i])) {
                 String fact = String.format("%s%s%s", fieldNames[i], getFactDelimiter(), fieldValues[i]);
                 Integer factCount = degrees.get(fact);
                 if (factCount == null) {
@@ -90,17 +106,24 @@ public class MutationFactory {
         }
         return mutations;
     }
-    
+
     public Mutation generateText(String row, String[] fieldNames, String[] fieldValues) {
         checkParameters(row, fieldNames, fieldValues);
         
+        boolean addFieldDelimiter = false;
         StringBuilder value = new StringBuilder();
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
-            Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
-            if (nameIndex > 0) {
-                value.append(getFieldDelimiter());
+            if ("d4msha1".equals(fieldNames[nameIndex])) {
+                // Do not store the row key in the edge table to avoid duplication.
+            } else {
+                Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
+                if (addFieldDelimiter) {
+                    value.append(getFieldDelimiter());
+                } else {
+                    addFieldDelimiter = true;
+                }
+                value.append(fact);
             }
-            value.append(fact);
         }
         Mutation mutation = new Mutation(new Text(row));
         mutation.put(emptyCF, rawData, new Value(value.toString().getBytes()));

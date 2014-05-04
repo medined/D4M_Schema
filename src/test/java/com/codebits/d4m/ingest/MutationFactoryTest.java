@@ -29,8 +29,17 @@ public class MutationFactoryTest {
         "Akron"
     };
 
-    // TODO: handle empty field value.
+    String[] xfieldNames = {
+        "d4msha1",
+        "CITY_NAME"
+    };
 
+    String[] xfieldValues = {
+        "ShortWrongSHA1",
+        "Akron"
+    };
+
+    // TODO: handle empty field value.
     @Before
     public void setup() {
         instance = new MutationFactory();
@@ -41,13 +50,13 @@ public class MutationFactoryTest {
         instance.setFieldDelimiter("A");
         assertEquals("A", instance.getFieldDelimiter());
     }
-    
+
     @Test
     public void testGetFactDelimiter() {
         instance.setFactDelimiter("B");
         assertEquals("B", instance.getFactDelimiter());
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testGenerateEdge_with_null_row() {
         instance.generateEdges(null, fieldNames, fieldValues);
@@ -96,6 +105,15 @@ public class MutationFactoryTest {
         assertEquals(expectedEdges, actual);
     }
 
+    @Test
+    public void testGenerateEdge_does_not_passthru_d4msha1_field() {
+        TestableMutation expectedEdges = new TestableMutation("AA");
+        expectedEdges.put(emptyCF, new Text("CITY_NAME|Akron"), one);
+
+        Mutation actual = instance.generateEdges(row, xfieldNames, xfieldValues);
+        assertEquals(expectedEdges, actual);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testGenerateTranspose_with_null_row() {
         instance.generateTranspose(null, fieldNames, fieldValues);
@@ -105,11 +123,23 @@ public class MutationFactoryTest {
     public void testGenerateTranspose() {
         TestableMutation transpose = new TestableMutation("CITY_NAME|Akron");
         transpose.put(emptyCF, new Text("AA"), one);
-        
+
         List<Mutation> expected = new ArrayList<Mutation>();
         expected.add(transpose);
 
         List<Mutation> actual = instance.generateTranspose(row, fieldNames, fieldValues);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGenerateTranspose_does_not_passthru_d4msha1_field() {
+        TestableMutation transpose = new TestableMutation("CITY_NAME|Akron");
+        transpose.put(emptyCF, new Text("AA"), one);
+
+        List<Mutation> expected = new ArrayList<Mutation>();
+        expected.add(transpose);
+
+        List<Mutation> actual = instance.generateTranspose(row, xfieldNames, xfieldValues);
         assertEquals(expected, actual);
     }
 
@@ -122,11 +152,23 @@ public class MutationFactoryTest {
     public void testGenerateDegree() {
         TestableMutation mutation = new TestableMutation("CITY_NAME|Akron");
         mutation.put(emptyCF, degree, one);
-        
+
         List<Mutation> expected = new ArrayList<Mutation>();
         expected.add(mutation);
 
         List<Mutation> actual = instance.generateDegree(row, fieldNames, fieldValues);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGenerateDegree_does_not_passthru_d4msha1_field() {
+        TestableMutation mutation = new TestableMutation("CITY_NAME|Akron");
+        mutation.put(emptyCF, degree, one);
+
+        List<Mutation> expected = new ArrayList<Mutation>();
+        expected.add(mutation);
+
+        List<Mutation> actual = instance.generateDegree(row, xfieldNames, xfieldValues);
         assertEquals(expected, actual);
     }
 
@@ -139,8 +181,19 @@ public class MutationFactoryTest {
     public void testGenerateText() {
         TestableMutation expected = new TestableMutation("AA");
         expected.put(emptyCF, rawData, new Value("CITY_NAME|Akron".getBytes()));
-        
+
         Mutation actual = instance.generateText(row, fieldNames, fieldValues);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGenerateText_does_not_passthru_d4msha1_field() {
+        TestableMutation expected = new TestableMutation("AA");
+        expected.put(emptyCF, rawData, new Value("CITY_NAME|Akron".getBytes()));
+
+        Mutation actual = instance.generateText(row, xfieldNames, xfieldValues);
+        expected.equals(actual);
+        System.out.println(expected.getDifferences());
         assertEquals(expected, actual);
     }
 
