@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.Validate;
 
@@ -12,10 +13,12 @@ public class CsvReader {
 
     private String filename = null;
     private final List<String> fieldNames = new ArrayList<String>();
-    private final List<String[]> records = new ArrayList<String[]>();
+    private final List<List<String>> records = new ArrayList<List<String>>();
     private int recordCount = 0;
     private BufferedReader reader = null;
     private boolean trim = false;
+    private boolean sha1 = false;
+    private boolean lowercaseFieldnames = false;
 
     public void read() {
         Validate.notNull(filename, "filename must not be null");
@@ -30,21 +33,29 @@ public class CsvReader {
                 if (headerRead == false) {
                     // first line has field names.
                     String[] components = line.split(cvsSplitBy);
+                    if (sha1) {
+                        fieldNames.add("d4msha1");
+                    }
                     for (String component : components) {
-                        fieldNames.add(trim ? component.trim() : component);
+                        String fieldName = component;
+                        if (trim) {
+                            fieldName = fieldName.trim();
+                        }
+                        if (lowercaseFieldnames) {
+                            fieldName = fieldName.toLowerCase();
+                        }
+                        fieldNames.add(fieldName);
                     }
                     headerRead = true;
                 } else {
-                    if (trim) {
-                        String[] components = line.split(cvsSplitBy);
-                        String[] trimmedComponents = new String[components.length];
-                        for (int i = 0; i < components.length; i++) {
-                            trimmedComponents[i] = trim ? components[i].trim() : components[i];
-                        }
-                        records.add(trimmedComponents);
-                    } else {
-                        records.add(line.split(cvsSplitBy));
+                    List<String> fields = new ArrayList<String>();
+                    if (sha1) {
+                        fields.add(DigestUtils.sha1Hex(line));
                     }
+                    for (String component : line.split(cvsSplitBy)) {
+                        fields.add(trim ? component.trim() : component);
+                    }
+                    records.add(fields);
                     recordCount++;
                 }
             }
@@ -74,12 +85,20 @@ public class CsvReader {
         return fieldNames;
     }
 
-    public List<String[]> getRecords() {
+    public List<List<String>> getRecords() {
         return records;
     }
 
     public void setTrim() {
         this.trim = true;
+    }
+
+    public void setSha1() {
+        this.sha1 = true;
+    }
+
+    public void setLowercaseFieldnames() {
+        this.lowercaseFieldnames = true;
     }
 
 }

@@ -3,7 +3,6 @@ package com.codebits.d4m;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -35,8 +34,18 @@ public class CsvReaderTest {
         expectedHeaders.add("CITY");
         expectedHeaders.add("STATE");
 
-        String[] expectedRecord01 = { " Portland", " Oregon  " };
-        String[] expectedRecord02 = { "San Diego", " California" };
+        List<String> expectedRecord01 = new ArrayList<String>();
+        expectedRecord01.add(" Portland");
+        expectedRecord01.add(" Oregon  ");
+
+        List<String> expectedRecord02 = new ArrayList<String>();
+        expectedRecord02.add("San Diego");
+        expectedRecord02.add(" California");
+
+        List<List<String>> expected = new ArrayList<List<String>>();
+        expected.add(expectedRecord01);
+        expected.add(expectedRecord02);
+
         StringBuilder buffer = new StringBuilder();
         buffer.append("CITY,STATE\n");
         buffer.append(" Portland, Oregon  \n");
@@ -44,10 +53,39 @@ public class CsvReaderTest {
         instance.setFilename("testfile");
         instance.setReader(new BufferedReader(new StringReader(buffer.toString())));
         instance.read();
-        List<String[]> records = instance.getRecords();
         assertEquals(expectedHeaders, instance.getFieldNames());
-        assertArrayEquals(expectedRecord01, records.get(0));
-        assertArrayEquals(expectedRecord02, records.get(1));
+        assertEquals(expected, instance.getRecords());
+        assertEquals(2, instance.getRecordCount());
+    }
+
+    @Test
+    public void test_read_with_lowercase_fieldnames() {
+        List<String> expectedHeaders = new ArrayList<String>();
+        expectedHeaders.add("city");
+        expectedHeaders.add("state");
+
+        List<String> expectedRecord01 = new ArrayList<String>();
+        expectedRecord01.add(" Portland");
+        expectedRecord01.add(" Oregon  ");
+
+        List<String> expectedRecord02 = new ArrayList<String>();
+        expectedRecord02.add("San Diego");
+        expectedRecord02.add(" California");
+
+        List<List<String>> expected = new ArrayList<List<String>>();
+        expected.add(expectedRecord01);
+        expected.add(expectedRecord02);
+
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("CITY,STATE\n");
+        buffer.append(" Portland, Oregon  \n");
+        buffer.append("San Diego, California\n");
+        instance.setLowercaseFieldnames();
+        instance.setFilename("testfile");
+        instance.setReader(new BufferedReader(new StringReader(buffer.toString())));
+        instance.read();
+        assertEquals(expectedHeaders, instance.getFieldNames());
+        assertEquals(expected, instance.getRecords());
         assertEquals(2, instance.getRecordCount());
     }
 
@@ -57,8 +95,18 @@ public class CsvReaderTest {
         expectedHeaders.add("CITY");
         expectedHeaders.add("STATE");
 
-        String[] expectedRecord01 = { "Portland", "Oregon" };
-        String[] expectedRecord02 = { "San Diego", "California" };
+        List<String> expectedRecord01 = new ArrayList<String>();
+        expectedRecord01.add("Portland");
+        expectedRecord01.add("Oregon");
+
+        List<String> expectedRecord02 = new ArrayList<String>();
+        expectedRecord02.add("San Diego");
+        expectedRecord02.add("California");
+
+        List<List<String>> expected = new ArrayList<List<String>>();
+        expected.add(expectedRecord01);
+        expected.add(expectedRecord02);
+
         StringBuilder buffer = new StringBuilder();
         buffer.append("CITY,STATE\n");
         buffer.append(" Portland, Oregon  \n");
@@ -67,10 +115,42 @@ public class CsvReaderTest {
         instance.setFilename("testfile");
         instance.setReader(new BufferedReader(new StringReader(buffer.toString())));
         instance.read();
-        List<String[]> records = instance.getRecords();
         assertEquals(expectedHeaders, instance.getFieldNames());
-        assertArrayEquals(expectedRecord01, records.get(0));
-        assertArrayEquals(expectedRecord02, records.get(1));
+        assertEquals(expected, instance.getRecords());
+        assertEquals(2, instance.getRecordCount());
+    }
+
+    @Test
+    public void test_read_with_sha1() {
+        List<String> expectedHeaders = new ArrayList<String>();
+        expectedHeaders.add("d4msha1");
+        expectedHeaders.add("CITY");
+        expectedHeaders.add("STATE");
+
+        List<String> expectedRecord01 = new ArrayList<String>();
+        expectedRecord01.add("4f159a5452964fe95e07a36412f79f04aeaaf9cc");
+        expectedRecord01.add("Portland");
+        expectedRecord01.add("Oregon");
+
+        List<String> expectedRecord02 = new ArrayList<String>();
+        expectedRecord02.add("e44d63ecc5b703db9aab662fde579b9d63463965");
+        expectedRecord02.add("San Diego");
+        expectedRecord02.add("California");
+
+        List<List<String>> expected = new ArrayList<List<String>>();
+        expected.add(expectedRecord01);
+        expected.add(expectedRecord02);
+
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("CITY,STATE\n");
+        buffer.append("Portland,Oregon\n");
+        buffer.append("San Diego,California\n");
+        instance.setSha1();
+        instance.setFilename("testfile");
+        instance.setReader(new BufferedReader(new StringReader(buffer.toString())));
+        instance.read();
+        assertEquals(expectedHeaders, instance.getFieldNames());
+        assertEquals(expected, instance.getRecords());
         assertEquals(2, instance.getRecordCount());
     }
 
