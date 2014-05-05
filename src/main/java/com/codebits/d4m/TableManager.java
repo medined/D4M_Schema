@@ -1,6 +1,8 @@
 package com.codebits.d4m;
 
 import java.util.Collections;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import org.apache.accumulo.core.client.AccumuloException;
 import org.apache.accumulo.core.client.AccumuloSecurityException;
 import org.apache.accumulo.core.client.IteratorSetting;
@@ -10,12 +12,14 @@ import org.apache.accumulo.core.client.admin.TableOperations;
 import org.apache.accumulo.core.iterators.LongCombiner;
 import org.apache.accumulo.core.iterators.user.SummingCombiner;
 import org.apache.commons.lang.Validate;
+import org.apache.hadoop.io.Text;
 
 public class TableManager {
     
     private String baseTableName = "edge";
 
     private TableOperations tableOperations = null;
+    private boolean sha1 = false;
 
     public TableManager() {
     }
@@ -52,7 +56,19 @@ public class TableManager {
         tableOperations.create(getTransposeTable());
         tableOperations.create(getDegreeTable(), false);
         tableOperations.create(getTextTable());
-
+        
+        if (sha1) {
+            // Pre-split the Tedge and TedgeText tables.
+            // helpful when sha1 is used as row value.
+            String hexadecimal = "123456789abcde";
+            SortedSet<Text> splits = new TreeSet<Text>();
+            for (byte b : hexadecimal.getBytes()) {
+                splits.add(new Text(new byte[] {b}));
+            }
+            tableOperations.addSplits(getEdgeTable(), splits);
+            tableOperations.addSplits(getTextTable(), splits);
+        }
+        
         IteratorSetting is = new IteratorSetting(7, SummingCombiner.class);
         SummingCombiner.setEncodingType(is, LongCombiner.Type.STRING);
         SummingCombiner.setColumns(is, Collections.singletonList(new IteratorSetting.Column("", "degree")));
@@ -90,6 +106,10 @@ public class TableManager {
 
     public void setTableOperations(TableOperations tableOperations) {
         this.tableOperations = tableOperations;
+    }
+
+    public void setSha1() {
+        this.sha1 = true;
     }
     
 }
