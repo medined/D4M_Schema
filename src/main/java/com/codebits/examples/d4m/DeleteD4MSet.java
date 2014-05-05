@@ -13,7 +13,7 @@ import org.apache.accumulo.core.client.ZooKeeperInstance;
 import org.apache.accumulo.core.client.admin.TableOperations;
 
 public class DeleteD4MSet {
-    
+
     public static void main(String[] args) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, TableExistsException, IOException {
 
         PropertyManager propertyManager = new PropertyManager();
@@ -29,15 +29,25 @@ public class DeleteD4MSet {
         Connector connector = instance.getConnector(user, pass);
 
         TableOperations tableOperations = connector.tableOperations();
-        
+
         TableManager tableManager = new TableManager(tableOperations);
         //tableManager.setBaseTableName("sample");
-        
-        tableOperations.delete(tableManager.getEdgeTable());
-        tableOperations.delete(tableManager.getTransposeTable());
-        tableOperations.delete(tableManager.getDegreeTable());
-        tableOperations.delete(tableManager.getTextTable());
-        
+
+        if (tableOperations.exists(tableManager.getEdgeTable())) {
+            tableOperations.delete(tableManager.getEdgeTable());
+        }
+        if (tableOperations.exists(tableManager.getTransposeTable())) {
+            tableOperations.delete(tableManager.getTransposeTable());
+        }
+        if (tableOperations.exists(tableManager.getDegreeTable())) {
+            tableOperations.delete(tableManager.getDegreeTable());
+        }
+        if (tableOperations.exists(tableManager.getFieldTable())) {
+            tableOperations.delete(tableManager.getFieldTable());
+        }
+        if (tableOperations.exists(tableManager.getTextTable())) {
+            tableOperations.delete(tableManager.getTextTable());
+        }
     }
 
 }

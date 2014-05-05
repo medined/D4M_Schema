@@ -34,38 +34,73 @@ public class DisplayD4MSet {
         Connector connector = instance.getConnector(user, pass);
 
         TableManager tableManager = new TableManager(connector.tableOperations());
-        //tableManager.setBaseTableName("sample");
 
+        int recordCount = 0;
+        int recordMax = 100;
+        
         System.out.println("*****" + tableManager.getEdgeTable());
         Scanner scan = connector.createScanner(tableManager.getEdgeTable(), new Authorizations());
         Iterator<Map.Entry<Key, Value>> iterator = scan.iterator();
+        recordCount = 0;
         while (iterator.hasNext()) {
             Map.Entry<Key, Value> entry = iterator.next();
             System.out.println(String.format("row(%s) cq(%s)", entry.getKey().getRow(), entry.getKey().getColumnQualifier()));
+            recordCount++;
+            if (recordCount > recordMax) {
+                break;
+            }
         }
 
         System.out.println("*****" + tableManager.getTransposeTable());
         scan = connector.createScanner(tableManager.getTransposeTable(), new Authorizations());
         iterator = scan.iterator();
+        recordCount = 0;
         while (iterator.hasNext()) {
             Map.Entry<Key, Value> entry = iterator.next();
             System.out.println(String.format("row(%s) cq(%s)", entry.getKey().getRow(), entry.getKey().getColumnQualifier()));
+            recordCount++;
+            if (recordCount > recordMax) {
+                break;
+            }
         }
 
         System.out.println("*****" + tableManager.getDegreeTable());
         scan = connector.createScanner(tableManager.getDegreeTable(), new Authorizations());
         iterator = scan.iterator();
+        recordCount = 0;
         while (iterator.hasNext()) {
             Map.Entry<Key, Value> entry = iterator.next();
             System.out.println(String.format("row(%s) value(%s)", entry.getKey().getRow(), entry.getValue()));
+            recordCount++;
+            if (recordCount > recordMax) {
+                break;
+            }
+        }
+
+        System.out.println("*****" + tableManager.getFieldTable());
+        scan = connector.createScanner(tableManager.getFieldTable(), new Authorizations());
+        iterator = scan.iterator();
+        recordCount = 0;
+        while (iterator.hasNext()) {
+            Map.Entry<Key, Value> entry = iterator.next();
+            System.out.println(String.format("row(%s) value(%s)", entry.getKey().getRow(), entry.getValue()));
+            recordCount++;
+            if (recordCount > recordMax) {
+                break;
+            }
         }
 
         System.out.println("*****" + tableManager.getTextTable());
         scan = connector.createScanner(tableManager.getTextTable(), new Authorizations());
         iterator = scan.iterator();
+        recordCount = 0;
         while (iterator.hasNext()) {
             Map.Entry<Key, Value> entry = iterator.next();
             System.out.println(String.format("row(%s) text(%s)", entry.getKey().getRow(), entry.getValue()));
+            recordCount++;
+            if (recordCount > recordMax) {
+                break;
+            }
         }
     }
 }

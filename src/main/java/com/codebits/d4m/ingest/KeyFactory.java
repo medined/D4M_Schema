@@ -9,6 +9,12 @@ import org.apache.accumulo.core.data.Value;
 import org.apache.commons.lang.Validate;
 import org.apache.hadoop.io.Text;
 
+/*
+ * This class does as little transformation as possible to the data. If
+ * the underTest flag is set, then a 0 timestamp is used to make unit testing
+ * easier. Otherwise, the only transformation is that the d4msha1 field is
+ * ignored.
+ */
 public class KeyFactory {
 
     private static final String ROW_VALUE_ERROR = "Please supply a Row value.";
@@ -19,6 +25,7 @@ public class KeyFactory {
     private static final Value one = new Value("1".getBytes());
     private static final Text emptyCF = new Text("");
     private static final Text degree = new Text("degree");
+    private static final Text field = new Text("field");
     private static final Text rawData = new Text("RawData");
 
     private String fieldDelimiter = "\t";
@@ -107,6 +114,35 @@ public class KeyFactory {
                 key = new Key(new Text(fact), emptyCF, degree);
             }
             entries.put(key, new Value(factCount.toString().getBytes()));
+        }
+        return entries;
+    }
+
+    public Map<Key, Value> generateField(String row, String[] fieldNames, String[] fieldValues) {
+        checkParameters(row, fieldNames, fieldValues);
+
+        Map<String, Integer> fields = new HashMap<String, Integer>();
+        for (int i = 0; i < fieldValues.length; i++) {
+            if (!fieldValues[i].isEmpty() && !"d4msha1".equals(fieldNames[i])) {
+                Integer fieldCount = fields.get(fieldNames[i]);
+                if (fieldCount == null) {
+                    fields.put(fieldNames[i], 1);
+                } else {
+                    fields.put(fieldNames[i], fieldCount++);
+                }
+            }
+        }
+
+        Map<Key, Value> entries = new TreeMap<Key, Value>();
+        for (Entry<String, Integer> entry : fields.entrySet()) {
+            String fieldName = entry.getKey();
+            Integer fieldCount = entry.getValue();
+            if (underTest) {
+                key = new Key(new Text(fieldName), emptyCF, field, 0);
+            } else {
+                key = new Key(new Text(fieldName), emptyCF, field);
+            }
+            entries.put(key, new Value(fieldCount.toString().getBytes()));
         }
         return entries;
     }

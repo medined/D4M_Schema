@@ -59,12 +59,14 @@ public class StateCSVToAccumulo {
         BatchWriter edgeWriter = null;
         BatchWriter transposeWriter = null;
         BatchWriter degreeWriter = null;
+        BatchWriter fieldWriter = null;
         BatchWriter textWriter = null;
 
         try {
             edgeWriter = connector.createBatchWriter(tableManager.getEdgeTable(), 10000000, 10000, 5);
             transposeWriter = connector.createBatchWriter(tableManager.getTransposeTable(), 10000000, 10000, 5);
             degreeWriter = connector.createBatchWriter(tableManager.getDegreeTable(), 10000000, 10000, 5);
+            fieldWriter = connector.createBatchWriter(tableManager.getFieldTable(), 10000000, 10000, 5);
             textWriter = connector.createBatchWriter(tableManager.getTextTable(), 10000000, 10000, 5);
 
             for (List<String> fieldValueList : records) {
@@ -76,6 +78,9 @@ public class StateCSVToAccumulo {
                 }
                 for (Mutation mutation : factory.generateDegree(row, fieldNames, fieldValues)) {
                     degreeWriter.addMutation(mutation);
+                }
+                for (Mutation mutation : factory.generateField(row, fieldNames, fieldValues)) {
+                    fieldWriter.addMutation(mutation);
                 }
                 textWriter.addMutation(factory.generateText(row, fieldNames, fieldValues));
             }
@@ -89,6 +94,9 @@ public class StateCSVToAccumulo {
             }
             if (degreeWriter != null) {
                 degreeWriter.close();
+            }
+            if (fieldWriter != null) {
+                fieldWriter.close();
             }
             if (textWriter != null) {
                 textWriter.close();

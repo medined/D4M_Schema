@@ -15,6 +15,11 @@ import org.apache.hadoop.io.Text;
  * ETL systems. As source material is read, the ETL system (think
  * Pentaho or Storm) it can add a d4msha1 field which will be used as
  * the Edge table row value.
+ *
+ * This class does as little transformation as possible to the data. If
+ * the underTest flag is set, then a 0 timestamp is used to make unit testing
+ * easier. Otherwise, the only transformation is that the d4msha1 field is
+ * ignored.
  */
 public class MutationFactory {
 
@@ -26,6 +31,7 @@ public class MutationFactory {
     private static final Value one = new Value("1".getBytes());
     private static final Text emptyCF= new Text("");
     private static final Text degree = new Text("degree");
+    private static final Text field = new Text("field");
     private static final Text rawData = new Text("RawData");
     
     private String fieldDelimiter = "\t";
@@ -102,6 +108,32 @@ public class MutationFactory {
             Integer factCount = entry.getValue();
             Mutation mutation = new Mutation(new Text(fact));
             mutation.put(emptyCF, degree, new Value(factCount.toString().getBytes()));
+            mutations.add(mutation);
+        }
+        return mutations;
+    }
+
+    public List<Mutation> generateField(String row, String[] fieldNames, String[] fieldValues) {
+        checkParameters(row, fieldNames, fieldValues);
+        
+        Map<String, Integer> fields = new HashMap<String, Integer>();
+        for (int i = 0; i < fieldValues.length; i++) {
+            if (!fieldValues[i].isEmpty() && !"d4msha1".equals(fieldNames[i])) {
+                Integer fieldCount = fields.get(fieldNames[i]);
+                if (fieldCount == null) {
+                    fields.put(fieldNames[i], 1);
+                } else {
+                    fields.put(fieldNames[i], fieldCount++);
+                }
+            }
+        }
+
+        List<Mutation> mutations = new ArrayList<Mutation>();
+        for (Entry<String, Integer> entry : fields.entrySet()) {
+            String fieldName = entry.getKey();
+            Integer fieldCount = entry.getValue();
+            Mutation mutation = new Mutation(new Text(fieldName));
+            mutation.put(emptyCF, field, new Value(fieldCount.toString().getBytes()));
             mutations.add(mutation);
         }
         return mutations;

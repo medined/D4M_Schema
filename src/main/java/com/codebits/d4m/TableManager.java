@@ -39,15 +39,16 @@ public class TableManager {
         int isEdgePresent = tableOperations.exists(getEdgeTable()) ? 1 : 0;
         int isTransposePresent = tableOperations.exists(getTransposeTable()) ? 1 : 0;
         int isDegreePresent = tableOperations.exists(getDegreeTable()) ? 1 : 0;
+        int isFieldPresent = tableOperations.exists(getFieldTable()) ? 1 : 0;
         int isTextPresent = tableOperations.exists(getTextTable()) ? 1 : 0;
 
-        int tableCount = isEdgePresent + isTransposePresent + isDegreePresent + isTextPresent;
+        int tableCount = isEdgePresent + isTransposePresent + isDegreePresent + isFieldPresent + isTextPresent;
         
-        if (tableCount > 0 && tableCount < 4) {
-            throw new D4MException("D4M: BASE[" + getBaseTableName() + "] Inconsistent state - one more more D4M table is missing.");
+        if (tableCount > 0 && tableCount < 5) {
+            throw new D4MException("D4M: BASE[" + getBaseTableName() + "] Inconsistent state - one or more D4M tables is missing.");
         }
         
-        if (tableCount == 4) {
+        if (tableCount == 5) {
             // assume the tables are correct.
             return;
         }
@@ -55,6 +56,7 @@ public class TableManager {
         tableOperations.create(getEdgeTable());
         tableOperations.create(getTransposeTable());
         tableOperations.create(getDegreeTable(), false);
+        tableOperations.create(getFieldTable(), false);
         tableOperations.create(getTextTable());
         
         if (sha1) {
@@ -69,11 +71,15 @@ public class TableManager {
             tableOperations.addSplits(getTextTable(), splits);
         }
         
-        IteratorSetting is = new IteratorSetting(7, SummingCombiner.class);
-        SummingCombiner.setEncodingType(is, LongCombiner.Type.STRING);
-        SummingCombiner.setColumns(is, Collections.singletonList(new IteratorSetting.Column("", "degree")));
-            
-        tableOperations.attachIterator(getDegreeTable(), is);        
+        IteratorSetting degreeIteratorSetting = new IteratorSetting(7, SummingCombiner.class);
+        SummingCombiner.setEncodingType(degreeIteratorSetting, LongCombiner.Type.STRING);
+        SummingCombiner.setColumns(degreeIteratorSetting, Collections.singletonList(new IteratorSetting.Column("", "degree")));            
+        tableOperations.attachIterator(getDegreeTable(), degreeIteratorSetting);
+        
+        IteratorSetting fieldIteratorSetting = new IteratorSetting(7, SummingCombiner.class);
+        SummingCombiner.setEncodingType(fieldIteratorSetting, LongCombiner.Type.STRING);
+        SummingCombiner.setColumns(fieldIteratorSetting, Collections.singletonList(new IteratorSetting.Column("", "field")));
+        tableOperations.attachIterator(getFieldTable(), fieldIteratorSetting);        
     }
     
     public String getEdgeTable() {
@@ -90,6 +96,10 @@ public class TableManager {
     
     public String getTextTable() {
         return "T" + getBaseTableName() + "Text";
+    }
+    
+    public String getFieldTable() {
+        return "T" + getBaseTableName() + "Field";
     }
     
     public String getBaseTableName() {

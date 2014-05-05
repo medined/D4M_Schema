@@ -131,6 +131,12 @@ public class KeyFactoryTest {
     }
 
     @Test
+    public void testGenerateField() {
+        Map<Key, Value> actual = instance.generateField(row, fieldNames, fieldValues);
+        assertEquals("{CITY_NAME :field [] 0 false=1}", actual.toString());
+    }
+
+    @Test
     public void testGenerateDegree_does_not_passthru_d4msha1_field() {
         Map<Key, Value> actual = instance.generateDegree(row, xfieldNames, xfieldValues);
         assertEquals("{CITY_NAME|Akron :degree [] 0 false=1}", actual.toString());

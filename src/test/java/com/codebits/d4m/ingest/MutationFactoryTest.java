@@ -15,6 +15,7 @@ public class MutationFactoryTest {
     private static final Value one = new Value("1".getBytes());
     private static final Text emptyCF = new Text("");
     private static final Text degree = new Text("degree");
+    private static final Text field = new Text("field");
     private static final Text rawData = new Text("RawData");
 
     MutationFactory instance = null;
@@ -157,6 +158,18 @@ public class MutationFactoryTest {
         expected.add(mutation);
 
         List<Mutation> actual = instance.generateDegree(row, fieldNames, fieldValues);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGenerateField() {
+        TestableMutation mutation = new TestableMutation("CITY_NAME");
+        mutation.put(emptyCF, field, one);
+
+        List<Mutation> expected = new ArrayList<Mutation>();
+        expected.add(mutation);
+
+        List<Mutation> actual = instance.generateField(row, fieldNames, fieldValues);
         assertEquals(expected, actual);
     }
 
