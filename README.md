@@ -50,7 +50,7 @@ fact is referenced.
 faceting.  If your goal is high speed inserts, you need to pre-sum the inserts 
 into the <i>TedgeDegree</i> table otherwise this can become a bottleneck.
 
-* The <i>TedgeTxt</i> table contains the original record. It can save a lot of 
+* The <i>TedgeText</i> table contains the original record. It can save a lot of 
 time when you just want pull out the whole record.
 
 Below is a concrete example of how these tables are populated:
@@ -97,11 +97,11 @@ A  TedgeTranspose * CITY_NAME|BOAZ                   * a1b4d569-ee45-4466-af2a-0
    TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
 A  TedgeTranspose * STATE_NAME|MAINE                 * a1b4d569-ee45-4466-af2a-0960ccc1 * 1
 
-   TedgeTxt       * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON
+   TedgeText      * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON
                                                                                           \t
                                                                                           STATE_NAME|MAINE
 
-A  TedgeTxt       * a1b4d569-ee45-4466-af2a-0960ccc1 * RawData                          * CITY_NAME|BOAZ
+A  TedgeText      * a1b4d569-ee45-4466-af2a-0960ccc1 * RawData                          * CITY_NAME|BOAZ
                                                                                           \t
                                                                                           STATE_NAME|MAINE
 ```
@@ -167,7 +167,7 @@ the following properties:
 
 * Tedge and TedgeTranspose - the number of entries equals total number of entries.
 * TedgeDegree - the number of entries equals the number of ingested columns.
-* TedgeTxt - the number of entries equals the number of ingested rows.
+* TedgeText - the number of entries equals the number of ingested rows.
 
 These three values are the fundamental dimensions of the sparse matrix that 
 is represented by the D4M schema.

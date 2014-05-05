@@ -73,7 +73,7 @@ public class TableManager {
     }
     
     public String getTextTable() {
-        return "T" + getBaseTableName() + "Txt";
+        return "T" + getBaseTableName() + "Text";
     }
     
     public String getBaseTableName() {

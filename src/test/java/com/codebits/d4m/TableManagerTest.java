@@ -27,13 +27,13 @@ public class TableManagerTest {
         when(mockTableOperations.exists("Tedge")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeTranspose")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeDegree")).thenReturn(Boolean.FALSE);
-        when(mockTableOperations.exists("TedgeTxt")).thenReturn(Boolean.FALSE);
+        when(mockTableOperations.exists("TedgeText")).thenReturn(Boolean.FALSE);
         instance.createTables();
         verify(mockTableOperations, times(4)).exists(any(String.class));
         verify(mockTableOperations).create("Tedge");
         verify(mockTableOperations).create("TedgeTranspose");
         verify(mockTableOperations).create("TedgeDegree", false);
-        verify(mockTableOperations).create("TedgeTxt");
+        verify(mockTableOperations).create("TedgeText");
         verify(mockTableOperations).attachIterator(matches("TedgeDegree"), any(IteratorSetting.class));
         verifyNoMoreInteractions(mockTableOperations);
     }
@@ -43,12 +43,12 @@ public class TableManagerTest {
         when(mockTableOperations.exists("Tedge")).thenReturn(Boolean.TRUE);
         when(mockTableOperations.exists("TedgeTranspose")).thenReturn(Boolean.TRUE);
         when(mockTableOperations.exists("TedgeDegree")).thenReturn(Boolean.TRUE);
-        when(mockTableOperations.exists("TedgeTxt")).thenReturn(Boolean.TRUE);
+        when(mockTableOperations.exists("TedgeText")).thenReturn(Boolean.TRUE);
         instance.createTables();
         verify(mockTableOperations).exists("Tedge");
         verify(mockTableOperations).exists("TedgeTranspose");
         verify(mockTableOperations).exists("TedgeDegree");
-        verify(mockTableOperations).exists("TedgeTxt");
+        verify(mockTableOperations).exists("TedgeText");
         verifyNoMoreInteractions(mockTableOperations);
     }
 
@@ -57,7 +57,7 @@ public class TableManagerTest {
         when(mockTableOperations.exists("Tedge")).thenReturn(Boolean.TRUE);
         when(mockTableOperations.exists("TedgeTranspose")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeDegree")).thenReturn(Boolean.FALSE);
-        when(mockTableOperations.exists("TedgeTxt")).thenReturn(Boolean.FALSE);
+        when(mockTableOperations.exists("TedgeText")).thenReturn(Boolean.FALSE);
         instance.createTables();
     }
 
@@ -66,7 +66,7 @@ public class TableManagerTest {
         when(mockTableOperations.exists("Tedge")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeTranspose")).thenReturn(Boolean.TRUE);
         when(mockTableOperations.exists("TedgeDegree")).thenReturn(Boolean.FALSE);
-        when(mockTableOperations.exists("TedgeTxt")).thenReturn(Boolean.FALSE);
+        when(mockTableOperations.exists("TedgeText")).thenReturn(Boolean.FALSE);
         instance.createTables();
     }
 
@@ -75,7 +75,7 @@ public class TableManagerTest {
         when(mockTableOperations.exists("Tedge")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeTranspose")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeDegree")).thenReturn(Boolean.TRUE);
-        when(mockTableOperations.exists("TedgeTxt")).thenReturn(Boolean.FALSE);
+        when(mockTableOperations.exists("TedgeText")).thenReturn(Boolean.FALSE);
         instance.createTables();
     }
 
@@ -84,7 +84,7 @@ public class TableManagerTest {
         when(mockTableOperations.exists("Tedge")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeTranspose")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeDegree")).thenReturn(Boolean.FALSE);
-        when(mockTableOperations.exists("TedgeTxt")).thenReturn(Boolean.TRUE);
+        when(mockTableOperations.exists("TedgeText")).thenReturn(Boolean.TRUE);
         instance.createTables();
     }
 
