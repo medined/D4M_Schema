@@ -17,13 +17,17 @@ import org.apache.accumulo.core.client.TableNotFoundException;
 import org.apache.accumulo.core.client.ZooKeeperInstance;
 import org.apache.accumulo.core.data.Mutation;
 
-public class StateCSVToAccumulo {
+/* Download 11zpallagi.csv from
+ * http://www.irs.gov/uac/SOI-Tax-Stats-Individual-Income-Tax-Statistics-2011-ZIP-Code-Data-%28SOI%29
+ *
+ * The ingest took about 11 minutes.
+ */
 
-    //private static final Logger log = Logger.getLogger(WriteMultipleExplodedRecords.class);
+public class SOICSVToAccumulo {
 
     public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException {
-        StateCSVToAccumulo driver = new StateCSVToAccumulo();
-        driver.process("data/SUB-EST2012_1.csv");
+        SOICSVToAccumulo driver = new SOICSVToAccumulo();
+        driver.process("data/11zpallagi.csv");
     }
 
     private void process(final String csvFile) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, IOException {
