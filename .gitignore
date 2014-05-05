@@ -1,7 +1,11 @@
-/target/
+target
 src/main/resources/d4m.properties
 src/main/resources/d4m.properties.affy-master
 src/main/resources/d4m.properties.bah
 .vagrant
 rfiles
 data/11zpallagi.csv
+TEST
+docs
+examples
+matlab_src
