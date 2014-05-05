@@ -21,6 +21,7 @@ import org.apache.accumulo.core.data.Mutation;
  * http://www.irs.gov/uac/SOI-Tax-Stats-Individual-Income-Tax-Statistics-2011-ZIP-Code-Data-%28SOI%29
  *
  * The ingest took about 11 minutes.
+ * The ingest took about 6 minutes with pre-split edge and degree tables.
  */
 
 public class SOICSVToAccumulo {
@@ -51,7 +52,6 @@ public class SOICSVToAccumulo {
         List<List<String>> records = reader.getRecords();
         
         String[] fieldNames = fieldNameList.toArray(new String[fieldNameList.size()]);
-
         
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);
