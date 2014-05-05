@@ -15,4 +15,6 @@ sleep 30
 echo "Now connect to the master node to start accumulo:"
 echo "  vagrant ssh slave2"
 echo "  accumulo_home/bin/accumulo/bin/start-all.sh"
-
+echo "  /vagrant/hadoop_setup.sh"
+echo "  /vagrant/octave_setup.sh"
+echo "  cp /vagrant/octaverc .octaverc"
