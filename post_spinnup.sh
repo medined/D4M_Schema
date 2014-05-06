@@ -11,7 +11,7 @@ vagrant ssh master -c "zkServer.sh start"
 
 vagrant ssh slave2 -c "cp /vagrant/octaverc /home/vagrant/.octaverc"
 
-vagrant ssh slave2 -c "echo 'Creating Hadoop directories .. ignore file exists error.' >> /home/vagrant/.bashrc"
+vagrant ssh slave2 -c "echo 'echo \"Creating Hadoop directories .. ignore file exists error.\"' >> /home/vagrant/.bashrc"
 vagrant ssh slave2 -c "cat /vagrant/hadoop_setup.sh >> /home/vagrant/.bashrc"
 vagrant ssh slave2 -c "cat /vagrant/octave_setup.sh >> /home/vagrant/.bashrc"
 
