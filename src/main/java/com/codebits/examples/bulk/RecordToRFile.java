@@ -21,6 +21,7 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.security.AccessControlException;
 
+
 public class RecordToRFile {
 
     Configuration configuration = null;
@@ -80,11 +81,13 @@ public class RecordToRFile {
         writeRFile(tableManager.getEdgeTable(), factory.generateEdges(row, fieldNames, fieldValues));
         writeRFile(tableManager.getTransposeTable(), factory.generateTranspose(row, fieldNames, fieldValues));
         writeRFile(tableManager.getDegreeTable(), factory.generateDegree(row, fieldNames, fieldValues));
+        writeRFile(tableManager.getFieldTable(), factory.generateField(row, fieldNames, fieldValues));
         writeRFile(tableManager.getTextTable(), factory.generateText(row, fieldNames, fieldValues));
     }
     
     private void writeRFile(final String tableName, final Map<Key, Value> entries) {
         final String rFile = String.format("%s/%s.rf", input, tableName);
+        System.out.println("rfile: "+  rFile);
         FileSKVWriter out = null;
         try {
             out = RFileOperations.getInstance().openWriter(rFile, fileSystem, configuration, defaultConfiguration);

@@ -77,6 +77,18 @@ public class DisplayD4MSet {
             }
         }
 
+        System.out.println("*****" + tableManager.getTextTable());
+        scan = connector.createScanner(tableManager.getTextTable(), new Authorizations());
+        iterator = scan.iterator();
+        recordCount = 0;
+        while (iterator.hasNext()) {
+            Map.Entry<Key, Value> entry = iterator.next();
+            System.out.println(String.format("row(%s) text(%s)", entry.getKey().getRow(), entry.getValue()));
+            recordCount++;
+            if (recordCount > recordMax) {
+                break;
+            }
+        }
         System.out.println("*****" + tableManager.getFieldTable());
         scan = connector.createScanner(tableManager.getFieldTable(), new Authorizations());
         iterator = scan.iterator();
@@ -90,17 +102,5 @@ public class DisplayD4MSet {
             }
         }
 
-        System.out.println("*****" + tableManager.getTextTable());
-        scan = connector.createScanner(tableManager.getTextTable(), new Authorizations());
-        iterator = scan.iterator();
-        recordCount = 0;
-        while (iterator.hasNext()) {
-            Map.Entry<Key, Value> entry = iterator.next();
-            System.out.println(String.format("row(%s) text(%s)", entry.getKey().getRow(), entry.getValue()));
-            recordCount++;
-            if (recordCount > recordMax) {
-                break;
-            }
-        }
     }
 }
