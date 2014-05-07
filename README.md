@@ -53,6 +53,10 @@ into the <i>TedgeDegree</i> table otherwise this can become a bottleneck.
 * The <i>TedgeText</i> table contains the original record. It can save a lot of 
 time when you just want pull out the whole record.
 
+* [Extension] The <i>TedgeField</i> table holds a list of columns. After loading data, 
+you might find yourself with an unknown number of columns. By storing the column name
+and a count of how many entries are in each column, this table aids in Data Exploration.
+
 Below is a concrete example of how these tables are populated:
 
 ```
@@ -67,6 +71,8 @@ Accumulo Mutations
    Tedge          * 9a127928-b661-4e46-9103-3fc024f4 * STATE_NAME|MAINE                 * 1 
    TedgeDegree    * CITY_NAME|AKRON                  * Degree                           * 1
    TedgeDegree    * STATE_NAME|MAINE                 * Degree                           * 1
+   TedgeField     * STATE_NAME                       * field                            * 1
+   TedgeField     * CITY_NAME                        * field                            * 1
    TedgeTranspose * CITY_NAME|AKRON                  * 9a127928-b661-4e46-9103-3fc024f4 * 1
    TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
    TedgeTxt       * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON
@@ -92,6 +98,8 @@ A  Tedge          * a1b4d569-ee45-4466-af2a-0960ccc1 * STATE_NAME|MAINE         
    TedgeDegree    * CITY_NAME|AKRON                  * degree                           * 1
 A  TedgeDegree    * CITY_NAME|BOAZ                   * degree                           * 1
 M  TedgeDegree    * STATE_NAME|MAINE                 * degree                           * 2
+M  TedgeField     * STATE_NAME                       * field                            * 2
+M  TedgeField     * CITY_NAME                        * field                            * 2
    TedgeTranspose * CITY_NAME|AKRON                  * 9a127928-b661-4e46-9103-3fc024f4 * 1
 A  TedgeTranspose * CITY_NAME|BOAZ                   * a1b4d569-ee45-4466-af2a-0960ccc1 * 1
    TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
@@ -141,13 +149,16 @@ A  Tedge          * BOAZ|45.25|-69.44  * STATE_NAME|MAINE   * 1
 A  TedgeTranspose * CITY_NAME|BOAZ     * BOAZ|45.25|-69.44  * 1
    TedgeTranspose * STATE_NAME|MAINE   * AKRON|43.22|-70.79 * 1
 A  TedgeTranspose * STATE_NAME|MAINE   * BOAZ|45.25|-69.44  * 1
+A  TedgeField     * LATITUDE           * field              * 1
+A  TedgeField     * LONGITUDE          * field              * 1
 ```
 
 Now we can re-ingest the data as often as needed without creating duplication 
 in Accumulo. The new entries would overlay the old entries.
 
 If the row value gets longer than 40 characters, you can hash it into a SHA-1
-value.
+value. In fact, the CsvReader class in this project has a sha1 flag which
+generates a sha1 of the whole record for each of use.
 
 Not withstanding the above suggestion of using SHA-1, good row value design is
 an art. Try to design them with these guidelines in mind:
