@@ -18,7 +18,7 @@ import org.apache.hadoop.io.Text;
 /** Calculates page breaks for column names in the TedgeFields table.
  *
  */
-public class FieldsPaginationPrecomputor {
+public class FieldPaginationPrecomputor {
 
     private Connector connector = null;
     private String tableName = null;
