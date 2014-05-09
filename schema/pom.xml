@@ -1,20 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.affy</groupId>
+        <artifactId>d4m_schema_parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    
     <groupId>com.affy</groupId>
-    <artifactId>d4m_schema_parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <artifactId>d4m_schema</artifactId>
+    <packaging>jar</packaging>
 
-    <name>D4M Schema Parent</name>
+    <name>D4M Schema</name>
     <url>https://github.com/medined/D4M_Schema</url>
-
-    <modules>
-        <module>schema</module>
-        <!--
-        <module>explorer</module>
-        -->
-    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -64,6 +62,11 @@
     </dependencies>
   
     <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
         <defaultGoal>package</defaultGoal>
         <pluginManagement>
             <plugins>
