@@ -55,8 +55,8 @@ public class TableManager {
         
         tableOperations.create(getEdgeTable());
         tableOperations.create(getTransposeTable());
-        tableOperations.create(getDegreeTable(), false);
-        tableOperations.create(getFieldTable(), false);
+        tableOperations.create(getDegreeTable());
+        tableOperations.create(getFieldTable());
         tableOperations.create(getTextTable());
         
         if (sha1) {

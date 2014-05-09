@@ -26,7 +26,7 @@ public class StateCSVToAccumulo {
         driver.process("data/SUB-EST2012_1.csv");
     }
 
-    private void process(final String csvFile) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, IOException {
+    void process(final String csvFile) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, IOException {
         PropertyManager propertyManager = new PropertyManager();
         propertyManager.setPropertyFilename("d4m.properties");
         Properties properties = propertyManager.load();

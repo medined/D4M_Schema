@@ -31,7 +31,7 @@ public class SOICSVToAccumulo {
         driver.process("data/11zpallagi.csv");
     }
 
-    private void process(final String csvFile) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, IOException {
+    void process(final String csvFile) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, IOException {
         PropertyManager propertyManager = new PropertyManager();
         propertyManager.setPropertyFilename("d4m.properties");
         Properties properties = propertyManager.load();
