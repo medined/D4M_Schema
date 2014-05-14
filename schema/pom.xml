@@ -2,12 +2,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.affy</groupId>
+        <groupId>com.codebits</groupId>
         <artifactId>d4m_schema_parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     
-    <groupId>com.affy</groupId>
+    <groupId>com.codebits</groupId>
     <artifactId>d4m_schema</artifactId>
     <packaging>jar</packaging>
 

@@ -1,0 +1,6 @@
+accumulo.instance.name=default
+accumulo.zookeeper.ensemble=node12.catapult.dev.boozallenet.com:2181
+accumulo.user=root
+accumulo.password=password
+fs.default.name=hdfs://node11.catapult.dev.boozallenet.com:9000
+hadoop.user.home.directory=/user/566453
