@@ -1,6 +1,5 @@
 
-Pagination in Accumulo
-----------------------
+# Pagination in Accumulo
 
 Pagination in Accumulo is not simple. Pages are not deterministic since the 
 data can be constantly changing. Also authorization levels can change the 
@@ -9,10 +8,14 @@ can only be scanned forwards and not backwards. With these factors in
 mind, I am implementing the following technique. I hope the community 
 can point out flaws and provide improvements.
 
+>Iterators can only scan forward, not backword!
+
 After a couple of conversions, it's obvious there are severals approaches to
 this issue. And in general, I can't see any technical reason to favor one 
 over another. The information under consideration is a slowly changing
 dimension (SCD). That was an important factor for me.
+
+>Does your information change quickly?
 
 While the pages are not deterministic, we can still pre-compute them to 
 provide a best-guess and have some semblance of a normal page interaction:
@@ -22,6 +25,8 @@ provide a best-guess and have some semblance of a normal page interaction:
 There is an obvious problem with this technique. What if 100 rows were added 
 between pages one and two but the page size was 50? Some of the records 
 would never be displayed or discoverable.
+
+>Never let users miss data!
 
 Before suggesting a refinement to address this issue, let me talk about the 
 pagination pre-computation using the TedgeField (from my extension to D4M) 
@@ -95,5 +100,76 @@ newly-added records.
 
 ![New Since Pagination Indicator](../images/new_since_pagination_indicator.png "New Since Pagination Indicator")
 
+## Alternative Approaches
 
+> I am not attributing these approaches because the originators have not had
+> a chance to edit them. However, if anyone wants to claim authorship, I'm
+> happy to comply.
 
+### Approach A
+
+Assuming you are showing 10
+entries per page, and 5 new keys get added to page 2, after you've
+navigated to page 3 (or later), and then you navigate back to page 2,
+you could do one of these two things:
+
+Strategy 1. Keep the existing page markers for the later pages, and
+show all 15 entries on page 2 now. This strategy could be problematic
+if many new entries are inserted.
+
+Strategy 2. Reset all page markers after the current page, whenever
+you navigate back. This strategy requires navigating sequentially
+again... no jumping forward, even if you've navigated there before.
+
+You could also do some sort of hybrid approach: use strategy 1 unless
+there are too many new entries (some % threshold beyond the configured
+entries per page; maybe 10-20%), and then fall back to strategy 2 and
+reset future page markers if that threshold is exceeded.
+
+### Approach B
+
+It's reasonable that the results the user sees is from the time of the 
+query, rather than dealing dynamically with newly introduced data.  Of 
+course, that's highly problematic when your iterator can't go backwards.
+
+Someone fielded the suggestion of taking the key of the top result, and 
+that is certainly the solution I was leaning for, although I fear the edge 
+case is that data can also be deleted -- and what if it were your key.
+
+I don't know how practical it is, but could you conceivably emit a key 
+list to another temporary namespace? Some clever lazy loading might be 
+in order:
+
+Grab your iterator and traverse over the first 10 pages or so, emitting a 
+set of ordered keys to another namespace, and then hold.
+
+Then within that temporary namespace, grab another iterator to let the user 
+browse the pages.  If the user backs up, then restart, or even use the 
+top-of-the-page result (as now you know they aren't going away or changing 
+counts).  If the user wants to walk off the "cached" pages, use the retrieval 
+iterator to grab the next batch of 10 pages, adding it to the temporary 
+name space.
+
+The trade-offs for paging in this manner are increased complexity, more 
+ (vs time and change), and cleanup.  The upside is most people find what 
+they need in the first few items.  The downside is when the user goes to r
+etrieve the actual data, it may be gone (stale index -- although that could 
+be true at any given microsecond: search, delete, click).
+
+### Approach C
+
+From any page, the user can move to the next page, but can't skip pages when 
+moving forward.  As the user pages forward, you store the first key of each 
+page.  This allows the user to jump back to any earlier page.  When returning 
+to the first page you have to make a decision about how to let the user 
+retrieve new data that might have been added before the original first page 
+of data.
+
+The interaction ends up being a bit like gmail paging ... you can go forward 
+or back one page, and you can jump back to the first page, but no other jumps 
+are allowed.  Gmail paginates on the fly, however -- if you're on page 50 
+of your inbox and you receive a new message, all the messages on that page 
+will move down one.  With the scheme above, the first key of each page will 
+be fixed until you return to the beginning and start paging forward again.  
+However, you may see new keys inserted in the middle of pages, unless you 
+intentionally filter those out.
