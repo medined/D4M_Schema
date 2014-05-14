@@ -13,8 +13,11 @@ some blanks. Hopefully, you'll find some ideas here you haven't seen before
 and you'll get inspired to knock down some of your own Data Silos. It can done!
 
 [Getting Started](docs/getting_started.md)
+
 [Pagination Considerations](docs/pagination.md)
+
 [Who Uses D4M?](docs/d4m_use.md)
+
 [Digging Deeper](docs/digging_deeper.md)
 
 D4M's main page says:
