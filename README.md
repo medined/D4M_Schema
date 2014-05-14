@@ -12,6 +12,8 @@ on specifics. In this project, I'll use D4M (http:/d4m.mit.edu/) to fill in
 some blanks. Hopefully, you'll find some ideas here you haven't seen before 
 and you'll get inspired to knock down some of your own Data Silos. It can done!
 
+[Pagination Considerations](docs/pagination.md)
+
 D4M's main page says:
 
 <blockquote>D4M is a breakthrough in computer programming that combines the 
