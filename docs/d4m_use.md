@@ -1,11 +1,10 @@
-D4M Use
----------------
+# D4M Use
 
-# People
+## People
 
 * David Medinets
 * Geoffry Roberts
 
-# Organizations
+## Organizations
 
 * MIT
