@@ -8,7 +8,7 @@ can only be scanned forwards and not backwards. With these factors in
 mind, I am implementing the following technique. I hope the community 
 can point out flaws and provide improvements.
 
->Iterators can only scan forward, not backword!
+>Iterators can only scan forward, not backward!
 
 After a couple of conversions, it's obvious there are severals approaches to
 this issue. And in general, I can't see any technical reason to favor one 
@@ -32,6 +32,7 @@ Before suggesting a refinement to address this issue, let me talk about the
 pagination pre-computation using the TedgeField (from my extension to D4M) 
 as an example:
 
+```
     scanner = connector.createScanner(tableName, new Authorizations());
     Iterator<Map.Entry<Key, Value>> iterator = scanner.iterator();
     while (iterator.hasNext()) {
@@ -43,16 +44,20 @@ as an example:
         }
         entryCount++;
     }
+```
 
 The TedgeField table looks like this:
 
+```
    ROW          * CQ      * VALUE
  ---------------------------------
    STATE_NAME   * field   * 1
    CITY_NAME    * field   * 1    
+```
 
 After the pre-compute is run, you might see:
 
+```
 1,a00100
 2,a02500
 3,a10300
@@ -61,20 +66,24 @@ After the pre-compute is run, you might see:
 6,n07220
 7,n18450
 8,state
+```
 
 When the user clicks a page number (let's say 3, an appropriate scanner is 
 initialized.
 
+```
         scan.setBatchSize(batchSize);
         scan.setRange(new Range(new Text("a10300", true, null, true);
-
+```
 For a page size of 5 you might see the following:
 
+```
 a10300_01
 a10300_02
 a10300_03
 a10300_04
 a10300_05
+```
 
 This looks just fine. But notice that page 4 starts with a59660. And there 
 could be a lots of entries between a10300_05 and a59660 that were added 
