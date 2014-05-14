@@ -2,8 +2,9 @@
 
 ## People
 
-* David Medinets
+* [David Medinets](http://www.codebits.com/)
 * Geoffry Roberts
+* [Dylan Hutchison](http://www.cs.stevens.edu/~dhutchis/)
 
 ## Organizations
 
