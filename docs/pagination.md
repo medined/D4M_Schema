@@ -8,7 +8,7 @@ can only be scanned forwards and not backwards. With these factors in
 mind, I am implementing the following technique. I hope the community 
 can point out flaws and provide improvements.
 
->Iterators can only scan forward, not backword!
+>Iterators can only scan forward, not backward!
 
 After a couple of conversions, it's obvious there are severals approaches to
 this issue. And in general, I can't see any technical reason to favor one 
