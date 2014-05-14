@@ -12,10 +12,7 @@ can point out flaws and provide improvements.
 While the pages are not deterministic, we can still pre-compute them to 
 provide a best-guess and have some semblance of a normal page interaction:
 
- Normal Page Interaction
- -----------------------
- | Beginning | Previous | Jump to Page | Next | Last Page
- |    <<     |    <     | 1  2  ...  n |  >   |   >>
+![Standard Pagination Controls](../images/standard_pagination.png "Standard Pagination Controls")
 
 There is an obvious problem with this technique. What if 100 rows were added 
 between pages one and two but the page size was 50? Some of the records 
@@ -74,27 +71,24 @@ could be a lots of entries between a10300_05 and a59660 that were added
 since the last pre-computation of pagination. So I am changing the page
 interaction elements to be:
 
- Suggested Page Interaction
- --------------------------
- | Beginning | Previous | Jump to Page | Next  | Last Page
- |    <<     |    <     | 1  2  ...  n |  >?   |   >>?
+![Enhanced Pagination Controls](../images/extended_pagination.png "Enhanced Pagination Controls")
 
-I think the Normal Page Interaction needs to be modified. The new meaning is 
-that clicking next steps through every entry. Pages become elastic - you only 
-get to the next page number when the top row of the page (as determined by 
-precomputing) is passed. Thus the addition of the Question Mark to the Next 
-and Last Page links. In contrast, the Previous function remains the same. You 
-jump immediately to the row associated with the page or to the next row 
-visible to you.
+The change is very subtle. Just the addition of the question mark (?) at the
+end of the next button. That is the signal to the user that clicking next
+will show the next _PageSize_ items instead of the next page.
+
+In other words, the new meaning of _next_ is to step through every entry. Pages 
+become elastic - you only get to the next page number when the top row of the 
+page (as determined by precomputing) is passed. In contrast, the Previous 
+function remains the same. You jump immediately to the row associated with 
+the page or to the next row visible to you.
 
 The timestamp of the search results can be compared to the timestamp of the
 pre-computed page breaks so that a 'NEW SINCE PRE-COMPUTE' indicator can be 
-added to the search results. On the other hand, users may not care.
+added to the search results. Below is an subtle example how to indicate
+newly-added records.
 
-See the FieldPaginationPrecomputor for an implementation of pre-computing
-page breaks.
+![New Since Pagination Indicator](../images/new_since_pagination_indicator.png "New Since Pagination Indicator")
 
-I'm tempted to suggest that the jump values be encrypted so they are opaque 
-to users and no information is leaked.
 
-Any suggestions or improvments?
+
