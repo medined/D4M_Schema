@@ -112,6 +112,9 @@ body {
 .page-count {
     color: black;
 }
+.newer {
+    border-left: 2px yellow solid;
+}
 </style>
     </head>
     <body>
@@ -172,7 +175,15 @@ body {
         </tr>
         <c:forEach items="${fieldPageInfoSet}" var="fieldInfo">
             <tr>
-                <td><c:out value='${fieldInfo.fieldName}' /></td>
+                <td>
+                    <c:if test="${fieldInfo.timestamp > paginationTimestamp}">
+                        <span class="newer">
+                    </c:if>
+                    <c:out value='${fieldInfo.fieldName}' />
+                    <c:if test="${fieldInfo.timestamp > paginationTimestamp}">
+                        </span >
+                    </c:if>
+                </td>
                 <td align="right"><fmt:formatNumber value="${fieldInfo.entryCount}" /></td>
             </tr>
         </c:forEach>

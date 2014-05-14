@@ -195,4 +195,34 @@ public class FieldPaginationService {
         this.accumuloService = accumuloService;
     }
 
+    public long getPaginationTimestamp(int pageSize) {
+        long rv  = 0;
+
+        Connector connector = accumuloService.getConnector();
+
+        final String tableName = tableManager.getFieldTable();
+
+        Scanner scan = null;
+        try {
+            scan = connector.createScanner(tableName, new Authorizations());
+        } catch (TableNotFoundException e) {
+            throw new RuntimeException(String.format("Error getting scanning table [%s].", tableName), e);
+        }
+        Text row = new Text(String.format("%d_per_page", pageSize));
+        Text cf = new Text("num_pages");
+        Text cq = new Text("pages");
+        scan.setBatchSize(1);
+        scan.setRange(Range.exact(row, cf, cq));
+
+        Iterator<Map.Entry<Key, org.apache.accumulo.core.data.Value>> iterator = scan.iterator();
+        if (iterator.hasNext()) {
+            Map.Entry<Key, org.apache.accumulo.core.data.Value> entry = iterator.next();
+            rv = entry.getKey().getTimestamp();
+        }
+        
+        scan.close();
+
+        return rv;
+    }
+
 }

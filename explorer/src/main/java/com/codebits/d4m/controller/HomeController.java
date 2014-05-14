@@ -100,6 +100,9 @@ public class HomeController {
         int numPages = fieldPaginationService.getNumberOfPages(preferences.getPageSize());
         model.addAttribute("numPages", numPages);
 
+        long paginationTimestamp = fieldPaginationService.getPaginationTimestamp(preferences.getPageSize());
+        model.addAttribute("paginationTimestamp", paginationTimestamp);
+        
         int startPage = 1;
         int endPage = Math.min(NUMBER_OF_PAGES_IN_PAGINATION, numPages);
         
