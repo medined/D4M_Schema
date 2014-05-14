@@ -29,6 +29,7 @@
     </mvc:interceptors>
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/css/**" location="/css/" />
 
     <!-- Declare the Resolver -->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
