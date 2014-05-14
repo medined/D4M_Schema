@@ -12,7 +12,10 @@ on specifics. In this project, I'll use D4M (http:/d4m.mit.edu/) to fill in
 some blanks. Hopefully, you'll find some ideas here you haven't seen before 
 and you'll get inspired to knock down some of your own Data Silos. It can done!
 
+[Getting Started](docs/getting_started.md)
 [Pagination Considerations](docs/pagination.md)
+[Who Uses D4M?](docs/d4m_use.md)
+[Digging Deeper](docs/digging_deeper.md)
 
 D4M's main page says:
 
@@ -171,35 +174,3 @@ easier.
  * Rapidly changing leading values which provides automatic load balancing and 
 easy pre-splitting. For example, reversing an ingest date so that the faster
 changing seconds come first.
-
-Digging a bit Deeper
---------------------
-
-The mathematicians have probably already noticed that the D4M tables have
-the following properties:
-
-* Tedge and TedgeTranspose - the number of entries equals total number of entries.
-* TedgeDegree - the number of entries equals the number of ingested columns.
-* TedgeText - the number of entries equals the number of ingested rows.
-
-These three values are the fundamental dimensions of the sparse matrix that 
-is represented by the D4M schema.
-
-<blockquote><b>D4M Baseball Example</b> - Dylan Hutchison created a Github project at https://github.com/denine99/d4mBB with a self-contained and tested Matlab script showing the power of D4M on historical Baseball data. There are three parts:
-
-    Parsing data into a form ready for ingestion
-    Ingesting data into memory or an Accumulo Table
-    Querying data to answer several questions of interest
-
-The goal is to provide a complete, well-documented example demonstrating how to use D4M for data analysis on a data set of manageable size. The techniques presented will scale to true big data scenarios.</blockquote>
-
-Getting Started with D4M
-------------------------
-
-How to get started? Get D4M working. There are instructions how to create a 
-three-node Accumulo cluster and how to install D4M at 
-https://github.com/medined/Accumulo_1_5_0_By_Vagrant. 
-
-ETL
----
-

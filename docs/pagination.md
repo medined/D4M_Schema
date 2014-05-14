@@ -9,6 +9,11 @@ can only be scanned forwards and not backwards. With these factors in
 mind, I am implementing the following technique. I hope the community 
 can point out flaws and provide improvements.
 
+After a couple of conversions, it's obvious there are severals approaches to
+this issue. And in general, I can't see any technical reason to favor one 
+over another. The information under consideration is a slowly changing
+dimension (SCD). That was an important factor for me.
+
 While the pages are not deterministic, we can still pre-compute them to 
 provide a best-guess and have some semblance of a normal page interaction:
 
