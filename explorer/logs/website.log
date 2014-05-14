@@ -8793,3 +8793,297 @@ Unknown target VM 1.7 ignored.
 Unknown source VM 1.7 ignored.
 Closing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 10:37:01 EDT 2014]; parent: Root WebApplicationContext
 Closing Root WebApplicationContext: startup date [Wed May 14 10:37:00 EDT 2014]; root of context hierarchy
+Root WebApplicationContext: initialization started
+Refreshing Root WebApplicationContext: startup date [Wed May 14 12:28:41 EDT 2014]; root of context hierarchy
+Loading XML bean definitions from ServletContext resource [/WEB-INF/spring-security.xml]
+You are running with Spring Security Core 3.2.3.RELEASE
+Spring Security 'config' module version is 3.2.3.RELEASE
+No login page configured. The default internal one will be used. Use the 'login-page' attribute to set the URL of the login page.
+Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.session.ConcurrentSessionFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 300, Root bean: class [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 400, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1300, Root bean: class [org.springframework.security.web.authentication.www.BasicAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1500, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+Loading properties file from ServletContext resource [/WEB-INF/users.properties]
+Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@c29b188, org.springframework.security.web.session.ConcurrentSessionFilter@5465df5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4ec28287, org.springframework.security.web.authentication.logout.LogoutFilter@44079576, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4de598de, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@1c973ec6, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@d9a47d4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@be1b646, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@f85b3c2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@12dc8d84, org.springframework.security.web.session.SessionManagementFilter@4dcedec8, org.springframework.security.web.access.ExceptionTranslationFilter@48844460, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@63a51fd1]
+Checking whether login URL '/spring_security_login' is accessible with your configuration
+Root WebApplicationContext: initialization completed in 531 ms
+Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+FrameworkServlet 'mvc-dispatcher': initialization started
+Refreshing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:28:42 EDT 2014]; parent: Root WebApplicationContext
+Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-dispatcher-servlet.xml]
+Loading properties file from ServletContext resource [/WEB-INF/d4m.properties]
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+Client environment:zookeeper.version=3.4.5-1392090, built on 09/30/2012 17:52 GMT
+Client environment:host.name=10.211.55.1
+Client environment:java.version=1.7.0_55
+Client environment:java.vendor=Oracle Corporation
+Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Home/jre
+Client environment:java.class.path=/var/tmp/apache-maven-3.1.0/boot/plexus-classworlds-2.4.2.jar
+Client environment:java.library.path=/Users/davidmedinets/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Client environment:java.io.tmpdir=/var/folders/mm/jjvxhxr11nx9pxq0y9f322n80000gp/T/
+Client environment:java.compiler=<NA>
+Client environment:os.name=Mac OS X
+Client environment:os.arch=x86_64
+Client environment:os.version=10.7.5
+Client environment:user.name=davidmedinets
+Client environment:user.home=/Users/davidmedinets
+Client environment:user.dir=/Users/davidmedinets/NetBeansProjects/D4M_Schema/explorer
+Initiating client connection, connectString=affy-master:2181 sessionTimeout=30000 watcher=org.apache.accumulo.fate.zookeeper.ZooSession$ZooWatcher@2af7c4de
+Opening socket connection to server affy-master/10.211.55.100:2181. Will not attempt to authenticate using SASL (unknown error)
+Socket connection established to affy-master/10.211.55.100:2181, initiating session
+Session establishment complete on server affy-master/10.211.55.100:2181, sessionid = 0x145fac929f90a31, negotiated timeout = 30000
+Mapped "{[/home/next],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.next(org.springframework.ui.Model)
+Mapped "{[/],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.root(org.springframework.ui.Model)
+Mapped "{[/home/previous],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.previous(org.springframework.ui.Model)
+Mapped "{[/home/last],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.last(org.springframework.ui.Model)
+Mapped "{[/home/{pageNumber}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.page(org.springframework.ui.Model,int)
+Mapped "{[/home],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.home(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+Mapped "{[/home/changePageSize],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.changePageSize(com.codebits.d4m.form.Pagination,org.springframework.ui.Model)
+Mapped URL path [/resources/**] onto handler 'org.springframework.web.servlet.resource.ResourceHttpRequestHandler#0'
+FrameworkServlet 'mvc-dispatcher': initialization completed in 1190 ms
+Unknown target VM 1.7 ignored.
+Unknown source VM 1.7 ignored.
+Closing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:28:42 EDT 2014]; parent: Root WebApplicationContext
+Closing Root WebApplicationContext: startup date [Wed May 14 12:28:41 EDT 2014]; root of context hierarchy
+Root WebApplicationContext: initialization started
+Refreshing Root WebApplicationContext: startup date [Wed May 14 12:36:56 EDT 2014]; root of context hierarchy
+Loading XML bean definitions from ServletContext resource [/WEB-INF/spring-security.xml]
+You are running with Spring Security Core 3.2.3.RELEASE
+Spring Security 'config' module version is 3.2.3.RELEASE
+No login page configured. The default internal one will be used. Use the 'login-page' attribute to set the URL of the login page.
+Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.session.ConcurrentSessionFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 300, Root bean: class [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 400, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1300, Root bean: class [org.springframework.security.web.authentication.www.BasicAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1500, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+Loading properties file from ServletContext resource [/WEB-INF/users.properties]
+Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@516a18a1, org.springframework.security.web.session.ConcurrentSessionFilter@c771bc9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5fc12f83, org.springframework.security.web.authentication.logout.LogoutFilter@4167292, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5dbbd156, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@55ac952d, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@3575e94c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@502797ff, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@576c0f75, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@776af729, org.springframework.security.web.session.SessionManagementFilter@f88e1ff, org.springframework.security.web.access.ExceptionTranslationFilter@63ad3450, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@45a350]
+Checking whether login URL '/spring_security_login' is accessible with your configuration
+Root WebApplicationContext: initialization completed in 633 ms
+Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+FrameworkServlet 'mvc-dispatcher': initialization started
+Refreshing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:36:57 EDT 2014]; parent: Root WebApplicationContext
+Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-dispatcher-servlet.xml]
+Loading properties file from ServletContext resource [/WEB-INF/d4m.properties]
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+Client environment:zookeeper.version=3.4.5-1392090, built on 09/30/2012 17:52 GMT
+Client environment:host.name=10.211.55.1
+Client environment:java.version=1.7.0_55
+Client environment:java.vendor=Oracle Corporation
+Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Home/jre
+Client environment:java.class.path=/var/tmp/apache-maven-3.1.0/boot/plexus-classworlds-2.4.2.jar
+Client environment:java.library.path=/Users/davidmedinets/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Client environment:java.io.tmpdir=/var/folders/mm/jjvxhxr11nx9pxq0y9f322n80000gp/T/
+Client environment:java.compiler=<NA>
+Client environment:os.name=Mac OS X
+Client environment:os.arch=x86_64
+Client environment:os.version=10.7.5
+Client environment:user.name=davidmedinets
+Client environment:user.home=/Users/davidmedinets
+Client environment:user.dir=/Users/davidmedinets/NetBeansProjects/D4M_Schema/explorer
+Initiating client connection, connectString=affy-master:2181 sessionTimeout=30000 watcher=org.apache.accumulo.fate.zookeeper.ZooSession$ZooWatcher@7278a50f
+Opening socket connection to server affy-master/10.211.55.100:2181. Will not attempt to authenticate using SASL (unknown error)
+Socket connection established to affy-master/10.211.55.100:2181, initiating session
+Session establishment complete on server affy-master/10.211.55.100:2181, sessionid = 0x145fac929f90a95, negotiated timeout = 30000
+Mapped "{[/home/next],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.next(org.springframework.ui.Model)
+Mapped "{[/],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.root(org.springframework.ui.Model)
+Mapped "{[/home/previous],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.previous(org.springframework.ui.Model)
+Mapped "{[/home/last],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.last(org.springframework.ui.Model)
+Mapped "{[/home/{pageNumber}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.page(org.springframework.ui.Model,int)
+Mapped "{[/home/changePageSize],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.changePageSize(com.codebits.d4m.form.Pagination,org.springframework.ui.Model)
+Mapped "{[/home],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.home(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+Mapped URL path [/resources/**] onto handler 'org.springframework.web.servlet.resource.ResourceHttpRequestHandler#0'
+FrameworkServlet 'mvc-dispatcher': initialization completed in 1193 ms
+Unknown target VM 1.7 ignored.
+Unknown source VM 1.7 ignored.
+Closing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:36:57 EDT 2014]; parent: Root WebApplicationContext
+Closing Root WebApplicationContext: startup date [Wed May 14 12:36:56 EDT 2014]; root of context hierarchy
+Root WebApplicationContext: initialization started
+Refreshing Root WebApplicationContext: startup date [Wed May 14 12:39:49 EDT 2014]; root of context hierarchy
+Loading XML bean definitions from ServletContext resource [/WEB-INF/spring-security.xml]
+You are running with Spring Security Core 3.2.3.RELEASE
+Spring Security 'config' module version is 3.2.3.RELEASE
+No login page configured. The default internal one will be used. Use the 'login-page' attribute to set the URL of the login page.
+Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.session.ConcurrentSessionFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 300, Root bean: class [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 400, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1300, Root bean: class [org.springframework.security.web.authentication.www.BasicAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1500, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+Loading properties file from ServletContext resource [/WEB-INF/users.properties]
+Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@5cd974e0, org.springframework.security.web.session.ConcurrentSessionFilter@48884dbf, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6ca85bcc, org.springframework.security.web.authentication.logout.LogoutFilter@2122e5cf, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7a1d8a07, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@29511033, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@8fe9976, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@30d1697, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@50461511, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@29113843, org.springframework.security.web.session.SessionManagementFilter@2984cbc5, org.springframework.security.web.access.ExceptionTranslationFilter@4d5e07ce, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@58528d10]
+Checking whether login URL '/spring_security_login' is accessible with your configuration
+Root WebApplicationContext: initialization completed in 526 ms
+Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+FrameworkServlet 'mvc-dispatcher': initialization started
+Refreshing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:39:49 EDT 2014]; parent: Root WebApplicationContext
+Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-dispatcher-servlet.xml]
+Loading properties file from ServletContext resource [/WEB-INF/d4m.properties]
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+Client environment:zookeeper.version=3.4.5-1392090, built on 09/30/2012 17:52 GMT
+Client environment:host.name=10.211.55.1
+Client environment:java.version=1.7.0_55
+Client environment:java.vendor=Oracle Corporation
+Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Home/jre
+Client environment:java.class.path=/var/tmp/apache-maven-3.1.0/boot/plexus-classworlds-2.4.2.jar
+Client environment:java.library.path=/Users/davidmedinets/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Client environment:java.io.tmpdir=/var/folders/mm/jjvxhxr11nx9pxq0y9f322n80000gp/T/
+Client environment:java.compiler=<NA>
+Client environment:os.name=Mac OS X
+Client environment:os.arch=x86_64
+Client environment:os.version=10.7.5
+Client environment:user.name=davidmedinets
+Client environment:user.home=/Users/davidmedinets
+Client environment:user.dir=/Users/davidmedinets/NetBeansProjects/D4M_Schema/explorer
+Initiating client connection, connectString=affy-master:2181 sessionTimeout=30000 watcher=org.apache.accumulo.fate.zookeeper.ZooSession$ZooWatcher@3fcc8fc7
+Opening socket connection to server affy-master/10.211.55.100:2181. Will not attempt to authenticate using SASL (unknown error)
+Socket connection established to affy-master/10.211.55.100:2181, initiating session
+Session establishment complete on server affy-master/10.211.55.100:2181, sessionid = 0x145fac929f90ab8, negotiated timeout = 30000
+Mapped "{[/home/next],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.next(org.springframework.ui.Model)
+Mapped "{[/],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.root(org.springframework.ui.Model)
+Mapped "{[/home/previous],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.previous(org.springframework.ui.Model)
+Mapped "{[/home/last],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.last(org.springframework.ui.Model)
+Mapped "{[/home/{pageNumber}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.page(org.springframework.ui.Model,int)
+Mapped "{[/home],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.home(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+Mapped "{[/home/changePageSize],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.changePageSize(com.codebits.d4m.form.Pagination,org.springframework.ui.Model)
+Mapped URL path [/resources/**] onto handler 'org.springframework.web.servlet.resource.ResourceHttpRequestHandler#0'
+FrameworkServlet 'mvc-dispatcher': initialization completed in 1192 ms
+Unknown target VM 1.7 ignored.
+Unknown source VM 1.7 ignored.
+Closing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:39:49 EDT 2014]; parent: Root WebApplicationContext
+Closing Root WebApplicationContext: startup date [Wed May 14 12:39:49 EDT 2014]; root of context hierarchy
+Root WebApplicationContext: initialization started
+Refreshing Root WebApplicationContext: startup date [Wed May 14 12:41:43 EDT 2014]; root of context hierarchy
+Loading XML bean definitions from ServletContext resource [/WEB-INF/spring-security.xml]
+You are running with Spring Security Core 3.2.3.RELEASE
+Spring Security 'config' module version is 3.2.3.RELEASE
+No login page configured. The default internal one will be used. Use the 'login-page' attribute to set the URL of the login page.
+Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.session.ConcurrentSessionFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 300, Root bean: class [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 400, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1300, Root bean: class [org.springframework.security.web.authentication.www.BasicAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1500, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+Loading properties file from ServletContext resource [/WEB-INF/users.properties]
+Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@37e376ce, org.springframework.security.web.session.ConcurrentSessionFilter@368ceb0c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5d9b7cce, org.springframework.security.web.authentication.logout.LogoutFilter@b1ee865, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1a2b4497, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@ea422ed, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@39f0fd1d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7c7998a2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1313f386, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2d8ec33, org.springframework.security.web.session.SessionManagementFilter@6f7b09ba, org.springframework.security.web.access.ExceptionTranslationFilter@76bbcb83, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@232e425b]
+Checking whether login URL '/spring_security_login' is accessible with your configuration
+Root WebApplicationContext: initialization completed in 629 ms
+Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+FrameworkServlet 'mvc-dispatcher': initialization started
+Refreshing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:41:43 EDT 2014]; parent: Root WebApplicationContext
+Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-dispatcher-servlet.xml]
+Loading properties file from ServletContext resource [/WEB-INF/d4m.properties]
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+Client environment:zookeeper.version=3.4.5-1392090, built on 09/30/2012 17:52 GMT
+Client environment:host.name=10.211.55.1
+Client environment:java.version=1.7.0_55
+Client environment:java.vendor=Oracle Corporation
+Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Home/jre
+Client environment:java.class.path=/var/tmp/apache-maven-3.1.0/boot/plexus-classworlds-2.4.2.jar
+Client environment:java.library.path=/Users/davidmedinets/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Client environment:java.io.tmpdir=/var/folders/mm/jjvxhxr11nx9pxq0y9f322n80000gp/T/
+Client environment:java.compiler=<NA>
+Client environment:os.name=Mac OS X
+Client environment:os.arch=x86_64
+Client environment:os.version=10.7.5
+Client environment:user.name=davidmedinets
+Client environment:user.home=/Users/davidmedinets
+Client environment:user.dir=/Users/davidmedinets/NetBeansProjects/D4M_Schema/explorer
+Initiating client connection, connectString=affy-master:2181 sessionTimeout=30000 watcher=org.apache.accumulo.fate.zookeeper.ZooSession$ZooWatcher@e16c1a6
+Opening socket connection to server affy-master/10.211.55.100:2181. Will not attempt to authenticate using SASL (unknown error)
+Socket connection established to affy-master/10.211.55.100:2181, initiating session
+Session establishment complete on server affy-master/10.211.55.100:2181, sessionid = 0x145fac929f90ad0, negotiated timeout = 30000
+Mapped "{[/home/next],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.next(org.springframework.ui.Model)
+Mapped "{[/],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.root(org.springframework.ui.Model)
+Mapped "{[/home/previous],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.previous(org.springframework.ui.Model)
+Mapped "{[/home/last],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.last(org.springframework.ui.Model)
+Mapped "{[/home/{pageNumber}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.page(org.springframework.ui.Model,int)
+Mapped "{[/home/changePageSize],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.changePaginationInfo(com.codebits.d4m.form.Pagination,org.springframework.ui.Model)
+Mapped "{[/home],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.home(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+Mapped URL path [/resources/**] onto handler 'org.springframework.web.servlet.resource.ResourceHttpRequestHandler#0'
+FrameworkServlet 'mvc-dispatcher': initialization completed in 948 ms
+Unknown target VM 1.7 ignored.
+Unknown source VM 1.7 ignored.
+Closing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:41:43 EDT 2014]; parent: Root WebApplicationContext
+Closing Root WebApplicationContext: startup date [Wed May 14 12:41:43 EDT 2014]; root of context hierarchy
+Root WebApplicationContext: initialization started
+Refreshing Root WebApplicationContext: startup date [Wed May 14 12:42:54 EDT 2014]; root of context hierarchy
+Loading XML bean definitions from ServletContext resource [/WEB-INF/spring-security.xml]
+You are running with Spring Security Core 3.2.3.RELEASE
+Spring Security 'config' module version is 3.2.3.RELEASE
+No login page configured. The default internal one will be used. Use the 'login-page' attribute to set the URL of the login page.
+Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.session.ConcurrentSessionFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 300, Root bean: class [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 400, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1300, Root bean: class [org.springframework.security.web.authentication.www.BasicAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1500, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+Loading properties file from ServletContext resource [/WEB-INF/users.properties]
+Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@2fba7d7b, org.springframework.security.web.session.ConcurrentSessionFilter@7c842eb7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4a17303e, org.springframework.security.web.authentication.logout.LogoutFilter@38605c72, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3e555d48, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@565f41f0, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7e21fdd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@e99ea36, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1adf86b7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@49056629, org.springframework.security.web.session.SessionManagementFilter@1763333, org.springframework.security.web.access.ExceptionTranslationFilter@771b5a04, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@24b2f9b3]
+Checking whether login URL '/spring_security_login' is accessible with your configuration
+Root WebApplicationContext: initialization completed in 564 ms
+Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+FrameworkServlet 'mvc-dispatcher': initialization started
+Refreshing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:42:55 EDT 2014]; parent: Root WebApplicationContext
+Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-dispatcher-servlet.xml]
+Loading properties file from ServletContext resource [/WEB-INF/d4m.properties]
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+Client environment:zookeeper.version=3.4.5-1392090, built on 09/30/2012 17:52 GMT
+Client environment:host.name=10.211.55.1
+Client environment:java.version=1.7.0_55
+Client environment:java.vendor=Oracle Corporation
+Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Home/jre
+Client environment:java.class.path=/var/tmp/apache-maven-3.1.0/boot/plexus-classworlds-2.4.2.jar
+Client environment:java.library.path=/Users/davidmedinets/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Client environment:java.io.tmpdir=/var/folders/mm/jjvxhxr11nx9pxq0y9f322n80000gp/T/
+Client environment:java.compiler=<NA>
+Client environment:os.name=Mac OS X
+Client environment:os.arch=x86_64
+Client environment:os.version=10.7.5
+Client environment:user.name=davidmedinets
+Client environment:user.home=/Users/davidmedinets
+Client environment:user.dir=/Users/davidmedinets/NetBeansProjects/D4M_Schema/explorer
+Initiating client connection, connectString=affy-master:2181 sessionTimeout=30000 watcher=org.apache.accumulo.fate.zookeeper.ZooSession$ZooWatcher@60557564
+Opening socket connection to server affy-master/10.211.55.100:2181. Will not attempt to authenticate using SASL (unknown error)
+Socket connection established to affy-master/10.211.55.100:2181, initiating session
+Session establishment complete on server affy-master/10.211.55.100:2181, sessionid = 0x145fac929f90adf, negotiated timeout = 30000
+Mapped "{[/home/next],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.next(org.springframework.ui.Model)
+Mapped "{[/],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.root(org.springframework.ui.Model)
+Mapped "{[/home/previous],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.previous(org.springframework.ui.Model)
+Mapped "{[/home/last],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.last(org.springframework.ui.Model)
+Mapped "{[/home/{pageNumber}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.page(org.springframework.ui.Model,int)
+Mapped "{[/home],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.home(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+Mapped "{[/home/changePageSize],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.changePaginationInfo(com.codebits.d4m.form.Pagination,org.springframework.ui.Model)
+Mapped URL path [/resources/**] onto handler 'org.springframework.web.servlet.resource.ResourceHttpRequestHandler#0'
+FrameworkServlet 'mvc-dispatcher': initialization completed in 1089 ms
+Unknown target VM 1.7 ignored.
+Unknown source VM 1.7 ignored.
+Closing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:42:55 EDT 2014]; parent: Root WebApplicationContext
+Closing Root WebApplicationContext: startup date [Wed May 14 12:42:54 EDT 2014]; root of context hierarchy
+Root WebApplicationContext: initialization started
+Refreshing Root WebApplicationContext: startup date [Wed May 14 12:45:19 EDT 2014]; root of context hierarchy
+Loading XML bean definitions from ServletContext resource [/WEB-INF/spring-security.xml]
+You are running with Spring Security Core 3.2.3.RELEASE
+Spring Security 'config' module version is 3.2.3.RELEASE
+No login page configured. The default internal one will be used. Use the 'login-page' attribute to set the URL of the login page.
+Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.session.ConcurrentSessionFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 300, Root bean: class [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 400, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1300, Root bean: class [org.springframework.security.web.authentication.www.BasicAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1500, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+Loading properties file from ServletContext resource [/WEB-INF/users.properties]
+Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@4637e75a, org.springframework.security.web.session.ConcurrentSessionFilter@35e9ba, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5383b271, org.springframework.security.web.authentication.logout.LogoutFilter@6b38438c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3adad352, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7467caad, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@4a2b5f8f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@658ecb53, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1c6ea3c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2a3c0a0d, org.springframework.security.web.session.SessionManagementFilter@4bb7f124, org.springframework.security.web.access.ExceptionTranslationFilter@19389952, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@52d9e36d]
+Checking whether login URL '/spring_security_login' is accessible with your configuration
+Root WebApplicationContext: initialization completed in 607 ms
+Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+FrameworkServlet 'mvc-dispatcher': initialization started
+Refreshing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:45:19 EDT 2014]; parent: Root WebApplicationContext
+Loading XML bean definitions from ServletContext resource [/WEB-INF/mvc-dispatcher-servlet.xml]
+Loading properties file from ServletContext resource [/WEB-INF/d4m.properties]
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+Client environment:zookeeper.version=3.4.5-1392090, built on 09/30/2012 17:52 GMT
+Client environment:host.name=10.211.55.1
+Client environment:java.version=1.7.0_55
+Client environment:java.vendor=Oracle Corporation
+Client environment:java.home=/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Home/jre
+Client environment:java.class.path=/var/tmp/apache-maven-3.1.0/boot/plexus-classworlds-2.4.2.jar
+Client environment:java.library.path=/Users/davidmedinets/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+Client environment:java.io.tmpdir=/var/folders/mm/jjvxhxr11nx9pxq0y9f322n80000gp/T/
+Client environment:java.compiler=<NA>
+Client environment:os.name=Mac OS X
+Client environment:os.arch=x86_64
+Client environment:os.version=10.7.5
+Client environment:user.name=davidmedinets
+Client environment:user.home=/Users/davidmedinets
+Client environment:user.dir=/Users/davidmedinets/NetBeansProjects/D4M_Schema/explorer
+Initiating client connection, connectString=affy-master:2181 sessionTimeout=30000 watcher=org.apache.accumulo.fate.zookeeper.ZooSession$ZooWatcher@4843d67e
+Opening socket connection to server affy-master/10.211.55.100:2181. Will not attempt to authenticate using SASL (unknown error)
+Socket connection established to affy-master/10.211.55.100:2181, initiating session
+Session establishment complete on server affy-master/10.211.55.100:2181, sessionid = 0x145fac929f90afd, negotiated timeout = 30000
+Mapped "{[/home/changePageSize],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.changePaginationInfo(com.codebits.d4m.form.Pagination,org.springframework.ui.Model)
+Mapped "{[/home],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.home(org.springframework.ui.Model,javax.servlet.http.HttpSession)
+Mapped "{[/home/next],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.next(org.springframework.ui.Model)
+Mapped "{[/],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.root(org.springframework.ui.Model)
+Mapped "{[/home/previous],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.previous(org.springframework.ui.Model)
+Mapped "{[/home/last],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.last(org.springframework.ui.Model)
+Mapped "{[/home/{pageNumber}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.codebits.d4m.controller.HomeController.page(org.springframework.ui.Model,int)
+Mapped URL path [/resources/**] onto handler 'org.springframework.web.servlet.resource.ResourceHttpRequestHandler#0'
+FrameworkServlet 'mvc-dispatcher': initialization completed in 1179 ms
+Unknown target VM 1.7 ignored.
+Unknown source VM 1.7 ignored.
+Closing WebApplicationContext for namespace 'mvc-dispatcher-servlet': startup date [Wed May 14 12:45:19 EDT 2014]; parent: Root WebApplicationContext
+Closing Root WebApplicationContext: startup date [Wed May 14 12:45:19 EDT 2014]; root of context hierarchy

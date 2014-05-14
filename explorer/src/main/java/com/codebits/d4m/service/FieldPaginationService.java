@@ -1,6 +1,7 @@
 package com.codebits.d4m.service;
 
 import com.codebits.d4m.TableManager;
+import com.codebits.d4m.model.FieldPageInfo;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -109,8 +110,8 @@ public class FieldPaginationService {
      * [fieldName] |    |    | [count]
      * 
      */
-    public SortedSet<String> getPage(Set<String> flags, final String firstFieldOnPage, final int pageSize, final boolean startRowInclusive) {
-        final SortedSet<String> rv = new TreeSet<>();
+    public SortedSet<FieldPageInfo> getPage(Set<String> flags, final String firstFieldOnPage, final int pageSize, final boolean startRowInclusive) {
+        final SortedSet<FieldPageInfo> rv = new TreeSet<>();
         Connector connector = accumuloService.getConnector();
         final String tableName = tableManager.getFieldTable();
         
@@ -128,7 +129,12 @@ public class FieldPaginationService {
         Iterator<Map.Entry<Key, Value>> iterator = scan.iterator();
         while (iterator.hasNext()) {
             Map.Entry<Key, Value> entry = iterator.next();
-            rv.add(entry.getKey().getRow().toString());
+            
+            FieldPageInfo fieldPageInfo = new FieldPageInfo();
+            fieldPageInfo.setFieldName(entry.getKey().getRow().toString());
+            fieldPageInfo.setEntryCount(Integer.valueOf(entry.getValue().toString()));
+            fieldPageInfo.setTimestamp(entry.getKey().getTimestamp());
+            rv.add(fieldPageInfo);
             fieldCount++;
             if (fieldCount >= pageSize) {
                 break;

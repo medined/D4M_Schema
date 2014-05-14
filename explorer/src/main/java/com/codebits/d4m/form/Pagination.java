@@ -9,6 +9,11 @@ public class Pagination {
         return pageSize;
     }
 
+    @Override
+    public String toString() {
+        return "Pagination{" + "pageSize=" + pageSize + ", pageNumber=" + pageNumber + '}';
+    }
+
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }

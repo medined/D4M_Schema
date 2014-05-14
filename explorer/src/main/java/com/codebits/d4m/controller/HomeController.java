@@ -1,6 +1,7 @@
 package com.codebits.d4m.controller;
 
 import com.codebits.d4m.form.Pagination;
+import com.codebits.d4m.model.FieldPageInfo;
 import com.codebits.d4m.model.UserPreferences;
 import com.codebits.d4m.service.FieldPaginationService;
 import java.util.HashSet;
@@ -29,10 +30,16 @@ public class HomeController {
     private FieldPaginationService fieldPaginationService = null;
 
     @RequestMapping(value = "/home/changePageSize", method = RequestMethod.POST)
-    public String changePageSize(@ModelAttribute("changePageSize") Pagination form, Model model) {
-        preferences.setPageSize(form.getPageSize());
-        preferences.setPageNumber(1);
-        return "redirect:/home";
+    public String changePaginationInfo(@ModelAttribute("pagination") Pagination form, Model model) {
+        if (form.getPageSize() != preferences.getPageSize()) {
+            preferences.setPageSize(form.getPageSize());
+            preferences.setPageNumber(1);
+        } else {
+            preferences.setPageNumber(form.getPageNumber());
+        }
+        String firstFieldName = fieldPaginationService.getFirstFieldNameOnPage(preferences.getPageNumber(), preferences.getPageSize());
+        fetchFields(model, firstFieldName, true);
+        return "home";
     }
 
     @RequestMapping(value = "/home/{pageNumber}", method = RequestMethod.GET)
@@ -61,7 +68,7 @@ public class HomeController {
 
     @RequestMapping(value = "/home/next", method = RequestMethod.GET)
     public String next(Model model) {
-        SortedSet<String> fields = fetchFields(model, preferences.getLastFieldOnPage(), false);
+        SortedSet<FieldPageInfo> fields = fetchFields(model, preferences.getLastFieldOnPage(), false);
 
         // get the first field on the next page.
         int numPages = fieldPaginationService.getNumberOfPages(preferences.getPageSize());
@@ -70,7 +77,7 @@ public class HomeController {
 
         // if the last field in the fields to be displayed 'larger' than the 
         // first field on the next page, then increment page number.
-        if (fields.last().compareTo(firstFieldName) >= 0) {
+        if (fields.last().getFieldName().compareTo(firstFieldName) >= 0) {
             preferences.setPageNumber(nextPageNumber);
         }
 
@@ -87,7 +94,7 @@ public class HomeController {
     
     private static final int NUMBER_OF_PAGES_IN_PAGINATION = 6;
 
-    private SortedSet<String> fetchFields(final Model model, final String firstFieldName, final boolean startRowInclusive) {
+    private SortedSet<FieldPageInfo> fetchFields(final Model model, final String firstFieldName, final boolean startRowInclusive) {
         Set<String> flags = new HashSet<>();
 
         int numPages = fieldPaginationService.getNumberOfPages(preferences.getPageSize());
@@ -113,14 +120,14 @@ public class HomeController {
         Set<Integer> pageSizes = fieldPaginationService.getPageSizeOptions();
         model.addAttribute("pageSizes", pageSizes);
 
-        SortedSet<String> fields = fieldPaginationService.getPage(flags, firstFieldName, preferences.getPageSize(), startRowInclusive);
-        model.addAttribute("fields", fields);
-        model.addAttribute("firstFieldName", fields.first());
-        model.addAttribute("lastFieldName", fields.last());
+        SortedSet<FieldPageInfo> fieldPageInfoSet = fieldPaginationService.getPage(flags, firstFieldName, preferences.getPageSize(), startRowInclusive);
+        model.addAttribute("fieldPageInfoSet", fieldPageInfoSet);
+        model.addAttribute("firstFieldName", fieldPageInfoSet.first().getFieldName());
+        model.addAttribute("lastFieldName", fieldPageInfoSet.last().getFieldName());
         model.addAttribute("endOfTable", flags.contains(FieldPaginationService.END_OF_TABLE));
-        preferences.setLastFieldOnPage(fields.last());
+        preferences.setLastFieldOnPage(fieldPageInfoSet.last().getFieldName());
 
-        return fields;
+        return fieldPageInfoSet;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

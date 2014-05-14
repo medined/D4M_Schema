@@ -168,16 +168,12 @@ body {
     <table cellspacing="3" cellpadding="3" border="1">
         <tr>
             <th style="width: 200px;">Name</th>
-            <!--
             <th>Count</th>
-            -->
         </tr>
-        <c:forEach items="${fields}" var="fieldName">
+        <c:forEach items="${fieldPageInfoSet}" var="fieldInfo">
             <tr>
-                <td><c:out value='${fieldName}' /></td>
-                <!--
-                <td align="right"><fmt:formatNumber value="${column.value}" /></td>
-                -->
+                <td><c:out value='${fieldInfo.fieldName}' /></td>
+                <td align="right"><fmt:formatNumber value="${fieldInfo.entryCount}" /></td>
             </tr>
         </c:forEach>
     </table>
