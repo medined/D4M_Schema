@@ -1,5 +1,7 @@
-[![Build Status](https://travis-ci.org/medined/D4M_Schema.svg?branch=master)](https://travis-ci.org/medined/D4M_Schema)<br/>
-[![Coverage Status](https://coveralls.io/repos/medined/D4M_Schema/badge.png?branch=master)](https://coveralls.io/r/medined/D4M_Schema?branch=master)<br/>
+[![Build Status](https://travis-ci.org/medined/D4M_Schema.svg?branch=master)](https://travis-ci.org/medined/D4M_Schema)
+<br/>
+[![Coverage Status](https://coveralls.io/repos/medined/D4M_Schema/badge.png?branch=master)](https://coveralls.io/r/medined/D4M_Schema?branch=master) - huh? Why did this break?
+<br/>
 
 Check the wiki at <a target='_blank' href='https://github.com/medined/D4M_Schema/wiki'>https://github.com/medined/D4M_Schema/wiki</a>.
 
@@ -11,6 +13,8 @@ knock down Data Silos and pool data together into a Data Lake. Most  are short
 on specifics. In this project, I'll use D4M (http:/d4m.mit.edu/) to fill in 
 some blanks. Hopefully, you'll find some ideas here you haven't seen before 
 and you'll get inspired to knock down some of your own Data Silos. It can done!
+
+>D4M uses a Schema on Read philosophy. Check out <a target='_blank'  href='http://ibmdatamag.com/2013/05/why-is-schema-on-read-so-useful/'>Why is Schema on Read So Useful?</a> for background information.
 
 [Getting Started](docs/getting_started.md)
 
