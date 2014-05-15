@@ -10,3 +10,5 @@ d4m-docs
 examples
 matlab_src
 explorer/logs
+
+*.versionsBackup
