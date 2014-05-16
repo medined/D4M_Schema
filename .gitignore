@@ -5,10 +5,5 @@ src/main/resources/d4m.properties.bah
 .vagrant
 rfiles
 data/11zpallagi.csv
-TEST
-d4m-docs
-examples
-matlab_src
 explorer/logs
-
 *.versionsBackup
