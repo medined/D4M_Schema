@@ -28,7 +28,10 @@ public class SOICSVToAccumulo {
 
     public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException {
         SOICSVToAccumulo driver = new SOICSVToAccumulo();
-        driver.process("data/11zpallagi.csv");
+        driver.process("../data/11zpallagi.csv");
+
+        FieldPaginationDriver fieldPaginationDriver = new FieldPaginationDriver();
+        fieldPaginationDriver.process();
     }
 
     void process(final String csvFile) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, IOException {

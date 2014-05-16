@@ -23,7 +23,10 @@ public class StateCSVToAccumulo {
 
     public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException {
         StateCSVToAccumulo driver = new StateCSVToAccumulo();
-        driver.process("data/SUB-EST2012_1.csv");
+        driver.process("../data/SUB-EST2012_1.csv");
+
+        FieldPaginationDriver fieldPaginationDriver = new FieldPaginationDriver();
+        fieldPaginationDriver.process();
     }
 
     void process(final String csvFile) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, IOException {
