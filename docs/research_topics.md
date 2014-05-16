@@ -1,5 +1,12 @@
 # Research Topics
 
+## Enigma
+
+https://app.enigma.io
+
+Review user interface. Note how the elipsis near the column name provides
+summary information (sum, avg, etc.)
+
 ## Anscombe's quartet
 
 > How can this concept be used to get a feel for the data?
