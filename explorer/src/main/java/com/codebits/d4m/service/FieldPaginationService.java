@@ -121,9 +121,12 @@ public class FieldPaginationService {
         } catch (TableNotFoundException e) {
             throw new RuntimeException(String.format("Error getting scanning table [%s].", tableName), e);
         }
-        Text row = new Text(firstFieldOnPage);
         scan.setBatchSize(pageSize);
-        scan.setRange(new Range(row, startRowInclusive, null, true));
+
+        if (firstFieldOnPage != null) {
+            Text row = new Text(firstFieldOnPage);
+            scan.setRange(new Range(row, startRowInclusive, null, true));
+        }
         
         int fieldCount = 0;
         Iterator<Map.Entry<Key, Value>> iterator = scan.iterator();

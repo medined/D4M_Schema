@@ -115,7 +115,7 @@ public class HomeController {
                 startPage -= (NUMBER_OF_PAGES_IN_PAGINATION - (endPage - startPage));
             }
         }
-        for (int i = startPage; i < endPage; i++) {
+        for (int i = startPage; i <= endPage; i++) {
             pageList.add(i);
         }
         model.addAttribute("pageList", pageList);
