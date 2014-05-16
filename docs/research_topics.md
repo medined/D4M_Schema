@@ -1,5 +1,11 @@
 # Research Topics
 
+>These topics are not ordered.
+
+## Reverse Sort for Pagination to Previous Pages
+
+http://affy.blogspot.com/2012/11/how-can-i-use-reverse-sort-on-generic.html
+
 ## Enigma
 
 https://app.enigma.io
@@ -18,4 +24,16 @@ statistical properties, yet appear very different when graphed. Each dataset
 consists of eleven (x,y) points. They were constructed in 1973 by the 
 statistician Francis Anscombe to demonstrate both the importance of graphing 
 data before analyzing it and the effect of outliers on statistical properties.
+
+## Cytoscape
+
+http://www.cytoscape.org/what_is_cytoscape.html
+
+## Stream Lib
+
+https://github.com/addthis/stream-lib
+
+Stream summarizer and cardinality estimator.
+
+## https://github.com/aggregateknowledge/java-hll
 
