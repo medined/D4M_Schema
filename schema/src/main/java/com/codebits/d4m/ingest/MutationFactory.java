@@ -27,36 +27,41 @@ public class MutationFactory {
     private static final String FIELD_NAMES_ERROR = "Please supply Field names.";
     private static final String FIELD_VALUES_ERROR = "Please supply Field values.";
     private static final String DIFFERING_LENGTH_ERROR = "Field names and Field Values arrays should have the same length.";
-    
+
     private static final Value one = new Value("1".getBytes());
-    private static final Text emptyCF= new Text("");
+    private static final Text emptyCF = new Text("");
     private static final Text degree = new Text("degree");
     private static final Text field = new Text("field");
     private static final Text rawData = new Text("RawData");
-    
+
     private String fieldDelimiter = "\t";
     private String factDelimiter = "|";
-    
-    // TODO: pull d4msha1 automatically for edges.
 
+    // TODO: pull d4msha1 automatically for edges.
     private void checkParameters(String row, String[] fieldNames, String[] fieldValues) {
         Validate.notNull(row, ROW_VALUE_ERROR);
         Validate.notEmpty(row, ROW_VALUE_ERROR);
 
         Validate.notNull(fieldNames, FIELD_NAMES_ERROR);
         Validate.notEmpty(fieldNames, FIELD_NAMES_ERROR);
-        
+
         Validate.notNull(fieldValues, FIELD_VALUES_ERROR);
         Validate.notEmpty(fieldValues, FIELD_VALUES_ERROR);
-        
+
         if (fieldNames.length != fieldValues.length) {
             throw new IllegalArgumentException(DIFFERING_LENGTH_ERROR);
         }
     }
-    
+
+    public Mutation generateEdges(String row, List<String> fieldNames, List<String> fieldValues) {
+        String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
+        String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
+        return generateEdges(row, fieldNameArray, fieldValueArray);
+    }
+
     public Mutation generateEdges(String row, String[] fieldNames, String[] fieldValues) {
         checkParameters(row, fieldNames, fieldValues);
-        
+
         Mutation tEdge = new Mutation(new Text(row));
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
             if ("d4msha1".equals(fieldNames[nameIndex])) {
@@ -69,9 +74,15 @@ public class MutationFactory {
         return tEdge;
     }
 
+    public List<Mutation> generateTranspose(String row, List<String> fieldNames, List<String> fieldValues) {
+        String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
+        String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
+        return generateTranspose(row, fieldNameArray, fieldValueArray);
+    }
+
     public List<Mutation> generateTranspose(String row, String[] fieldNames, String[] fieldValues) {
         checkParameters(row, fieldNames, fieldValues);
-        
+
         List<Mutation> mutations = new ArrayList<Mutation>();
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
             if ("d4msha1".equals(fieldNames[nameIndex])) {
@@ -86,9 +97,15 @@ public class MutationFactory {
         return mutations;
     }
 
+    public List<Mutation> generateDegree(String row, List<String> fieldNames, List<String> fieldValues) {
+        String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
+        String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
+        return generateDegree(row, fieldNameArray, fieldValueArray);
+    }
+
     public List<Mutation> generateDegree(String row, String[] fieldNames, String[] fieldValues) {
         checkParameters(row, fieldNames, fieldValues);
-        
+
         Map<String, Integer> degrees = new HashMap<String, Integer>();
         for (int i = 0; i < fieldValues.length; i++) {
             if (!fieldValues[i].isEmpty() && !"d4msha1".equals(fieldNames[i])) {
@@ -113,9 +130,15 @@ public class MutationFactory {
         return mutations;
     }
 
+    public List<Mutation> generateField(String row, List<String> fieldNames, List<String> fieldValues) {
+        String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
+        String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
+        return generateField(row, fieldNameArray, fieldValueArray);
+    }
+
     public List<Mutation> generateField(String row, String[] fieldNames, String[] fieldValues) {
         checkParameters(row, fieldNames, fieldValues);
-        
+
         Map<String, Integer> fields = new HashMap<String, Integer>();
         for (int i = 0; i < fieldValues.length; i++) {
             if (!fieldValues[i].isEmpty() && !"d4msha1".equals(fieldNames[i])) {
@@ -139,9 +162,20 @@ public class MutationFactory {
         return mutations;
     }
 
+    public Mutation generateText(String row, String text) {
+        Validate.notNull(row, ROW_VALUE_ERROR);
+        Validate.notEmpty(row, ROW_VALUE_ERROR);
+        Validate.notNull(text, ROW_VALUE_ERROR);
+        Validate.notEmpty(text, ROW_VALUE_ERROR);
+
+        Mutation mutation = new Mutation(new Text(row));
+        mutation.put(emptyCF, rawData, new Value(text.getBytes()));
+        return mutation;
+    }
+
     public Mutation generateText(String row, String[] fieldNames, String[] fieldValues) {
         checkParameters(row, fieldNames, fieldValues);
-        
+
         boolean addFieldDelimiter = false;
         StringBuilder value = new StringBuilder();
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
