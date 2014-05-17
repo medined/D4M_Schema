@@ -13,6 +13,7 @@ import org.apache.accumulo.core.client.AccumuloException;
 import org.apache.accumulo.core.client.AccumuloSecurityException;
 import org.apache.accumulo.core.client.BatchWriter;
 import org.apache.accumulo.core.client.Connector;
+import org.apache.accumulo.core.client.TableExistsException;
 import org.apache.accumulo.core.client.TableNotFoundException;
 import org.apache.accumulo.core.client.ZooKeeperInstance;
 import org.apache.accumulo.core.data.Mutation;
@@ -21,7 +22,7 @@ public class StateCSVToAccumulo {
 
     //private static final Logger log = Logger.getLogger(WriteMultipleExplodedRecords.class);
 
-    public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException {
+    public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException, TableExistsException {
         StateCSVToAccumulo driver = new StateCSVToAccumulo();
         driver.process("../data/SUB-EST2012_1.csv");
 
@@ -29,7 +30,7 @@ public class StateCSVToAccumulo {
         fieldPaginationDriver.process();
     }
 
-    void process(final String csvFile) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, IOException {
+    void process(final String csvFile) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, IOException, TableExistsException {
         PropertyManager propertyManager = new PropertyManager();
         propertyManager.setPropertyFilename("d4m.properties");
         Properties properties = propertyManager.load();
@@ -38,7 +39,7 @@ public class StateCSVToAccumulo {
         String zooKeepers = properties.getProperty("accumulo.zookeeper.ensemble");
         String user = properties.getProperty("accumulo.user");
         byte[] pass = properties.getProperty("accumulo.password").getBytes();
-
+        
         CsvReader reader = new CsvReader();
         reader.setLowercaseFieldnames();
         reader.setSha1();
@@ -56,6 +57,8 @@ public class StateCSVToAccumulo {
         Connector connector = instance.getConnector(user, pass);
 
         TableManager tableManager = new TableManager(connector.tableOperations());
+        tableManager.setSha1();
+        tableManager.createTables();
 
         MutationFactory factory = new MutationFactory();
 
