@@ -64,9 +64,7 @@ public class MutationFactory {
 
         Mutation tEdge = new Mutation(new Text(row));
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
-            if ("d4msha1".equals(fieldNames[nameIndex])) {
-                // Do not store the row key in the edge table to avoid duplication.
-            } else {
+            if (false == "d4msha1".equals(fieldNames[nameIndex])) {
                 Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
                 tEdge.put(emptyCF, fact, one);
             }
@@ -85,9 +83,7 @@ public class MutationFactory {
 
         List<Mutation> mutations = new ArrayList<Mutation>();
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
-            if ("d4msha1".equals(fieldNames[nameIndex])) {
-                // Do not store the row key in the edge table to avoid duplication.
-            } else {
+            if (false == "d4msha1".equals(fieldNames[nameIndex])) {
                 Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
                 Mutation transpose = new Mutation(new Text(fact));
                 transpose.put(emptyCF, new Text(row), one);
@@ -179,10 +175,8 @@ public class MutationFactory {
         boolean addFieldDelimiter = false;
         StringBuilder value = new StringBuilder();
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
-            if ("d4msha1".equals(fieldNames[nameIndex])) {
-                // Do not store the row key in the edge table to avoid duplication.
-            } else {
-                Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
+             if (false == "d4msha1".equals(fieldNames[nameIndex])) {
+               Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
                 if (addFieldDelimiter) {
                     value.append(getFieldDelimiter());
                 } else {

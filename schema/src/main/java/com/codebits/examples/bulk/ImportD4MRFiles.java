@@ -2,6 +2,7 @@ package com.codebits.examples.bulk;
 
 import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
+import com.codebits.hadoop.util.CreateOrReplaceHadoopDirectory;
 import java.io.IOException;
 import java.util.Properties;
 import org.apache.accumulo.core.client.AccumuloException;
@@ -14,8 +15,6 @@ import org.apache.accumulo.core.client.admin.TableOperations;
 import org.apache.accumulo.core.util.CachedConfiguration;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.security.AccessControlException;
 
 public class ImportD4MRFiles {
 
@@ -41,16 +40,7 @@ public class ImportD4MRFiles {
 
         FileSystem fs = FileSystem.get(conf);
 
-        try {
-            fs.delete(new Path(failure), true);
-        } catch (AccessControlException e) {
-            // ignore.
-        }
-        try {
-            fs.mkdirs(new Path(failure));
-        } catch (AccessControlException e) {
-            throw new RuntimeException("Please fix the permissions. Perhaps create parent directories?", e);
-        }
+        new CreateOrReplaceHadoopDirectory().mkdirs(fs, failure);
 
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);

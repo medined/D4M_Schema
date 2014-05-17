@@ -54,9 +54,8 @@ public class KeyFactory {
         Map<Key, Value> entries = new TreeMap<Key, Value>();
         Text tRow = new Text(row);
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
-            if ("d4msha1".equals(fieldNames[nameIndex])) {
-                // Do not store the row key in the edge table to avoid duplication.
-            } else {
+
+            if (false == "d4msha1".equals(fieldNames[nameIndex])) {
                 Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
                 if (underTest) {
                     key = new Key(tRow, emptyCF, fact, 0);
@@ -73,9 +72,8 @@ public class KeyFactory {
         checkParameters(row, fieldNames, fieldValues);
         Map<Key, Value> entries = new TreeMap<Key, Value>();
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
-            if ("d4msha1".equals(fieldNames[nameIndex])) {
-                // Do not store the row key in the edge table to avoid duplication.
-            } else {
+
+            if (false == "d4msha1".equals(fieldNames[nameIndex])) {
                 Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
                 if (underTest) {
                     key = new Key(new Text(fact), emptyCF, new Text(row), 0);
@@ -155,9 +153,7 @@ public class KeyFactory {
         boolean addFieldDelimiter = false;
         StringBuilder value = new StringBuilder();
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
-            if ("d4msha1".equals(fieldNames[nameIndex])) {
-                // Do not store the row key in the edge table to avoid duplication.
-            } else {
+            if (false == "d4msha1".equals(fieldNames[nameIndex])) {
                 Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
                 if (addFieldDelimiter) {
                     value.append(getFieldDelimiter());

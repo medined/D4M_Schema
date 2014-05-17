@@ -1,20 +1,15 @@
 package com.codebits.examples.bulk;
 
 import com.codebits.d4m.PropertyManager;
+import com.codebits.hadoop.util.CreateOrReplaceHadoopDirectory;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Properties;
 import org.apache.accumulo.core.conf.AccumuloConfiguration;
-import org.apache.accumulo.core.data.Key;
-import org.apache.accumulo.core.data.Value;
 import org.apache.accumulo.core.file.FileSKVWriter;
 import org.apache.accumulo.core.file.rfile.RFileOperations;
-import org.apache.accumulo.core.security.ColumnVisibility;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.Text;
-import org.apache.hadoop.security.AccessControlException;
 
 public class CreateEmptyRFile {
     
@@ -33,16 +28,7 @@ public class CreateEmptyRFile {
 
         String input = hadoopUserHomeDirectory + "/rfiles";
         
-        try {
-            fs.delete(new Path(input), true);
-        } catch (AccessControlException e) {
-            // ignore
-        }
-        try {
-            fs.mkdirs(new Path(input));
-        } catch (AccessControlException e) {
-            throw new RuntimeException("Please fix the permissions. Perhaps create parent directories?", e);
-        }
+        new CreateOrReplaceHadoopDirectory().mkdirs(fs, input);
 
         String filename = input + "/emptyFile.rf";
         Path file = new Path(filename);

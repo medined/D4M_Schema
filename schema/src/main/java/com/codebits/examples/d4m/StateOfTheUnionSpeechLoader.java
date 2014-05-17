@@ -15,8 +15,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import org.apache.accumulo.core.client.AccumuloException;
@@ -82,8 +80,7 @@ public class StateOfTheUnionSpeechLoader {
                 if (!fileName.endsWith("/")) {
 
                     StringBuilder buffer = new StringBuilder();
-                    int len;
-                    while ((len = zipInputStream.read(lineBuffer)) > 0) {
+                    while ((zipInputStream.read(lineBuffer)) > 0) {
                         buffer.append(new String(lineBuffer));
                     }
                     String text = buffer.toString();

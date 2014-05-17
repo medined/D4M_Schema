@@ -3,6 +3,7 @@ package com.codebits.examples.bulk;
 import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
 import com.codebits.d4m.ingest.KeyFactory;
+import com.codebits.hadoop.util.CreateOrReplaceHadoopDirectory;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,10 +19,8 @@ import org.apache.accumulo.core.file.FileSKVWriter;
 import org.apache.accumulo.core.file.rfile.RFileOperations;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.security.AccessControlException;
 
-
+@SuppressWarnings("PMD.EmptyCatchBlock")
 public class RecordToRFile {
 
     Configuration configuration = null;
@@ -65,16 +64,7 @@ public class RecordToRFile {
 
         input = hadoopUserHomeDirectory + "/rfiles";
 
-        try {
-            fileSystem.delete(new Path(input), true);
-        } catch (AccessControlException e) {
-            // ignore
-        }
-        try {
-            fileSystem.mkdirs(new Path(input));
-        } catch (AccessControlException e) {
-            throw new RuntimeException("Please fix the permissions. Perhaps create parent directories?", e);
-        }
+        new CreateOrReplaceHadoopDirectory().mkdirs(fileSystem, input);
 
         defaultConfiguration = AccumuloConfiguration.getDefaultConfiguration();
 
