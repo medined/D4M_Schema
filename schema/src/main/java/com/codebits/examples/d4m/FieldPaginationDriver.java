@@ -4,6 +4,7 @@ import com.codebits.d4m.FieldPaginationPrecomputor;
 import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -30,6 +31,7 @@ import org.apache.hadoop.io.Text;
  */
 public class FieldPaginationDriver {
     
+    private final Charset charset = Charset.defaultCharset();
     private String propertyFile = "d4m.properties";
 
     public static void main(final String[] args) {
@@ -51,7 +53,7 @@ public class FieldPaginationDriver {
         String instanceName = properties.getProperty("accumulo.instance.name");
         String zooKeepers = properties.getProperty("accumulo.zookeeper.ensemble");
         String user = properties.getProperty("accumulo.user");
-        byte[] pass = properties.getProperty("accumulo.password").getBytes();
+        byte[] pass = properties.getProperty("accumulo.password").getBytes(charset);
 
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector;
@@ -89,7 +91,7 @@ public class FieldPaginationDriver {
                     pageNumbers++;
                 }
 
-                mutation.put(new Text("num_pages"), cqPages, new Value(Integer.toString(pageNumbers).getBytes()));
+                mutation.put(new Text("num_pages"), cqPages, new Value(Integer.toString(pageNumbers).getBytes(charset)));
                 // get the pagination timestamp from the num_pages entry.
                 wr.addMutation(mutation);
             }

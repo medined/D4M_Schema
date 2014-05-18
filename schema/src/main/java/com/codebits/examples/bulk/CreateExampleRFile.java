@@ -3,6 +3,7 @@ package com.codebits.examples.bulk;
 import com.codebits.d4m.PropertyManager;
 import com.codebits.hadoop.util.CreateOrReplaceHadoopDirectory;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.Properties;
 import org.apache.accumulo.core.conf.AccumuloConfiguration;
@@ -18,6 +19,8 @@ import org.apache.hadoop.io.Text;
 
 public class CreateExampleRFile {
     
+    private static final Charset charset = Charset.defaultCharset();
+
     public static void main(String[] args) throws IOException {
         PropertyManager propertyManager = new PropertyManager();
         propertyManager.setPropertyFilename("d4m.properties");
@@ -45,7 +48,7 @@ public class CreateExampleRFile {
         long timestamp = new Date().getTime();
         
         Key key = new Key(new Text("row_1"), new Text("cf"), new Text("cq"), new ColumnVisibility(), timestamp);
-        Value value = new Value("".getBytes());
+        Value value = new Value("".getBytes(charset));
         out.append(key, value);
 
         out.close();

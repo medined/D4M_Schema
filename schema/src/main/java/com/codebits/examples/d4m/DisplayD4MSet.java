@@ -16,8 +16,11 @@ import org.apache.accumulo.core.data.Value;
 import org.apache.accumulo.core.security.Authorizations;
 import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
+import java.nio.charset.Charset;
 
 public class DisplayD4MSet {
+
+    private static final Charset charset = Charset.defaultCharset();
 
     public static void main(String[] args) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, TableExistsException, IOException {
 
@@ -28,7 +31,7 @@ public class DisplayD4MSet {
         String instanceName = properties.getProperty("accumulo.instance.name");
         String zooKeepers = properties.getProperty("accumulo.zookeeper.ensemble");
         String user = properties.getProperty("accumulo.user");
-        byte[] pass = properties.getProperty("accumulo.password").getBytes();
+        byte[] pass = properties.getProperty("accumulo.password").getBytes(charset);
 
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);

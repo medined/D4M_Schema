@@ -4,6 +4,7 @@ import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
 import com.codebits.d4m.ingest.MutationFactory;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Properties;
 import org.apache.accumulo.core.client.AccumuloException;
 import org.apache.accumulo.core.client.AccumuloSecurityException;
@@ -16,6 +17,7 @@ import org.apache.accumulo.core.data.Mutation;
 public class RecordsToAccumulo {
 
     //private static final Logger log = Logger.getLogger(WriteMultipleExplodedRecords.class);
+    private final Charset charset = Charset.defaultCharset();
 
     String[] fieldNames = {
         "CITY_NAME",
@@ -42,7 +44,7 @@ public class RecordsToAccumulo {
         String instanceName = properties.getProperty("accumulo.instance.name");
         String zooKeepers = properties.getProperty("accumulo.zookeeper.ensemble");
         String user = properties.getProperty("accumulo.user");
-        byte[] pass = properties.getProperty("accumulo.password").getBytes();
+        byte[] pass = properties.getProperty("accumulo.password").getBytes(charset);
 
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);

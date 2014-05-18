@@ -2,6 +2,7 @@ package com.codebits.examples.bulk;
 
 import com.codebits.d4m.PropertyManager;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Properties;
 import org.apache.accumulo.core.client.AccumuloException;
 import org.apache.accumulo.core.client.AccumuloSecurityException;
@@ -18,6 +19,8 @@ import org.apache.hadoop.security.AccessControlException;
 
 public class ImportExampleRFile {
 
+    private static final Charset charset = Charset.defaultCharset();
+
     public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException, TableExistsException {
         PropertyManager propertyManager = new PropertyManager();
         propertyManager.setPropertyFilename("d4m.properties");
@@ -26,7 +29,7 @@ public class ImportExampleRFile {
         String instanceName = properties.getProperty("accumulo.instance.name");
         String zooKeepers = properties.getProperty("accumulo.zookeeper.ensemble");
         String user = properties.getProperty("accumulo.user");
-        byte[] pass = properties.getProperty("accumulo.password").getBytes();
+        byte[] pass = properties.getProperty("accumulo.password").getBytes(charset);
         String filesystemDefaultName = properties.getProperty("fs.default.name");
         String hadoopUserHomeDirectory = properties.getProperty("hadoop.user.home.directory");
         

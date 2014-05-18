@@ -3,6 +3,7 @@ package com.codebits.examples.d4m;
 import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Properties;
 import org.apache.accumulo.core.client.AccumuloException;
 import org.apache.accumulo.core.client.AccumuloSecurityException;
@@ -13,6 +14,8 @@ import org.apache.accumulo.core.client.ZooKeeperInstance;
 
 public class CreateTablesAndLoadData {
     
+    private static final Charset charset = Charset.defaultCharset();
+
     public static void main(String[] args) throws AccumuloException, AccumuloSecurityException, TableNotFoundException, TableExistsException, IOException {
 
         PropertyManager propertyManager = new PropertyManager();
@@ -22,7 +25,7 @@ public class CreateTablesAndLoadData {
         String instanceName = properties.getProperty("accumulo.instance.name");
         String zooKeepers = properties.getProperty("accumulo.zookeeper.ensemble");
         String user = properties.getProperty("accumulo.user");
-        byte[] pass = properties.getProperty("accumulo.password").getBytes();
+        byte[] pass = properties.getProperty("accumulo.password").getBytes(charset);
 
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);

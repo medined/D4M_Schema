@@ -3,12 +3,12 @@ package com.codebits.examples.d4m;
 import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
 import com.codebits.d4m.ingest.MutationFactory;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +29,8 @@ import org.apache.accumulo.core.data.Mutation;
 
 public class StateOfTheUnionSpeechLoader {
 
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+    private final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+    private final Charset charset = Charset.defaultCharset();
 
     public static void main(String[] args) throws MalformedURLException {
         StateOfTheUnionSpeechLoader loader = new StateOfTheUnionSpeechLoader();
@@ -58,6 +59,7 @@ public class StateOfTheUnionSpeechLoader {
         }
     }
 
+    /*
     private void process(final Date batchDate, final String batchId, final String localZipFile) {
         try {
             process(batchDate, batchId, new ZipInputStream(new FileInputStream(localZipFile)));
@@ -65,7 +67,8 @@ public class StateOfTheUnionSpeechLoader {
             throw new RuntimeException(e);
         }
     }
-
+    */
+    
     private void process(final Date batchDate, final String batchId, final ZipInputStream zipInputStream) {
 
         byte[] lineBuffer = new byte[1024];
@@ -81,7 +84,7 @@ public class StateOfTheUnionSpeechLoader {
 
                     StringBuilder buffer = new StringBuilder();
                     while ((zipInputStream.read(lineBuffer)) > 0) {
-                        buffer.append(new String(lineBuffer));
+                        buffer.append(new String(lineBuffer, charset));
                     }
                     String text = buffer.toString();
 
@@ -92,7 +95,7 @@ public class StateOfTheUnionSpeechLoader {
                     String instanceName = properties.getProperty("accumulo.instance.name");
                     String zooKeepers = properties.getProperty("accumulo.zookeeper.ensemble");
                     String user = properties.getProperty("accumulo.user");
-                    byte[] pass = properties.getProperty("accumulo.password").getBytes();
+                    byte[] pass = properties.getProperty("accumulo.password").getBytes(charset);
 
                     ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
                     Connector connector;

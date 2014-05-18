@@ -1,5 +1,6 @@
 package com.codebits.d4m.ingest;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,7 @@ public class MutationFactory {
     private static final String FIELD_VALUES_ERROR = "Please supply Field values.";
     private static final String DIFFERING_LENGTH_ERROR = "Field names and Field Values arrays should have the same length.";
 
-    private static final Value one = new Value("1".getBytes());
+    private Value one = null;
     private static final Text emptyCF = new Text("");
     private static final Text degree = new Text("degree");
     private static final Text field = new Text("field");
@@ -36,8 +37,12 @@ public class MutationFactory {
 
     private String fieldDelimiter = "\t";
     private String factDelimiter = "|";
+    private final Charset charset = Charset.defaultCharset();
 
-    // TODO: pull d4msha1 automatically for edges.
+    public MutationFactory() {
+        one = new Value("1".getBytes(charset));
+    }
+    
     private void checkParameters(String row, String[] fieldNames, String[] fieldValues) {
         Validate.notNull(row, ROW_VALUE_ERROR);
         Validate.notEmpty(row, ROW_VALUE_ERROR);
@@ -120,7 +125,7 @@ public class MutationFactory {
             String fact = entry.getKey();
             Integer factCount = entry.getValue();
             Mutation mutation = new Mutation(new Text(fact));
-            mutation.put(emptyCF, degree, new Value(factCount.toString().getBytes()));
+            mutation.put(emptyCF, degree, new Value(factCount.toString().getBytes(charset)));
             mutations.add(mutation);
         }
         return mutations;
@@ -152,7 +157,7 @@ public class MutationFactory {
             String fieldName = entry.getKey();
             Integer fieldCount = entry.getValue();
             Mutation mutation = new Mutation(new Text(fieldName));
-            mutation.put(emptyCF, field, new Value(fieldCount.toString().getBytes()));
+            mutation.put(emptyCF, field, new Value(fieldCount.toString().getBytes(charset)));
             mutations.add(mutation);
         }
         return mutations;
@@ -165,7 +170,7 @@ public class MutationFactory {
         Validate.notEmpty(text, ROW_VALUE_ERROR);
 
         Mutation mutation = new Mutation(new Text(row));
-        mutation.put(emptyCF, rawData, new Value(text.getBytes()));
+        mutation.put(emptyCF, rawData, new Value(text.getBytes(charset)));
         return mutation;
     }
 
@@ -186,7 +191,7 @@ public class MutationFactory {
             }
         }
         Mutation mutation = new Mutation(new Text(row));
-        mutation.put(emptyCF, rawData, new Value(value.toString().getBytes()));
+        mutation.put(emptyCF, rawData, new Value(value.toString().getBytes(charset)));
         return mutation;
     }
 

@@ -5,8 +5,12 @@ import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
 import com.codebits.d4m.ingest.MutationFactory;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
 import org.apache.accumulo.core.client.AccumuloException;
@@ -21,6 +25,7 @@ import org.apache.accumulo.core.data.Mutation;
 public class StateCSVToAccumulo {
 
     //private static final Logger log = Logger.getLogger(WriteMultipleExplodedRecords.class);
+    private final Charset charset = Charset.defaultCharset();
 
     public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException, TableExistsException {
         StateCSVToAccumulo driver = new StateCSVToAccumulo();
@@ -38,14 +43,14 @@ public class StateCSVToAccumulo {
         String instanceName = properties.getProperty("accumulo.instance.name");
         String zooKeepers = properties.getProperty("accumulo.zookeeper.ensemble");
         String user = properties.getProperty("accumulo.user");
-        byte[] pass = properties.getProperty("accumulo.password").getBytes();
+        byte[] pass = properties.getProperty("accumulo.password").getBytes(charset);
         
         CsvReader reader = new CsvReader();
         reader.setLowercaseFieldnames();
         reader.setSha1();
         reader.setTrim();
         reader.setFilename(csvFile);
-        reader.setReader(new BufferedReader(new FileReader(csvFile)));
+        reader.setReader(new BufferedReader(new InputStreamReader(new FileInputStream(csvFile), charset)));
         reader.read();
         List<String> fieldNameList = reader.getFieldNames();
         List<List<String>> records = reader.getRecords();

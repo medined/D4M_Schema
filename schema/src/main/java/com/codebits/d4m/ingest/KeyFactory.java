@@ -1,5 +1,6 @@
 package com.codebits.d4m.ingest;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -22,7 +23,7 @@ public class KeyFactory {
     private static final String FIELD_VALUES_ERROR = "Please supply Field values.";
     private static final String DIFFERING_LENGTH_ERROR = "Field names and Field Values arrays should have the same length.";
 
-    private static final Value one = new Value("1".getBytes());
+    private Value one = null;
     private static final Text emptyCF = new Text("");
     private static final Text degree = new Text("degree");
     private static final Text field = new Text("field");
@@ -33,6 +34,11 @@ public class KeyFactory {
 
     private Key key = null;
     private boolean underTest = false;
+    private final Charset charset = Charset.defaultCharset();
+
+    public KeyFactory() {
+        one = new Value("1".getBytes(charset));
+    }
 
     private void checkParameters(String row, String[] fieldNames, String[] fieldValues) {
         Validate.notNull(row, ROW_VALUE_ERROR);
@@ -111,7 +117,7 @@ public class KeyFactory {
             } else {
                 key = new Key(new Text(fact), emptyCF, degree);
             }
-            entries.put(key, new Value(factCount.toString().getBytes()));
+            entries.put(key, new Value(factCount.toString().getBytes(charset)));
         }
         return entries;
     }
@@ -140,7 +146,7 @@ public class KeyFactory {
             } else {
                 key = new Key(new Text(fieldName), emptyCF, field);
             }
-            entries.put(key, new Value(fieldCount.toString().getBytes()));
+            entries.put(key, new Value(fieldCount.toString().getBytes(charset)));
         }
         return entries;
     }
@@ -168,7 +174,7 @@ public class KeyFactory {
         } else {
             key = new Key(tRow, emptyCF, rawData);
         }
-        entries.put(key, new Value(value.toString().getBytes()));
+        entries.put(key, new Value(value.toString().getBytes(charset)));
         return entries;
     }
 

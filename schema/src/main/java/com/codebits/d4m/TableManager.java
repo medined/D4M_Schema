@@ -1,5 +1,6 @@
 package com.codebits.d4m;
 
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -20,6 +21,7 @@ public class TableManager {
 
     private TableOperations tableOperations = null;
     private boolean sha1 = false;
+    private final Charset charset = Charset.defaultCharset();
 
     public TableManager() {
     }
@@ -64,7 +66,7 @@ public class TableManager {
             // helpful when sha1 is used as row value.
             String hexadecimal = "123456789abcde";
             SortedSet<Text> splits = new TreeSet<Text>();
-            for (byte b : hexadecimal.getBytes()) {
+            for (byte b : hexadecimal.getBytes(charset)) {
                 splits.add(new Text(new byte[] {b}));
             }
             tableOperations.addSplits(getEdgeTable(), splits);

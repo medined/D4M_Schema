@@ -1,5 +1,6 @@
 package com.codebits.d4m;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.apache.hadoop.io.Text;
 public class TestableMutation extends Mutation {
     
     private final List<String> differences = new ArrayList<String>();
+    private Charset charset = Charset.defaultCharset();
 
     public TestableMutation(CharSequence row) {
         super(row);
@@ -20,9 +22,18 @@ public class TestableMutation extends Mutation {
     }
 
     @Override
-    public boolean equals(Mutation other) {
+    public boolean equals(Object o) {
+        if (o instanceof Mutation == false) {
+            getDifferences().add("Other should be Mutatation not " + o.getClass().getName());
+            return false;
+        }
+        
+        Mutation other = (Mutation)o;
+        
         if (false == Arrays.equals(getRow(), other.getRow())) {
-            getDifferences().add(String.format("Different rows. [%s] vs [%s]", new String(getRow()), new String(other.getRow())));
+            String a = new String(getRow(), charset);
+            String b = new String(other.getRow(), charset);
+            getDifferences().add(String.format("Different rows. [%s] vs [%s]", a, b));
             return false;
         }
         if (this.getUpdates().size() != other.getUpdates().size()) {
@@ -37,23 +48,46 @@ public class TestableMutation extends Mutation {
             byte[] thisCF = thisColumnUpdate.getColumnFamily();
             byte[] otherCF = otherColumnUpdate.getColumnFamily();
             if (false == Arrays.equals(thisCF, otherCF)) {
-                getDifferences().add(String.format("Different CF at index %d. [%s] vs [%s].", i, new String(thisCF), new String(otherCF)));
+                String a = new String(thisCF, charset);
+                String b = new String(otherCF, charset);
+                getDifferences().add(String.format("Different CF at index %d. [%s] vs [%s].", i, a, b));
                 return false;
             }
             byte[] thisCQ = thisColumnUpdate.getColumnQualifier();
             byte[] otherCQ = otherColumnUpdate.getColumnQualifier();
             if (false == Arrays.equals(thisCQ, otherCQ)) {
-                getDifferences().add(String.format("Different CQ at index %d. [%s] vs [%s].", i, new String(thisCQ), new String(otherCQ)));
+                String a = new String(thisCQ, charset);
+                String b = new String(otherCQ, charset);
+                getDifferences().add(String.format("Different CQ at index %d. [%s] vs [%s].", i, a, b));
                 return false;
             }
             byte[] thisValue = thisColumnUpdate.getValue();
             byte[] otherValue = otherColumnUpdate.getValue();
             if (false == Arrays.equals(thisValue, otherValue)) {
-                getDifferences().add(String.format("Different Value at index %d. [%s] vs [%s].", i, new String(thisValue), new String(otherValue)));
+                String a = new String(thisValue, charset);
+                String b = new String(otherValue, charset);
+                getDifferences().add(String.format("Different Value at index %d. [%s] vs [%s].", i, a, b));
                 return false;
             }
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 47 * hash + Arrays.hashCode(getRow());
+        List thisList = this.getUpdates();
+        for (Object columnUpdate : thisList) {
+            ColumnUpdate thisColumnUpdate = (ColumnUpdate) columnUpdate;
+            byte[] thisCF = thisColumnUpdate.getColumnFamily();
+            byte[] thisCQ = thisColumnUpdate.getColumnQualifier();
+            byte[] thisValue = thisColumnUpdate.getValue();
+            hash = 47 * hash + Arrays.hashCode(thisCF);
+            hash = 47 * hash + Arrays.hashCode(thisCQ);
+            hash = 47 * hash + Arrays.hashCode(thisValue);
+        }
+        return hash;
     }
 
     /**
