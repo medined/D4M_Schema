@@ -16,9 +16,9 @@ public class PropertyManager {
         InputStream input = null;
 
         try {
-            input = PropertyManager.class.getClassLoader().getResourceAsStream(propertyFilename);
+            input = PropertyManager.class.getClassLoader().getResourceAsStream(getPropertyFilename());
             if (input == null) {
-                throw new RuntimeException("Unable to find " + propertyFilename);
+                throw new RuntimeException("Unable to find " + getPropertyFilename());
             }
             properties.load(input);
         } finally {
@@ -31,6 +31,10 @@ public class PropertyManager {
 
     public void setPropertyFilename(String propertyFilename) {
         this.propertyFilename = propertyFilename;
+    }
+
+    public String getPropertyFilename() {
+        return propertyFilename;
     }
 
 }
