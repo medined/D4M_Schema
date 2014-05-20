@@ -62,8 +62,8 @@ public class StateCSVToAccumulo {
         Connector connector = instance.getConnector(user, pass);
 
         TableManager tableManager = new TableManager(connector.tableOperations());
-        tableManager.setSha1(true);
         tableManager.createTables();
+        tableManager.addSplitsForSha1();
 
         MutationFactory factory = new MutationFactory();
 

@@ -31,8 +31,8 @@ public class CreateD4MSet {
         Connector connector = instance.getConnector(user, pass);
 
         TableManager tableManager = new TableManager(connector.tableOperations());
-        tableManager.setSha1(true);
         tableManager.createTables();
+        tableManager.addSplitsForSha1();
         
     }
 

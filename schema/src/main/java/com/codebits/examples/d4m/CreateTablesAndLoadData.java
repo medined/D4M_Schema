@@ -31,8 +31,8 @@ public class CreateTablesAndLoadData {
         Connector connector = instance.getConnector(user, pass);
 
         TableManager tableManager = new TableManager(connector.tableOperations());
-        tableManager.setSha1(true);
         tableManager.createTables();
+        tableManager.addSplitsForSha1();
         
         SOICSVToAccumulo soicLoader = new SOICSVToAccumulo();
         soicLoader.process("../data/11zpallagi.csv");

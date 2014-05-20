@@ -43,19 +43,10 @@ public class TableManagerTest {
     }
 
     @Test
-    public void testCreateTables_adds_splits_for_sha1() throws AccumuloException, AccumuloSecurityException, TableExistsException, TableNotFoundException {
-        when(mockTableOperations.exists("Tedge")).thenReturn(Boolean.FALSE);
-        when(mockTableOperations.exists("TedgeTranspose")).thenReturn(Boolean.FALSE);
-        when(mockTableOperations.exists("TedgeDegree")).thenReturn(Boolean.FALSE);
-        when(mockTableOperations.exists("TedgeMetadata")).thenReturn(Boolean.FALSE);
-        when(mockTableOperations.exists("TedgeText")).thenReturn(Boolean.FALSE);
-        instance.setSha1(true);
-        instance.createTables();
-        verify(mockTableOperations, times(5)).exists(any(String.class));
-        verify(mockTableOperations, times(5)).create(any(String.class));
+    public void testAddSplitsForSha1() throws AccumuloException, AccumuloSecurityException, TableExistsException, TableNotFoundException {
+        instance.addSplitsForSha1();
         verify(mockTableOperations).addSplits(matches("Tedge"), any(SortedSet.class));
         verify(mockTableOperations).addSplits(matches("TedgeText"), any(SortedSet.class));
-        verify(mockTableOperations, times(2)).attachIterator(any(String.class), any(IteratorSetting.class));
         verifyNoMoreInteractions(mockTableOperations);
     }
     
