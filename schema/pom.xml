@@ -14,69 +14,51 @@
     <name>D4M Schema</name>
     <url>https://github.com/medined/D4M_Schema</url>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.accumulo>1.5.0</version.accumulo>
-        <version.codec>1.9</version.codec>
-        <version.hadoop>1.2.1</version.hadoop>
-        <version.junit>4.11</version.junit>
-        <version.log4j>1.2.17</version.log4j>
-        <version.mockito>1.9.5</version.mockito>
-        <version.zookeeeper>3.4.6</version.zookeeeper>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
         <!-- annotations replacing boiler-plate code -->
         <dependency>
             <groupId>org.projectlombok</groupId> 
             <artifactId>lombok</artifactId> 
-            <version>1.12.6</version> 
             <scope>provided</scope> 
         </dependency>
         <!-- stream-lib from AddThis (cardinality) -->
         <dependency>
             <groupId>com.clearspring.analytics</groupId>
             <artifactId>stream</artifactId>
-            <version>2.6.0</version>
             <type>jar</type>
         </dependency>
+        <!-- ACCUMULO DEPENDENCIES -->
         <dependency>
             <groupId>org.apache.accumulo</groupId>
             <artifactId>accumulo-core</artifactId>
-            <version>${version.accumulo}</version>
             <type>jar</type>
         </dependency>
+        <!-- HADOOP DEPENDENCIES -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-core</artifactId>
-            <version>${version.hadoop}</version>
-            <type>jar</type>
         </dependency>
+        <!-- ZOOKEEPER DEPENDENCIES -->
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
-            <version>${version.zookeeeper}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>${version.codec}</version>
         </dependency>        
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>${version.log4j}</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>${version.mockito}</version>
             <scope>test</scope>
             <type>jar</type>
         </dependency>

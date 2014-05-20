@@ -24,19 +24,6 @@
         </repository>
     </repositories>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.accumulo>1.5.0</version.accumulo>
-        <version.cgilib>3.1</version.cgilib>
-        <version.commons.logging>1.1.3</version.commons.logging>
-        <version.hadoop>1.2.1</version.hadoop>
-        <version.jetty>9.1.3.v20140225</version.jetty>
-        <version.log4j>1.2.17</version.log4j>
-        <version.spring>4.0.3.RELEASE</version.spring>
-        <version.spring.security>3.2.3.RELEASE</version.spring.security>
-        <version.zookeeper>3.4.5</version.zookeeper>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.codebits</groupId>
@@ -46,104 +33,78 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>${version.log4j}</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>${version.commons.logging}</version>
         </dependency>
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>${version.cgilib}</version>
         </dependency>
         <!-- ACCUMULO DEPENDENCIES -->
         <dependency>
             <groupId>org.apache.accumulo</groupId>
             <artifactId>accumulo-core</artifactId>
-            <version>${version.accumulo}</version>
+            <type>jar</type>
         </dependency>
         <!-- HADOOP DEPENDENCIES -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-core</artifactId>
-            <version>${version.hadoop}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>tomcat</groupId>
-                    <artifactId>jasper-compiler</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>tomcat</groupId>
-                    <artifactId>jasper-runtime</artifactId>
-                </exclusion>
-            </exclusions>        
         </dependency>
         <!-- ZOOKEEPER DEPENDENCIES -->
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
-            <version>${version.zookeeper}</version>
         </dependency>
         <!-- SPRING DEPENDENCIES -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${version.spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${version.spring}</version>
         </dependency>
         <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>${version.spring.security}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>${version.spring.security}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>${version.spring.security}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
-            <version>${version.spring.security}</version>
         </dependency>
         <!-- JETTY DEPENDENCIES -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
-            <version>${version.jetty}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-servlet</artifactId>
-            <version>${version.jetty}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
-            <version>${version.jetty}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-servlets</artifactId>
-            <version>${version.jetty}</version>
         </dependency>
         <!-- JSP and JSTL SUPPORT -->
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
             <scope>provided</scope>
         </dependency>
 
