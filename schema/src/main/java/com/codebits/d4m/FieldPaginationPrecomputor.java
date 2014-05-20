@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.IteratorSetting;
 import org.apache.accumulo.core.client.Scanner;
@@ -15,15 +17,13 @@ import org.apache.accumulo.core.security.Authorizations;
 import org.apache.commons.lang.Validate;
 import org.apache.hadoop.io.Text;
 
-/** Calculates page breaks for column names in the TedgeFields table.
- *
- */
+/** Calculates page breaks for column names in the TedgeFields table. */
 public class FieldPaginationPrecomputor {
 
-    private Connector connector = null;
-    private String tableName = null;
-    private Authorizations authorizations = null;
-    private int pageSize = 50;
+    @Setter @Getter private Connector connector = null;
+    @Setter @Getter private String tableName = null;
+    @Setter @Getter private Authorizations authorizations = null;
+    @Setter @Getter private int pageSize = 50;
 
     public Map<Integer, Text> computePageBreaks() {
         Validate.notNull(getAuthorizations(), "Authorizations must not be null");
@@ -70,35 +70,4 @@ public class FieldPaginationPrecomputor {
 
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public void setConnector(Connector connector) {
-        this.connector = connector;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public void setAuthorizations(Authorizations authorizations) {
-        this.authorizations = authorizations;
-    }
-
-    public Connector getConnector() {
-        return connector;
-    }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public Authorizations getAuthorizations() {
-        return authorizations;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
 }

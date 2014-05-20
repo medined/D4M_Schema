@@ -4,14 +4,15 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import lombok.Getter;
 import org.apache.accumulo.core.data.ColumnUpdate;
 import org.apache.accumulo.core.data.Mutation;
 import org.apache.hadoop.io.Text;
 
 public class TestableMutation extends Mutation {
     
-    private final List<String> differences = new ArrayList<String>();
-    private Charset charset = Charset.defaultCharset();
+    @Getter private final List<String> differences = new ArrayList<String>();
+    private final Charset charset = Charset.defaultCharset();
 
     public TestableMutation(CharSequence row) {
         super(row);
@@ -90,10 +91,4 @@ public class TestableMutation extends Mutation {
         return hash;
     }
 
-    /**
-     * @return the differences
-     */
-    public List<String> getDifferences() {
-        return differences;
-    }
 }

@@ -80,7 +80,7 @@ public class CsvReaderTest {
         buffer.append("CITY,STATE\n");
         buffer.append(" Portland, Oregon  \n");
         buffer.append("San Diego, California\n");
-        instance.setLowercaseFieldnames();
+        instance.setLowercaseFieldnames(true);
         instance.setFilename("testfile");
         instance.setReader(new BufferedReader(new StringReader(buffer.toString())));
         instance.read();
@@ -111,7 +111,7 @@ public class CsvReaderTest {
         buffer.append("CITY,STATE\n");
         buffer.append(" Portland, Oregon  \n");
         buffer.append("San Diego, California\n");
-        instance.setTrim();
+        instance.setTrim(true);
         instance.setFilename("testfile");
         instance.setReader(new BufferedReader(new StringReader(buffer.toString())));
         instance.read();
@@ -145,7 +145,7 @@ public class CsvReaderTest {
         buffer.append("CITY,STATE\n");
         buffer.append("Portland,Oregon\n");
         buffer.append("San Diego,California\n");
-        instance.setSha1();
+        instance.setSha1(true);
         instance.setFilename("testfile");
         instance.setReader(new BufferedReader(new StringReader(buffer.toString())));
         instance.read();

@@ -35,7 +35,7 @@ public class KeyFactoryTest {
     @Before
     public void setup() {
         instance = new KeyFactory();
-        instance.setUnderTest();
+        instance.setUnderTest(true);
     }
 
     @Test

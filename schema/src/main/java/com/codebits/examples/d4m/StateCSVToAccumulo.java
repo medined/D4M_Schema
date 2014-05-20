@@ -46,9 +46,9 @@ public class StateCSVToAccumulo {
         byte[] pass = properties.getProperty("accumulo.password").getBytes(charset);
         
         CsvReader reader = new CsvReader();
-        reader.setLowercaseFieldnames();
-        reader.setSha1();
-        reader.setTrim();
+        reader.setLowercaseFieldnames(true);
+        reader.setSha1(true);
+        reader.setTrim(true);
         reader.setFilename(csvFile);
         reader.setReader(new BufferedReader(new InputStreamReader(new FileInputStream(csvFile), charset)));
         reader.read();
@@ -62,7 +62,7 @@ public class StateCSVToAccumulo {
         Connector connector = instance.getConnector(user, pass);
 
         TableManager tableManager = new TableManager(connector.tableOperations());
-        tableManager.setSha1();
+        tableManager.setSha1(true);
         tableManager.createTables();
 
         MutationFactory factory = new MutationFactory();

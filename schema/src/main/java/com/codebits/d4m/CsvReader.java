@@ -5,20 +5,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.Validate;
 
 public class CsvReader {
 
-    private String filename = null;
-    private final List<String> fieldNames = new ArrayList<String>();
-    private final List<List<String>> records = new ArrayList<List<String>>();
-    private int recordCount = 0;
-    private BufferedReader reader = null;
-    private boolean trim = false;
-    private boolean sha1 = false;
-    private boolean lowercaseFieldnames = false;
+    @Setter private String filename = null;
+    @Getter private final List<String> fieldNames = new ArrayList<String>();
+    @Getter private final List<List<String>> records = new ArrayList<List<String>>();
+    @Getter private int recordCount = 0;
+    @Setter private BufferedReader reader = null;
+    @Setter private boolean trim = false;
+    @Setter private boolean sha1 = false;
+    @Setter private boolean lowercaseFieldnames = false;
 
     public void read() {
         Validate.notNull(filename, "filename must not be null");
@@ -67,38 +69,6 @@ public class CsvReader {
         } finally {
             IOUtils.closeQuietly(reader);
         }
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    public int getRecordCount() {
-        return recordCount;
-    }
-
-    public void setReader(BufferedReader reader) {
-        this.reader = reader;
-    }
-
-    public List<String> getFieldNames() {
-        return fieldNames;
-    }
-
-    public List<List<String>> getRecords() {
-        return records;
-    }
-
-    public void setTrim() {
-        this.trim = true;
-    }
-
-    public void setSha1() {
-        this.sha1 = true;
-    }
-
-    public void setLowercaseFieldnames() {
-        this.lowercaseFieldnames = true;
     }
 
 }

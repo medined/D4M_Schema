@@ -3,10 +3,12 @@ package com.codebits.d4m;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import lombok.Getter;
+import lombok.Setter;
 
 public class PropertyManager {
 
-    private String propertyFilename = null;
+    @Setter @Getter private String propertyFilename = null;
 
     public PropertyManager() {
     }
@@ -27,14 +29,6 @@ public class PropertyManager {
             }
         }
         return properties;
-    }
-
-    public void setPropertyFilename(String propertyFilename) {
-        this.propertyFilename = propertyFilename;
-    }
-
-    public String getPropertyFilename() {
-        return propertyFilename;
     }
 
 }

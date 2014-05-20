@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.accumulo.core.data.Mutation;
 import org.apache.accumulo.core.data.Value;
 import org.apache.commons.lang.Validate;
@@ -35,8 +37,8 @@ public class MutationFactory {
     private static final Text field = new Text("field");
     private static final Text rawData = new Text("RawData");
 
-    private String fieldDelimiter = "\t";
-    private String factDelimiter = "|";
+    @Setter @Getter private String fieldDelimiter = "\t";
+    @Setter @Getter private String factDelimiter = "|";
     private final Charset charset = Charset.defaultCharset();
 
     public MutationFactory() {
@@ -197,22 +199,6 @@ public class MutationFactory {
         Mutation mutation = new Mutation(new Text(row));
         mutation.put(emptyCF, rawData, new Value(value.toString().getBytes(charset)));
         return mutation;
-    }
-
-    public String getFieldDelimiter() {
-        return fieldDelimiter;
-    }
-
-    public void setFieldDelimiter(String fieldDelimiter) {
-        this.fieldDelimiter = fieldDelimiter;
-    }
-
-    public String getFactDelimiter() {
-        return factDelimiter;
-    }
-
-    public void setFactDelimiter(String factDelimiter) {
-        this.factDelimiter = factDelimiter;
     }
 
 }

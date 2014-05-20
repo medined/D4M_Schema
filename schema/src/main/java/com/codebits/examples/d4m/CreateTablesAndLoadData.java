@@ -31,7 +31,7 @@ public class CreateTablesAndLoadData {
         Connector connector = instance.getConnector(user, pass);
 
         TableManager tableManager = new TableManager(connector.tableOperations());
-        tableManager.setSha1();
+        tableManager.setSha1(true);
         tableManager.createTables();
         
         SOICSVToAccumulo soicLoader = new SOICSVToAccumulo();

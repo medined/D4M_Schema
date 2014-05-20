@@ -32,6 +32,13 @@
             <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
+        <!-- annotations replacing boiler-plate code -->
+        <dependency>
+            <groupId>org.projectlombok</groupId> 
+            <artifactId>lombok</artifactId> 
+            <version>1.12.6</version> 
+            <scope>provided</scope> 
+        </dependency>
         <!-- stream-lib from AddThis (cardinality) -->
         <dependency>
             <groupId>com.clearspring.analytics</groupId>

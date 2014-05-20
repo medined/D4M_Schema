@@ -49,7 +49,7 @@ public class TableManagerTest {
         when(mockTableOperations.exists("TedgeDegree")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeField")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeText")).thenReturn(Boolean.FALSE);
-        instance.setSha1();
+        instance.setSha1(true);
         instance.createTables();
         verify(mockTableOperations, times(5)).exists(any(String.class));
         verify(mockTableOperations, times(5)).create(any(String.class));

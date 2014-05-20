@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.accumulo.core.data.Key;
 import org.apache.accumulo.core.data.Value;
 import org.apache.commons.lang.Validate;
@@ -29,11 +31,11 @@ public class KeyFactory {
     private static final Text field = new Text("field");
     private static final Text rawData = new Text("RawData");
 
-    private String fieldDelimiter = "\t";
-    private String factDelimiter = "|";
+    @Setter @Getter private String fieldDelimiter = "\t";
+    @Setter @Getter private String factDelimiter = "|";
 
     private Key key = null;
-    private boolean underTest = false;
+    @Setter private boolean underTest = false;
     private final Charset charset = Charset.defaultCharset();
 
     public KeyFactory() {
@@ -176,26 +178,6 @@ public class KeyFactory {
         }
         entries.put(key, new Value(value.toString().getBytes(charset)));
         return entries;
-    }
-
-    public String getFieldDelimiter() {
-        return fieldDelimiter;
-    }
-
-    public void setFieldDelimiter(String fieldDelimiter) {
-        this.fieldDelimiter = fieldDelimiter;
-    }
-
-    public String getFactDelimiter() {
-        return factDelimiter;
-    }
-
-    public void setFactDelimiter(String factDelimiter) {
-        this.factDelimiter = factDelimiter;
-    }
-
-    public void setUnderTest() {
-        this.underTest = true;
     }
 
 }

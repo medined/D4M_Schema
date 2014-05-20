@@ -4,6 +4,8 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.accumulo.core.client.AccumuloException;
 import org.apache.accumulo.core.client.AccumuloSecurityException;
 import org.apache.accumulo.core.client.IteratorSetting;
@@ -17,10 +19,9 @@ import org.apache.hadoop.io.Text;
 
 public class TableManager {
     
-    private String baseTableName = "edge";
-
-    private TableOperations tableOperations = null;
-    private boolean sha1 = false;
+    @Setter @Getter private String baseTableName = "edge";
+    @Setter @Getter private TableOperations tableOperations = null;
+    @Setter private boolean sha1 = false;
     private final Charset charset = Charset.defaultCharset();
 
     public TableManager() {
@@ -102,26 +103,6 @@ public class TableManager {
     
     public String getFieldTable() {
         return "T" + getBaseTableName() + "Field";
-    }
-    
-    public String getBaseTableName() {
-        return baseTableName;
-    }
-
-    public void setBaseTableName(String baseTableName) {
-        this.baseTableName = baseTableName;
-    }
-
-    public TableOperations getTableOperations() {
-        return tableOperations;
-    }
-
-    public void setTableOperations(TableOperations tableOperations) {
-        this.tableOperations = tableOperations;
-    }
-
-    public void setSha1() {
-        this.sha1 = true;
     }
     
 }
