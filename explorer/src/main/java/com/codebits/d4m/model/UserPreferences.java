@@ -12,10 +12,12 @@ public class UserPreferences {
     private int pageNumber;
     private int pageSize;
     private String lastFieldOnPage;
+    private int fieldValuePageNumber;
 
     @PostConstruct
     public void setup() {
         pageNumber = 1;
+        fieldValuePageNumber = 1;
         setPageSize(10);
     }
     
@@ -49,6 +51,14 @@ public class UserPreferences {
 
     public void setLastFieldOnPage(String lastFieldOnPage) {
         this.lastFieldOnPage = lastFieldOnPage;
+    }
+
+    public int getFieldValuePageNumber() {
+        return fieldValuePageNumber;
+    }
+
+    public void setFieldValuePageNumber(int fieldValuePageNumber) {
+        this.fieldValuePageNumber = fieldValuePageNumber;
     }
     
 }

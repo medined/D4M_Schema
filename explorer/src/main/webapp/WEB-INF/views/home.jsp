@@ -39,11 +39,11 @@
             </c:if>
             &nbsp;
             <form method="post" action="/home/changePageSize" style="display: inline;">
-            <span class="page-count">Page 
-                <input type="text" name="pageNumber" size="3" value="<c:out value='${preferences.pageNumber}' />"/>
-                of <fmt:formatNumber value='${numPages}' /></span>
-            &nbsp;
-            &nbsp;
+                <span class="page-count">Page 
+                    <input type="text" name="pageNumber" size="3" value="<c:out value='${preferences.pageNumber}' />"/>
+                    of <fmt:formatNumber value='${numPages}' /></span>
+                &nbsp;
+                &nbsp;
                 <span class="page-count">Page Size: </span>
                 <select name="pageSize">
                     <c:forEach items="${pageSizes}" var="pageSize">
@@ -69,9 +69,9 @@
                 <td>
                     <c:if test="${fieldInfo.timestamp > paginationTimestamp}">
                         <span class="newer">
-                    </c:if>
-                    <c:out value='${fieldInfo.fieldName}' />
-                    <c:if test="${fieldInfo.timestamp > paginationTimestamp}">
+                        </c:if>
+                        <a href="/field_values/<c:out value='${fieldInfo.fieldName}' />"><c:out value='${fieldInfo.fieldName}' /></a>
+                        <c:if test="${fieldInfo.timestamp > paginationTimestamp}">
                         </span >
                     </c:if>
                 </td>
