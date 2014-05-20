@@ -22,7 +22,6 @@ import org.apache.accumulo.core.client.AccumuloSecurityException;
 import org.apache.accumulo.core.client.BatchWriter;
 import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.MutationsRejectedException;
-import org.apache.accumulo.core.client.TableExistsException;
 import org.apache.accumulo.core.client.TableNotFoundException;
 import org.apache.accumulo.core.client.ZooKeeperInstance;
 import org.apache.accumulo.core.data.Mutation;
@@ -103,19 +102,15 @@ public class StateOfTheUnionSpeechLoader {
 
                     try {
                         connector = instance.getConnector(user, pass);
-                        tableManager = new TableManager(connector.tableOperations());
+                        tableManager = new TableManager(connector, connector.tableOperations());
                         tableManager.createTables();
                     } catch (AccumuloException e) {
                         throw new RuntimeException(e);
                     } catch (AccumuloSecurityException e) {
                         throw new RuntimeException(e);
-                    } catch (TableExistsException e) {
-                        throw new RuntimeException(e);
-                    } catch (TableNotFoundException e) {
-                        throw new RuntimeException(e);
                     }
 
-                    MutationFactory factory = new MutationFactory();
+                    MutationFactory factory = new MutationFactory("\t", "|");
 
                     String row = fileName;
 

@@ -5,9 +5,7 @@ import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
 import com.codebits.d4m.ingest.MutationFactory;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -61,11 +59,11 @@ public class StateCSVToAccumulo {
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);
 
-        TableManager tableManager = new TableManager(connector.tableOperations());
+        TableManager tableManager = new TableManager(connector, connector.tableOperations());
         tableManager.createTables();
         tableManager.addSplitsForSha1();
 
-        MutationFactory factory = new MutationFactory();
+        MutationFactory factory = new MutationFactory("\t", "|");
 
         BatchWriter edgeWriter = null;
         BatchWriter transposeWriter = null;

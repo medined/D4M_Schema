@@ -3,16 +3,20 @@ package com.codebits.d4m;
 import java.util.SortedSet;
 import org.apache.accumulo.core.client.AccumuloException;
 import org.apache.accumulo.core.client.AccumuloSecurityException;
+import org.apache.accumulo.core.client.BatchWriter;
+import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.IteratorSetting;
 import org.apache.accumulo.core.client.TableExistsException;
 import org.apache.accumulo.core.client.TableNotFoundException;
 import org.apache.accumulo.core.client.admin.TableOperations;
+import org.apache.accumulo.core.data.Mutation;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
 public class TableManagerTest {
 
+    Connector mockConnector = mock(Connector.class);
     TableOperations mockTableOperations = mock(TableOperations.class);
 
     private TableManager instance = null;
@@ -20,6 +24,7 @@ public class TableManagerTest {
     @Before
     public void setup() {
         instance = new TableManager();
+        instance.setConnector(mockConnector);
         instance.setTableOperations(mockTableOperations);
     }
 
@@ -30,6 +35,10 @@ public class TableManagerTest {
         when(mockTableOperations.exists("TedgeDegree")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeMetadata")).thenReturn(Boolean.FALSE);
         when(mockTableOperations.exists("TedgeText")).thenReturn(Boolean.FALSE);
+        
+        BatchWriter mockBatchWriter = mock(BatchWriter.class);
+        when(mockConnector.createBatchWriter("TedgeMetadata", 10000000, 10000, 5)).thenReturn(mockBatchWriter);
+        
         instance.createTables();
         verify(mockTableOperations, times(5)).exists(any(String.class));
         verify(mockTableOperations).create("Tedge");
@@ -40,6 +49,10 @@ public class TableManagerTest {
         verify(mockTableOperations).attachIterator(matches("TedgeDegree"), any(IteratorSetting.class));
         verify(mockTableOperations).attachIterator(matches("TedgeMetadata"), any(IteratorSetting.class));
         verifyNoMoreInteractions(mockTableOperations);
+        
+        verify(mockBatchWriter).addMutation(any(Mutation.class));
+        verify(mockBatchWriter).close();
+        verifyNoMoreInteractions(mockBatchWriter);
     }
 
     @Test

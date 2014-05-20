@@ -62,7 +62,7 @@ public class FieldPaginationDriver {
 
         try {
             connector = instance.getConnector(user, pass);
-            TableManager tableManager = new TableManager(connector.tableOperations());
+            TableManager tableManager = new TableManager(connector, connector.tableOperations());
             tableName = tableManager.getMetadataTable();
 
             final int pageSizes[] = {5, 10, 50, 100};

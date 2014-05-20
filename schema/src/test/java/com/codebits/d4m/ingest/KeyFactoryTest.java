@@ -35,7 +35,7 @@ public class KeyFactoryTest {
     @Before
     public void setup() {
         instance = new KeyFactory();
-        instance.setMutationFactory(new MutationFactory());
+        instance.setMutationFactory(new MutationFactory("\t", "|"));
         instance.setUnderTest(true);
     }
 

@@ -46,7 +46,7 @@ public class FieldCardinality {
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);
 
-        TableManager tableManager = new TableManager(connector.tableOperations());
+        TableManager tableManager = new TableManager(connector, connector.tableOperations());
         String tableName = tableManager.getDegreeTable();
 
         Map<String, ICardinality> estimators = new TreeMap<String, ICardinality>();

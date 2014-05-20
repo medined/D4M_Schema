@@ -50,7 +50,7 @@ public class ImportD4MRFiles {
 
         TableOperations tableOperations = connector.tableOperations();
 
-        TableManager tableManager = new TableManager(tableOperations);
+        TableManager tableManager = new TableManager(connector, tableOperations);
         tableManager.createTables();
 
         String rfile;

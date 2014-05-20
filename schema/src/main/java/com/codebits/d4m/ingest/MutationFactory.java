@@ -38,13 +38,15 @@ public class MutationFactory {
     public static final Text RAW_DATA = new Text("rawdata");
     public static final Text TEXT = new Text("text");
 
-    @Setter @Getter protected String fieldDelimiter = "\t";
-    @Setter @Getter protected String factDelimiter = "|";
+    @Setter @Getter protected String fieldDelimiter;
+    @Setter @Getter protected String factDelimiter;
     
     protected final Charset charset = Charset.defaultCharset();
 
-    public MutationFactory() {
+    public MutationFactory(final String fieldDelimiter, final String factDelimiter) {
         ONE = new Value("1".getBytes(charset));
+        this.fieldDelimiter = fieldDelimiter;
+        this.factDelimiter = factDelimiter;
     }
     
     protected void checkParameters(String row, String[] fieldNames, String[] fieldValues) {

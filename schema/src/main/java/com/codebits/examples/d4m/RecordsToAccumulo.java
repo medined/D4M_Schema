@@ -49,9 +49,9 @@ public class RecordsToAccumulo {
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);
 
-        TableManager tableManager = new TableManager(connector.tableOperations());
+        TableManager tableManager = new TableManager(connector, connector.tableOperations());
 
-        MutationFactory factory = new MutationFactory();
+        MutationFactory factory = new MutationFactory("\t", "|");
 
         BatchWriter edgeWriter = null;
         BatchWriter transposeWriter = null;

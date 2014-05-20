@@ -43,7 +43,7 @@ public class MutationFactoryTest {
     // TODO: handle empty field value.
     @Before
     public void setup() {
-        instance = new MutationFactory();
+        instance = new MutationFactory("\t", "|");
     }
 
     @Test

@@ -51,7 +51,7 @@ public class TextInfoCollectionDriver {
             throw new D4MException(String.format("Security exception connecting to Accumulo."));
         }
 
-        TableManager tableManager = new TableManager(connector.tableOperations());
+        TableManager tableManager = new TableManager(connector, connector.tableOperations());
 
         TextInfoCollection textInfoCollection = new TextInfoCollection(tableManager, connector, authorizations);
         while (textInfoCollection.hasNext()) {

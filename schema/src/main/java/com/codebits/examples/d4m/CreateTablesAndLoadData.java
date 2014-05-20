@@ -30,7 +30,7 @@ public class CreateTablesAndLoadData {
         ZooKeeperInstance instance = new ZooKeeperInstance(instanceName, zooKeepers);
         Connector connector = instance.getConnector(user, pass);
 
-        TableManager tableManager = new TableManager(connector.tableOperations());
+        TableManager tableManager = new TableManager(connector, connector.tableOperations());
         tableManager.createTables();
         tableManager.addSplitsForSha1();
         
