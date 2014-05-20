@@ -164,13 +164,17 @@ public class MutationFactory {
     }
 
     public Mutation generateText(String row, String text) {
+        return generateText(row, text, rawData);
+    }
+    
+    public Mutation generateText(String row, String text, Text textType) {
         Validate.notNull(row, ROW_VALUE_ERROR);
         Validate.notEmpty(row, ROW_VALUE_ERROR);
         Validate.notNull(text, ROW_VALUE_ERROR);
         Validate.notEmpty(text, ROW_VALUE_ERROR);
 
         Mutation mutation = new Mutation(new Text(row));
-        mutation.put(emptyCF, rawData, new Value(text.getBytes(charset)));
+        mutation.put(emptyCF, textType, new Value(text.getBytes(charset)));
         return mutation;
     }
 
