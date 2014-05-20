@@ -97,8 +97,8 @@ public class DisplayD4MSet {
         }
         scan.close();
 
-        System.out.println("*****" + tableManager.getFieldTable());
-        scan = connector.createScanner(tableManager.getFieldTable(), new Authorizations());
+        System.out.println("*****" + tableManager.getMetadataTable());
+        scan = connector.createScanner(tableManager.getMetadataTable(), new Authorizations());
         iterator = scan.iterator();
         recordCount = 0;
         while (iterator.hasNext()) {

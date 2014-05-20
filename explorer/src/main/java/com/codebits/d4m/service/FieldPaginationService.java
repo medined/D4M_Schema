@@ -43,7 +43,7 @@ public class FieldPaginationService {
 
         Connector connector = accumuloService.getConnector();
 
-        final String tableName = tableManager.getFieldTable();
+        final String tableName = tableManager.getMetadataTable();
 
         Scanner scanner = null;
         try {
@@ -78,7 +78,7 @@ public class FieldPaginationService {
 
         Connector connector = accumuloService.getConnector();
 
-        final String tableName = tableManager.getFieldTable();
+        final String tableName = tableManager.getMetadataTable();
 
         Scanner scan = null;
         try {
@@ -113,7 +113,7 @@ public class FieldPaginationService {
     public SortedSet<FieldPageInfo> getPage(Set<String> flags, final String firstFieldOnPage, final int pageSize, final boolean startRowInclusive) {
         final SortedSet<FieldPageInfo> rv = new TreeSet<>();
         Connector connector = accumuloService.getConnector();
-        final String tableName = tableManager.getFieldTable();
+        final String tableName = tableManager.getMetadataTable();
         
         Scanner scan = null;
         try {
@@ -168,7 +168,7 @@ public class FieldPaginationService {
     public String getFirstFieldNameOnPage(final int pageNumber, final int pageSize) {
         String fieldName = null;
         Connector connector = accumuloService.getConnector();
-        final String tableName = tableManager.getFieldTable();
+        final String tableName = tableManager.getMetadataTable();
         Text tPageNumber = new Text(Integer.toString(pageNumber));
 
         Scanner scan = null;
@@ -203,7 +203,7 @@ public class FieldPaginationService {
 
         Connector connector = accumuloService.getConnector();
 
-        final String tableName = tableManager.getFieldTable();
+        final String tableName = tableManager.getMetadataTable();
 
         Scanner scan = null;
         try {

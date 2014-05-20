@@ -63,12 +63,12 @@ public class FieldPaginationDriver {
         try {
             connector = instance.getConnector(user, pass);
             TableManager tableManager = new TableManager(connector.tableOperations());
-            tableName = tableManager.getFieldTable();
+            tableName = tableManager.getMetadataTable();
 
             final int pageSizes[] = {5, 10, 50, 100};
             final Text cqPages = new Text("pages");
 
-            wr = connector.createBatchWriter(tableManager.getFieldTable(), 10000000, 10000, 5);
+            wr = connector.createBatchWriter(tableManager.getMetadataTable(), 10000000, 10000, 5);
             for (int pageSize : pageSizes) {
                 int pageNumbers = 0;
                 FieldPaginationPrecomputor precomputor = new FieldPaginationPrecomputor();

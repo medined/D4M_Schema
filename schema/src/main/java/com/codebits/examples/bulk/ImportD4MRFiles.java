@@ -64,8 +64,8 @@ public class ImportD4MRFiles {
         rfile = String.format("%s/%s.rf", input, tableManager.getDegreeTable());
         tableOperations.importDirectory(tableManager.getDegreeTable(), rfile, failure, false);
 
-        rfile = String.format("%s/%s.rf", input, tableManager.getFieldTable());
-        tableOperations.importDirectory(tableManager.getFieldTable(), rfile, failure, false);
+        rfile = String.format("%s/%s.rf", input, tableManager.getMetadataTable());
+        tableOperations.importDirectory(tableManager.getMetadataTable(), rfile, failure, false);
 
         rfile = String.format("%s/%s.rf", input, tableManager.getTextTable());
         tableOperations.importDirectory(tableManager.getTextTable(), rfile, failure, false);

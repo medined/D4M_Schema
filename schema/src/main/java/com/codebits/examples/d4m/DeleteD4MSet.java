@@ -45,8 +45,8 @@ public class DeleteD4MSet {
         if (tableOperations.exists(tableManager.getDegreeTable())) {
             tableOperations.delete(tableManager.getDegreeTable());
         }
-        if (tableOperations.exists(tableManager.getFieldTable())) {
-            tableOperations.delete(tableManager.getFieldTable());
+        if (tableOperations.exists(tableManager.getMetadataTable())) {
+            tableOperations.delete(tableManager.getMetadataTable());
         }
         if (tableOperations.exists(tableManager.getTextTable())) {
             tableOperations.delete(tableManager.getTextTable());

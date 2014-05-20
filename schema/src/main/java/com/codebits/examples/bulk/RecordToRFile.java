@@ -71,7 +71,7 @@ public class RecordToRFile {
         writeRFile(tableManager.getEdgeTable(), factory.generateEdges(row, fieldNames, fieldValues));
         writeRFile(tableManager.getTransposeTable(), factory.generateTranspose(row, fieldNames, fieldValues));
         writeRFile(tableManager.getDegreeTable(), factory.generateDegree(row, fieldNames, fieldValues));
-        writeRFile(tableManager.getFieldTable(), factory.generateField(row, fieldNames, fieldValues));
+        writeRFile(tableManager.getMetadataTable(), factory.generateField(row, fieldNames, fieldValues));
         writeRFile(tableManager.getTextTable(), factory.generateRawData(row, fieldNames, fieldValues));
     }
     

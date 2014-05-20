@@ -77,7 +77,7 @@ public class StateCSVToAccumulo {
             edgeWriter = connector.createBatchWriter(tableManager.getEdgeTable(), 10000000, 10000, 5);
             transposeWriter = connector.createBatchWriter(tableManager.getTransposeTable(), 10000000, 10000, 5);
             degreeWriter = connector.createBatchWriter(tableManager.getDegreeTable(), 10000000, 10000, 5);
-            fieldWriter = connector.createBatchWriter(tableManager.getFieldTable(), 10000000, 10000, 5);
+            fieldWriter = connector.createBatchWriter(tableManager.getMetadataTable(), 10000000, 10000, 5);
             textWriter = connector.createBatchWriter(tableManager.getTextTable(), 10000000, 10000, 5);
 
             for (List<String> fieldValueList : records) {

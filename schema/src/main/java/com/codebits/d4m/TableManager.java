@@ -42,10 +42,10 @@ public class TableManager {
         int isEdgePresent = tableOperations.exists(getEdgeTable()) ? 1 : 0;
         int isTransposePresent = tableOperations.exists(getTransposeTable()) ? 1 : 0;
         int isDegreePresent = tableOperations.exists(getDegreeTable()) ? 1 : 0;
-        int isFieldPresent = tableOperations.exists(getFieldTable()) ? 1 : 0;
+        int isMetatablePresent = tableOperations.exists(getMetadataTable()) ? 1 : 0;
         int isTextPresent = tableOperations.exists(getTextTable()) ? 1 : 0;
 
-        int tableCount = isEdgePresent + isTransposePresent + isDegreePresent + isFieldPresent + isTextPresent;
+        int tableCount = isEdgePresent + isTransposePresent + isDegreePresent + isMetatablePresent + isTextPresent;
         
         if (tableCount > 0 && tableCount < 5) {
             throw new D4MException("D4M: BASE[" + getBaseTableName() + "] Inconsistent state - one or more D4M tables is missing.");
@@ -59,7 +59,7 @@ public class TableManager {
         tableOperations.create(getEdgeTable());
         tableOperations.create(getTransposeTable());
         tableOperations.create(getDegreeTable());
-        tableOperations.create(getFieldTable());
+        tableOperations.create(getMetadataTable());
         tableOperations.create(getTextTable());
         
         if (sha1) {
@@ -82,7 +82,7 @@ public class TableManager {
         IteratorSetting fieldIteratorSetting = new IteratorSetting(7, SummingCombiner.class);
         SummingCombiner.setEncodingType(fieldIteratorSetting, LongCombiner.Type.STRING);
         SummingCombiner.setColumns(fieldIteratorSetting, Collections.singletonList(new IteratorSetting.Column("", "field")));
-        tableOperations.attachIterator(getFieldTable(), fieldIteratorSetting);        
+        tableOperations.attachIterator(getMetadataTable(), fieldIteratorSetting);        
     }
     
     public String getEdgeTable() {
@@ -101,8 +101,8 @@ public class TableManager {
         return "T" + getBaseTableName() + "Text";
     }
     
-    public String getFieldTable() {
-        return "T" + getBaseTableName() + "Field";
+    public String getMetadataTable() {
+        return "T" + getBaseTableName() + "Metadata";
     }
     
 }

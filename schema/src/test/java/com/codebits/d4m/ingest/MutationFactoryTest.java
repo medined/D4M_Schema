@@ -16,7 +16,7 @@ public class MutationFactoryTest {
     private static final Text emptyCF = new Text("");
     private static final Text degree = new Text("degree");
     private static final Text field = new Text("field");
-    private static final Text rawData = new Text("RawData");
+    private static final Text rawData = new Text("rawdata");
 
     MutationFactory instance = null;
 
@@ -191,7 +191,7 @@ public class MutationFactoryTest {
     }
 
     @Test
-    public void testGenerateText() {
+    public void testGenerateRawData() {
         TestableMutation expected = new TestableMutation("AA");
         expected.put(emptyCF, rawData, new Value("CITY_NAME|Akron".getBytes()));
 
@@ -200,7 +200,7 @@ public class MutationFactoryTest {
     }
 
     @Test
-    public void testGenerateText_does_not_passthru_d4msha1_field() {
+    public void testGenerateRawData_does_not_passthru_d4msha1_field() {
         TestableMutation expected = new TestableMutation("AA");
         expected.put(emptyCF, rawData, new Value("CITY_NAME|Akron".getBytes()));
 
