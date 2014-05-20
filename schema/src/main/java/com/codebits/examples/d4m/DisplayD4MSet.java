@@ -53,6 +53,7 @@ public class DisplayD4MSet {
                 break;
             }
         }
+        scan.close();
 
         System.out.println("*****" + tableManager.getTransposeTable());
         scan = connector.createScanner(tableManager.getTransposeTable(), new Authorizations());
@@ -66,6 +67,7 @@ public class DisplayD4MSet {
                 break;
             }
         }
+        scan.close();
 
         System.out.println("*****" + tableManager.getDegreeTable());
         scan = connector.createScanner(tableManager.getDegreeTable(), new Authorizations());
@@ -79,6 +81,7 @@ public class DisplayD4MSet {
                 break;
             }
         }
+        scan.close();
 
         System.out.println("*****" + tableManager.getTextTable());
         scan = connector.createScanner(tableManager.getTextTable(), new Authorizations());
@@ -92,6 +95,8 @@ public class DisplayD4MSet {
                 break;
             }
         }
+        scan.close();
+
         System.out.println("*****" + tableManager.getFieldTable());
         scan = connector.createScanner(tableManager.getFieldTable(), new Authorizations());
         iterator = scan.iterator();
@@ -104,6 +109,7 @@ public class DisplayD4MSet {
                 break;
             }
         }
+        scan.close();
 
     }
 }
