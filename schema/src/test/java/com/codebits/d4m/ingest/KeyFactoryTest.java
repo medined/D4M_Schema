@@ -35,19 +35,8 @@ public class KeyFactoryTest {
     @Before
     public void setup() {
         instance = new KeyFactory();
+        instance.setMutationFactory(new MutationFactory());
         instance.setUnderTest(true);
-    }
-
-    @Test
-    public void testGetFieldDelimiter() {
-        instance.setFieldDelimiter("A");
-        assertEquals("A", instance.getFieldDelimiter());
-    }
-
-    @Test
-    public void testGetFactDelimiter() {
-        instance.setFactDelimiter("B");
-        assertEquals("B", instance.getFactDelimiter());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -144,20 +133,19 @@ public class KeyFactoryTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testGenerateText_with_null_row() {
-        instance.generateText(null, fieldNames, fieldValues);
+        instance.generateRawData(null, fieldNames, fieldValues);
     }
 
     @Test
     public void testGenerateText() {
-        Map<Key, Value> actual = instance.generateText(row, fieldNames, fieldValues);
-        assertEquals("{AA :RawData [] 0 false=CITY_NAME|Akron}", actual.toString());
+        Map<Key, Value> actual = instance.generateRawData(row, fieldNames, fieldValues);
+        assertEquals("{AA :rawdata [] 0 false=CITY_NAME|Akron}", actual.toString());
     }
 
     @Test
     public void testGenerateText_does_not_passthru_d4msha1_field() {
-
-        Map<Key, Value> actual = instance.generateText(row, xfieldNames, xfieldValues);
-        assertEquals("{AA :RawData [] 0 false=CITY_NAME|Akron}", actual.toString());
+        Map<Key, Value> actual = instance.generateRawData(row, xfieldNames, xfieldValues);
+        assertEquals("{AA :rawdata [] 0 false=CITY_NAME|Akron}", actual.toString());
     }
 
 }

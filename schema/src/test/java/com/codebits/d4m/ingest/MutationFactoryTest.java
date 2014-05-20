@@ -187,7 +187,7 @@ public class MutationFactoryTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testGenerateText_with_null_row() {
-        instance.generateText(null, fieldNames, fieldValues);
+        instance.generateRawData(null, fieldNames, fieldValues);
     }
 
     @Test
@@ -195,7 +195,7 @@ public class MutationFactoryTest {
         TestableMutation expected = new TestableMutation("AA");
         expected.put(emptyCF, rawData, new Value("CITY_NAME|Akron".getBytes()));
 
-        Mutation actual = instance.generateText(row, fieldNames, fieldValues);
+        Mutation actual = instance.generateRawData(row, fieldNames, fieldValues);
         assertEquals(expected, actual);
     }
 
@@ -204,7 +204,7 @@ public class MutationFactoryTest {
         TestableMutation expected = new TestableMutation("AA");
         expected.put(emptyCF, rawData, new Value("CITY_NAME|Akron".getBytes()));
 
-        Mutation actual = instance.generateText(row, xfieldNames, xfieldValues);
+        Mutation actual = instance.generateRawData(row, xfieldNames, xfieldValues);
         expected.equals(actual);
         System.out.println(expected.getDifferences());
         assertEquals(expected, actual);

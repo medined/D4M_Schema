@@ -6,6 +6,9 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.security.AccessControlException;
 
+/* This class exists to isolate that pesky empty catch block. There is no 
+ * reason to copy 'bad' practice throughout the code base.
+*/
 @SuppressWarnings("PMD.EmptyCatchBlock")
 public class CreateOrReplaceHadoopDirectory {
 

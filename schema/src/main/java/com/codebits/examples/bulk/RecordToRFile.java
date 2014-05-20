@@ -72,7 +72,7 @@ public class RecordToRFile {
         writeRFile(tableManager.getTransposeTable(), factory.generateTranspose(row, fieldNames, fieldValues));
         writeRFile(tableManager.getDegreeTable(), factory.generateDegree(row, fieldNames, fieldValues));
         writeRFile(tableManager.getFieldTable(), factory.generateField(row, fieldNames, fieldValues));
-        writeRFile(tableManager.getTextTable(), factory.generateText(row, fieldNames, fieldValues));
+        writeRFile(tableManager.getTextTable(), factory.generateRawData(row, fieldNames, fieldValues));
     }
     
     private void writeRFile(final String tableName, final Map<Key, Value> entries) {

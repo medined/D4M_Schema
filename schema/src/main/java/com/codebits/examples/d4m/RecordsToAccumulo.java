@@ -76,7 +76,7 @@ public class RecordsToAccumulo {
                 for (Mutation mutation : factory.generateDegree(row, fieldNames, fieldValues)) {
                     degreeWriter.addMutation(mutation);
                 }
-                textWriter.addMutation(factory.generateText(row, fieldNames, fieldValues));
+                textWriter.addMutation(factory.generateRawData(row, fieldNames, fieldValues));
             }
 
         } finally {

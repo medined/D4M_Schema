@@ -93,7 +93,7 @@ public class SOICSVToAccumulo {
                 for (Mutation mutation : factory.generateField(row, fieldNames, fieldValues)) {
                     fieldWriter.addMutation(mutation);
                 }
-                textWriter.addMutation(factory.generateText(row, fieldNames, fieldValues));
+                textWriter.addMutation(factory.generateRawData(row, fieldNames, fieldValues));
             }
 
         } finally {

@@ -26,26 +26,28 @@ import org.apache.hadoop.io.Text;
  */
 public class MutationFactory {
 
-    private static final String ROW_VALUE_ERROR = "Please supply a Row value.";
-    private static final String FIELD_NAMES_ERROR = "Please supply Field names.";
-    private static final String FIELD_VALUES_ERROR = "Please supply Field values.";
-    private static final String DIFFERING_LENGTH_ERROR = "Field names and Field Values arrays should have the same length.";
+    protected static final String ROW_VALUE_ERROR = "Please supply a Row value.";
+    protected static final String FIELD_NAMES_ERROR = "Please supply Field names.";
+    protected static final String FIELD_VALUES_ERROR = "Please supply Field values.";
+    protected static final String DIFFERING_LENGTH_ERROR = "Field names and Field Values arrays should have the same length.";
 
-    private Value one = null;
-    private static final Text emptyCF = new Text("");
-    private static final Text degree = new Text("degree");
-    private static final Text field = new Text("field");
-    private static final Text rawData = new Text("RawData");
+    public Value ONE = null;
+    public static final Text EMPTY_CF = new Text("");
+    public static final Text DEGREE = new Text("degree");
+    public static final Text FIELD = new Text("field");
+    public static final Text RAW_DATA = new Text("rawdata");
+    public static final Text TEXT = new Text("text");
 
-    @Setter @Getter private String fieldDelimiter = "\t";
-    @Setter @Getter private String factDelimiter = "|";
-    private final Charset charset = Charset.defaultCharset();
+    @Setter @Getter protected String fieldDelimiter = "\t";
+    @Setter @Getter protected String factDelimiter = "|";
+    
+    protected final Charset charset = Charset.defaultCharset();
 
     public MutationFactory() {
-        one = new Value("1".getBytes(charset));
+        ONE = new Value("1".getBytes(charset));
     }
     
-    private void checkParameters(String row, String[] fieldNames, String[] fieldValues) {
+    protected void checkParameters(String row, String[] fieldNames, String[] fieldValues) {
         Validate.notNull(row, ROW_VALUE_ERROR);
         Validate.notEmpty(row, ROW_VALUE_ERROR);
 
@@ -73,7 +75,7 @@ public class MutationFactory {
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
             if (false == "d4msha1".equals(fieldNames[nameIndex])) {
                 Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
-                tEdge.put(emptyCF, fact, one);
+                tEdge.put(EMPTY_CF, fact, ONE);
             }
         }
         return tEdge;
@@ -93,7 +95,7 @@ public class MutationFactory {
             if (false == "d4msha1".equals(fieldNames[nameIndex])) {
                 Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
                 Mutation transpose = new Mutation(new Text(fact));
-                transpose.put(emptyCF, new Text(row), one);
+                transpose.put(EMPTY_CF, new Text(row), ONE);
                 mutations.add(transpose);
             }
         }
@@ -127,7 +129,7 @@ public class MutationFactory {
             String fact = entry.getKey();
             Integer factCount = entry.getValue();
             Mutation mutation = new Mutation(new Text(fact));
-            mutation.put(emptyCF, degree, new Value(factCount.toString().getBytes(charset)));
+            mutation.put(EMPTY_CF, DEGREE, new Value(factCount.toString().getBytes(charset)));
             mutations.add(mutation);
         }
         return mutations;
@@ -159,28 +161,24 @@ public class MutationFactory {
             String fieldName = entry.getKey();
             Integer fieldCount = entry.getValue();
             Mutation mutation = new Mutation(new Text(fieldName));
-            mutation.put(emptyCF, field, new Value(fieldCount.toString().getBytes(charset)));
+            mutation.put(EMPTY_CF, FIELD, new Value(fieldCount.toString().getBytes(charset)));
             mutations.add(mutation);
         }
         return mutations;
     }
 
     public Mutation generateText(String row, String text) {
-        return generateText(row, text, rawData);
-    }
-    
-    public Mutation generateText(String row, String text, Text textType) {
         Validate.notNull(row, ROW_VALUE_ERROR);
         Validate.notEmpty(row, ROW_VALUE_ERROR);
         Validate.notNull(text, ROW_VALUE_ERROR);
         Validate.notEmpty(text, ROW_VALUE_ERROR);
 
         Mutation mutation = new Mutation(new Text(row));
-        mutation.put(emptyCF, textType, new Value(text.getBytes(charset)));
+        mutation.put(EMPTY_CF, TEXT, new Value(text.getBytes(charset)));
         return mutation;
     }
 
-    public Mutation generateText(String row, String[] fieldNames, String[] fieldValues) {
+    public Mutation generateRawData(String row, String[] fieldNames, String[] fieldValues) {
         checkParameters(row, fieldNames, fieldValues);
 
         boolean addFieldDelimiter = false;
@@ -197,7 +195,7 @@ public class MutationFactory {
             }
         }
         Mutation mutation = new Mutation(new Text(row));
-        mutation.put(emptyCF, rawData, new Value(value.toString().getBytes(charset)));
+        mutation.put(EMPTY_CF, RAW_DATA, new Value(value.toString().getBytes(charset)));
         return mutation;
     }
 

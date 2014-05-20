@@ -26,7 +26,6 @@ import org.apache.accumulo.core.client.TableExistsException;
 import org.apache.accumulo.core.client.TableNotFoundException;
 import org.apache.accumulo.core.client.ZooKeeperInstance;
 import org.apache.accumulo.core.data.Mutation;
-import org.apache.hadoop.io.Text;
 
 public class StateOfTheUnionSpeechLoader {
 
@@ -160,7 +159,7 @@ public class StateOfTheUnionSpeechLoader {
                         }
 
                         textWriter = connector.createBatchWriter(tableManager.getTextTable(), 10000000, 10000, 5);
-                        textWriter.addMutation(factory.generateText(row, text, new Text("text")));
+                        textWriter.addMutation(factory.generateText(row, text));
 
                     } catch (TableNotFoundException e) {
                         throw new RuntimeException(e);

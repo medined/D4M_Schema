@@ -88,7 +88,7 @@ public class RecordToAccumulo {
 
         try {
             wr = connector.createBatchWriter(tableManager.getTextTable(), 10000000, 10000, 5);
-            wr.addMutation(factory.generateText(row, fieldNames, fieldValues));
+            wr.addMutation(factory.generateRawData(row, fieldNames, fieldValues));
         } finally {
             if (wr != null) {
                 wr.close();
