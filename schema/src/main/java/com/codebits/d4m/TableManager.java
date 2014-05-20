@@ -81,7 +81,7 @@ public class TableManager {
         
         IteratorSetting fieldIteratorSetting = new IteratorSetting(7, SummingCombiner.class);
         SummingCombiner.setEncodingType(fieldIteratorSetting, LongCombiner.Type.STRING);
-        SummingCombiner.setColumns(fieldIteratorSetting, Collections.singletonList(new IteratorSetting.Column("", "field")));
+        SummingCombiner.setColumns(fieldIteratorSetting, Collections.singletonList(new IteratorSetting.Column("field", "")));
         tableOperations.attachIterator(getMetadataTable(), fieldIteratorSetting);        
     }
     

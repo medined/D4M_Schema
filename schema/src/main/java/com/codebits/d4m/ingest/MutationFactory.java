@@ -160,8 +160,8 @@ public class MutationFactory {
         for (Entry<String, Integer> entry : fields.entrySet()) {
             String fieldName = entry.getKey();
             Integer fieldCount = entry.getValue();
-            Mutation mutation = new Mutation(new Text(fieldName));
-            mutation.put(EMPTY_CF, FIELD, new Value(fieldCount.toString().getBytes(charset)));
+            Mutation mutation = new Mutation(FIELD);
+            mutation.put(FIELD, new Text(fieldName), new Value(fieldCount.toString().getBytes(charset)));
             mutations.add(mutation);
         }
         return mutations;

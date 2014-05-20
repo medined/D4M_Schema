@@ -123,12 +123,11 @@ public class KeyFactory {
         Map<Key, Value> entries = new TreeMap<Key, Value>();
 
         for (Mutation mutation : mutationFactory.generateField(row, fieldNames, fieldValues)) {
-            Text factName = new Text(mutation.getRow());
             for (ColumnUpdate columnUpdate : mutation.getUpdates()) {
                 if (underTest) {
-                    key = new Key(factName, EMPTY_CF, FIELD, 0);
+                    key = new Key(FIELD, FIELD, new Text(columnUpdate.getColumnQualifier()), 0);
                 } else {
-                    key = new Key(factName, EMPTY_CF, FIELD);
+                    key = new Key(FIELD, FIELD, new Text(columnUpdate.getColumnQualifier()));
                 }
                 entries.put(key, new Value(columnUpdate.getValue()));
             }

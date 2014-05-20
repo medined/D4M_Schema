@@ -163,8 +163,8 @@ public class MutationFactoryTest {
 
     @Test
     public void testGenerateField() {
-        TestableMutation mutation = new TestableMutation("CITY_NAME");
-        mutation.put(emptyCF, field, one);
+        TestableMutation mutation = new TestableMutation(field);
+        mutation.put(field, new Text("CITY_NAME"), one);
 
         List<Mutation> expected = new ArrayList<Mutation>();
         expected.add(mutation);

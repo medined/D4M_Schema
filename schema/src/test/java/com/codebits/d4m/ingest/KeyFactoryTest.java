@@ -122,7 +122,7 @@ public class KeyFactoryTest {
     @Test
     public void testGenerateField() {
         Map<Key, Value> actual = instance.generateField(row, fieldNames, fieldValues);
-        assertEquals("{CITY_NAME :field [] 0 false=1}", actual.toString());
+        assertEquals("{field field:CITY_NAME [] 0 false=1}", actual.toString());
     }
 
     @Test

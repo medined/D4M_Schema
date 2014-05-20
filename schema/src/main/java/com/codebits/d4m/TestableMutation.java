@@ -18,7 +18,7 @@ public class TestableMutation extends Mutation {
         super(row);
     }
 
-    TestableMutation(Text row) {
+    public TestableMutation(Text row) {
         super(row);
     }
 
