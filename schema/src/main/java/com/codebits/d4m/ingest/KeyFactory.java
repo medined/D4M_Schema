@@ -4,6 +4,7 @@ import static com.codebits.d4m.ingest.MutationFactory.DEGREE;
 import static com.codebits.d4m.ingest.MutationFactory.EMPTY_CF;
 import static com.codebits.d4m.ingest.MutationFactory.FIELD;
 import static com.codebits.d4m.ingest.MutationFactory.RAW_DATA;
+import static com.codebits.d4m.ingest.MutationFactory.TEXT;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -36,6 +37,12 @@ public class KeyFactory {
     @Setter
     private boolean underTest = false;
 
+    public Map<Key, Value> generateEdges(String row, List<String> fieldNames, List<String> fieldValues) {
+        String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
+        String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
+        return generateEdges(row, fieldNameArray, fieldValueArray);
+    }
+
     public Map<Key, Value> generateEdges(String row, String[] fieldNames, String[] fieldValues) {
         Validate.notNull(mutationFactory, MUTATION_FACTORY_VALUE_ERROR);
         Map<Key, Value> entries = new TreeMap<Key, Value>();
@@ -52,6 +59,12 @@ public class KeyFactory {
             entries.put(key, mutationFactory.ONE);
         }
         return entries;
+    }
+
+    public Map<Key, Value> generateTranspose(String row, List<String> fieldNames, List<String> fieldValues) {
+        String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
+        String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
+        return generateTranspose(row, fieldNameArray, fieldValueArray);
     }
 
     public Map<Key, Value> generateTranspose(String row, String[] fieldNames, String[] fieldValues) {
@@ -71,6 +84,12 @@ public class KeyFactory {
         }
 
         return entries;
+    }
+
+    public Map<Key, Value> generateDegree(String row, List<String> fieldNames, List<String> fieldValues) {
+        String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
+        String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
+        return generateDegree(row, fieldNameArray, fieldValueArray);
     }
 
     public Map<Key, Value> generateDegree(String row, String[] fieldNames, String[] fieldValues) {
@@ -93,6 +112,12 @@ public class KeyFactory {
         return entries;
     }
 
+    public Map<Key, Value> generateField(String row, List<String> fieldNames, List<String> fieldValues) {
+        String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
+        String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
+        return generateField(row, fieldNameArray, fieldValueArray);
+    }
+
     public Map<Key, Value> generateField(String row, String[] fieldNames, String[] fieldValues) {
         Validate.notNull(mutationFactory, MUTATION_FACTORY_VALUE_ERROR);
         Map<Key, Value> entries = new TreeMap<Key, Value>();
@@ -111,6 +136,12 @@ public class KeyFactory {
         return entries;
     }
 
+    public Map<Key, Value> generateRawData(String row, List<String> fieldNames, List<String> fieldValues) {
+        String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
+        String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
+        return generateRawData(row, fieldNameArray, fieldValueArray);
+    }
+    
     public Map<Key, Value> generateRawData(String row, String[] fieldNames, String[] fieldValues) {
         Validate.notNull(mutationFactory, MUTATION_FACTORY_VALUE_ERROR);
         Map<Key, Value> entries = new TreeMap<Key, Value>();
@@ -127,4 +158,20 @@ public class KeyFactory {
         return entries;
     }
 
+    public Map<Key, Value> generateText(String row, String text) {
+        Validate.notNull(mutationFactory, MUTATION_FACTORY_VALUE_ERROR);
+        Map<Key, Value> entries = new TreeMap<Key, Value>();
+        Mutation mutation = mutationFactory.generateText(row, text);
+        Text tRow = new Text(mutation.getRow());
+        for (ColumnUpdate columnUpdate : mutation.getUpdates()) {
+            if (underTest) {
+                key = new Key(tRow, EMPTY_CF, TEXT, 0);
+            } else {
+                key = new Key(tRow, EMPTY_CF, TEXT);
+            }
+            entries.put(key, new Value(columnUpdate.getValue()));
+        }
+        return entries;
+    }
+    
 }

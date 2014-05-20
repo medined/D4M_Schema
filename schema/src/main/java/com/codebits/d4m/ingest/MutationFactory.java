@@ -167,15 +167,10 @@ public class MutationFactory {
         return mutations;
     }
 
-    public Mutation generateText(String row, String text) {
-        Validate.notNull(row, ROW_VALUE_ERROR);
-        Validate.notEmpty(row, ROW_VALUE_ERROR);
-        Validate.notNull(text, ROW_VALUE_ERROR);
-        Validate.notEmpty(text, ROW_VALUE_ERROR);
-
-        Mutation mutation = new Mutation(new Text(row));
-        mutation.put(EMPTY_CF, TEXT, new Value(text.getBytes(charset)));
-        return mutation;
+    public Mutation generateRawData(String row, List<String> fieldNames, List<String> fieldValues) {
+        String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
+        String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
+        return generateRawData(row, fieldNameArray, fieldValueArray);
     }
 
     public Mutation generateRawData(String row, String[] fieldNames, String[] fieldValues) {
@@ -196,6 +191,17 @@ public class MutationFactory {
         }
         Mutation mutation = new Mutation(new Text(row));
         mutation.put(EMPTY_CF, RAW_DATA, new Value(value.toString().getBytes(charset)));
+        return mutation;
+    }
+
+    public Mutation generateText(String row, String text) {
+        Validate.notNull(row, ROW_VALUE_ERROR);
+        Validate.notEmpty(row, ROW_VALUE_ERROR);
+        Validate.notNull(text, ROW_VALUE_ERROR);
+        Validate.notEmpty(text, ROW_VALUE_ERROR);
+
+        Mutation mutation = new Mutation(new Text(row));
+        mutation.put(EMPTY_CF, TEXT, new Value(text.getBytes(charset)));
         return mutation;
     }
 
