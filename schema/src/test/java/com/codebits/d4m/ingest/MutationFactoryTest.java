@@ -169,7 +169,7 @@ public class MutationFactoryTest {
         List<Mutation> expected = new ArrayList<Mutation>();
         expected.add(mutation);
 
-        List<Mutation> actual = instance.generateField(row, fieldNames, fieldValues);
+        List<Mutation> actual = instance.generateMetadata(row, fieldNames, fieldValues);
         assertEquals(expected, actual);
     }
 

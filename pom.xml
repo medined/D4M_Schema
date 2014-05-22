@@ -30,11 +30,28 @@
         <version.spring>4.0.3.RELEASE</version.spring>
         <version.spring.security>3.2.3.RELEASE</version.spring.security>
         <version.streamlib>2.6.0</version.streamlib>
+        <version.xalan>2.7.1</version.xalan>
+        <version.xerces>2.9.1</version.xerces>
         <version.zookeeeper>3.4.6</version.zookeeeper>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- ========================================= -->
+            <!-- START: avoid Failed to set setXIncludeAware -->
+            <dependency>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+                <version>${version.xerces}</version>
+            </dependency>
+            <dependency>
+                <groupId>xalan</groupId>
+                <artifactId>xalan</artifactId>
+                <version>${version.xalan}</version>
+            </dependency>
+            <!-- END: avoid Failed to set setXIncludeAware -->
+            <!-- ========================================= -->
+
             <!-- annotations replacing boiler-plate code -->
             <dependency>
                 <groupId>org.projectlombok</groupId> 

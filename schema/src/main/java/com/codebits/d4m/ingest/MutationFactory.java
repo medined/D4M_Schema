@@ -1,11 +1,18 @@
 package com.codebits.d4m.ingest;
 
+import com.clearspring.analytics.hash.MurmurHash;
+import com.clearspring.analytics.stream.cardinality.HyperLogLogPlus;
+import com.clearspring.analytics.stream.cardinality.ICardinality;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.accumulo.core.data.Mutation;
@@ -32,6 +39,8 @@ public class MutationFactory {
     protected static final String DIFFERING_LENGTH_ERROR = "Field names and Field Values arrays should have the same length.";
 
     public Value ONE = null;
+    public static final Text CARDINALITY = new Text("cardinality");
+    public static final Text CARDINALITY_BYTES = new Text("cardinality_bytes");
     public static final Text EMPTY_CF = new Text("");
     public static final Text DEGREE = new Text("degree");
     public static final Text FIELD = new Text("field");
@@ -40,6 +49,10 @@ public class MutationFactory {
 
     @Setter @Getter protected String fieldDelimiter;
     @Setter @Getter protected String factDelimiter;
+    
+    @Setter @Getter private boolean trackCardinality = false;
+
+    Map<String, ICardinality> estimators = new TreeMap<String, ICardinality>();
     
     protected final Charset charset = Charset.defaultCharset();
 
@@ -76,7 +89,9 @@ public class MutationFactory {
         Mutation tEdge = new Mutation(new Text(row));
         for (int nameIndex = 0; nameIndex < fieldNames.length; nameIndex++) {
             if (false == "d4msha1".equals(fieldNames[nameIndex])) {
-                Text fact = new Text(fieldNames[nameIndex] + getFactDelimiter() + fieldValues[nameIndex]);
+                String fieldName = fieldNames[nameIndex];
+                String fieldInfo = fieldName + getFactDelimiter() + fieldValues[nameIndex];
+                Text fact = new Text(fieldInfo);
                 tEdge.put(EMPTY_CF, fact, ONE);
             }
         }
@@ -137,35 +152,59 @@ public class MutationFactory {
         return mutations;
     }
 
-    public List<Mutation> generateField(String row, List<String> fieldNames, List<String> fieldValues) {
+    public List<Mutation> generateMetadata(String row, List<String> fieldNames, List<String> fieldValues) {
         String[] fieldNameArray = fieldNames.toArray(new String[fieldNames.size()]);
         String[] fieldValueArray = fieldValues.toArray(new String[fieldValues.size()]);
-        return generateField(row, fieldNameArray, fieldValueArray);
+        return generateMetadata(row, fieldNameArray, fieldValueArray);
     }
 
-    public List<Mutation> generateField(String row, String[] fieldNames, String[] fieldValues) {
+    public List<Mutation> generateMetadata(String row, String[] fieldNames, String[] fieldValues) {
         checkParameters(row, fieldNames, fieldValues);
 
         Map<String, Integer> fields = new HashMap<String, Integer>();
         for (int i = 0; i < fieldValues.length; i++) {
-            if (!fieldValues[i].isEmpty() && !"d4msha1".equals(fieldNames[i])) {
-                Integer fieldCount = fields.get(fieldNames[i]);
+            String fieldName = fieldNames[i];
+            String fieldInfo = fieldName + getFactDelimiter() + fieldValues[i];
+            if (!fieldName.isEmpty() && !"d4msha1".equals(fieldName)) {
+                Integer fieldCount = fields.get(fieldName);
                 if (fieldCount == null) {
-                    fields.put(fieldNames[i], 1);
+                    fields.put(fieldName, 1);
                 } else {
-                    fields.put(fieldNames[i], fieldCount++);
+                    fields.put(fieldName, fieldCount++);
+                }
+                if (trackCardinality) {
+                    long hashCode = MurmurHash.hash64(fieldInfo);
+                    ICardinality estimator = estimators.get(fieldName);
+                    if (estimator == null) {
+                        estimator = new HyperLogLogPlus(16);
+                        estimators.put(fieldName, estimator);
+                    }
+                    estimator.offer(hashCode);
                 }
             }
         }
 
         List<Mutation> mutations = new ArrayList<Mutation>();
+        Mutation mutation = new Mutation(FIELD);
         for (Entry<String, Integer> entry : fields.entrySet()) {
             String fieldName = entry.getKey();
             Integer fieldCount = entry.getValue();
-            Mutation mutation = new Mutation(FIELD);
             mutation.put(FIELD, new Text(fieldName), new Value(fieldCount.toString().getBytes(charset)));
-            mutations.add(mutation);
         }
+        for (Entry<String, ICardinality> entry : estimators.entrySet()) {
+            Text factName = new Text(entry.getKey());
+            ICardinality estimator = entry.getValue();
+            Value cardinalityBytes;
+            try {
+                cardinalityBytes = new Value(estimator.getBytes());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Value cardinalityEstimate = new Value(Long.toString(estimator.cardinality()).getBytes(charset));
+            mutation.put(CARDINALITY, factName, cardinalityEstimate);
+            mutation.put(CARDINALITY_BYTES, factName, cardinalityBytes);
+        }
+        mutations.add(mutation);
         return mutations;
     }
 

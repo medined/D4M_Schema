@@ -64,18 +64,19 @@ public class StateCSVToAccumulo {
         tableManager.addSplitsForSha1();
 
         MutationFactory factory = new MutationFactory("\t", "|");
-
+        factory.setTrackCardinality(true);
+        
         BatchWriter edgeWriter = null;
         BatchWriter transposeWriter = null;
         BatchWriter degreeWriter = null;
-        BatchWriter fieldWriter = null;
+        BatchWriter metadataWriter = null;
         BatchWriter textWriter = null;
 
         try {
             edgeWriter = connector.createBatchWriter(tableManager.getEdgeTable(), 10000000, 10000, 5);
             transposeWriter = connector.createBatchWriter(tableManager.getTransposeTable(), 10000000, 10000, 5);
             degreeWriter = connector.createBatchWriter(tableManager.getDegreeTable(), 10000000, 10000, 5);
-            fieldWriter = connector.createBatchWriter(tableManager.getMetadataTable(), 10000000, 10000, 5);
+            metadataWriter = connector.createBatchWriter(tableManager.getMetadataTable(), 10000000, 10000, 5);
             textWriter = connector.createBatchWriter(tableManager.getTextTable(), 10000000, 10000, 5);
 
             for (List<String> fieldValueList : records) {
@@ -88,8 +89,8 @@ public class StateCSVToAccumulo {
                 for (Mutation mutation : factory.generateDegree(row, fieldNames, fieldValues)) {
                     degreeWriter.addMutation(mutation);
                 }
-                for (Mutation mutation : factory.generateField(row, fieldNames, fieldValues)) {
-                    fieldWriter.addMutation(mutation);
+                for (Mutation mutation : factory.generateMetadata(row, fieldNames, fieldValues)) {
+                    metadataWriter.addMutation(mutation);
                 }
                 textWriter.addMutation(factory.generateRawData(row, fieldNames, fieldValues));
             }
@@ -104,8 +105,8 @@ public class StateCSVToAccumulo {
             if (degreeWriter != null) {
                 degreeWriter.close();
             }
-            if (fieldWriter != null) {
-                fieldWriter.close();
+            if (metadataWriter != null) {
+                metadataWriter.close();
             }
             if (textWriter != null) {
                 textWriter.close();

@@ -149,7 +149,7 @@ public class StateOfTheUnionSpeechLoader {
                         }
 
                         fieldWriter = connector.createBatchWriter(tableManager.getMetadataTable(), 10000000, 10000, 5);
-                        for (Mutation mutation : factory.generateField(row, fieldNames, fieldValues)) {
+                        for (Mutation mutation : factory.generateMetadata(row, fieldNames, fieldValues)) {
                             fieldWriter.addMutation(mutation);
                         }
 

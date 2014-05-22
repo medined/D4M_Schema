@@ -1,7 +1,7 @@
 package com.codebits.examples.d4m;
 
 import com.clearspring.analytics.hash.MurmurHash;
-import com.clearspring.analytics.stream.cardinality.AdaptiveCounting;
+import com.clearspring.analytics.stream.cardinality.HyperLogLogPlus;
 import com.clearspring.analytics.stream.cardinality.ICardinality;
 import com.codebits.d4m.PropertyManager;
 import com.codebits.d4m.TableManager;
@@ -14,21 +14,36 @@ import java.util.Properties;
 import java.util.TreeMap;
 import org.apache.accumulo.core.client.AccumuloException;
 import org.apache.accumulo.core.client.AccumuloSecurityException;
+import org.apache.accumulo.core.client.BatchWriter;
 import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.Scanner;
 import org.apache.accumulo.core.client.TableNotFoundException;
 import org.apache.accumulo.core.client.ZooKeeperInstance;
 import org.apache.accumulo.core.data.Key;
+import org.apache.accumulo.core.data.Mutation;
 import org.apache.accumulo.core.data.Value;
 import org.apache.accumulo.core.security.Authorizations;
+import org.apache.hadoop.io.Text;
 
-public class FieldCardinality {
+/* This program reads the TedgeDegree to estimate cardinality of the
+ * field names. For example, given this data:
+ *
+ * first_name: david  record01
+ * first_name: john   record02
+ * first_name: john   record03
+ *
+ * The entry count for first_name is 3. However, the cardinality is 2.
+ *
+ * Cardinality can be important in some analytic situations.
+ *
+ */
+public class FieldCardinalityUsingHyperLogLogPlus {
 
     private final String factDelimiter = "|";
     private static final Charset charset = Charset.defaultCharset();
 
     public static void main(String[] args) throws IOException, AccumuloException, AccumuloSecurityException, TableNotFoundException {
-        FieldCardinality driver = new FieldCardinality();
+        FieldCardinalityUsingHyperLogLogPlus driver = new FieldCardinalityUsingHyperLogLogPlus();
         driver.process(args);
     }
 
@@ -56,24 +71,41 @@ public class FieldCardinality {
         while (iterator.hasNext()) {
             Map.Entry<Key, Value> entry = iterator.next();
 
-            String row = entry.getKey().getRow().toString();
-            String factName = row.substring(0, row.indexOf(factDelimiter));
+            // ROW format: census2010pop|10031 :degree []    1
+            String fieldInfo = entry.getKey().getRow().toString();
 
-            long hashCode = MurmurHash.hash64(row);
+            // factName format: census2010pop
+            String factName = fieldInfo.substring(0, fieldInfo.indexOf(factDelimiter));
 
+            // Turn the combiniation of fact and value into a hash.
+            long hashCode = MurmurHash.hash64(fieldInfo);
+
+            // Create a Cardinality Estimator for each fact.
             ICardinality estimator = estimators.get(factName);
             if (estimator == null) {
-                estimator = new AdaptiveCounting(16);
+                estimator = new HyperLogLogPlus(16);
                 estimators.put(factName, estimator);
             }
 
+            // Add the fact and value into the estimator.
             estimator.offer(hashCode);
         }
 
+        //Writing this entry format:
+        //field cardinality:census2010pop [] 640
+        Text field = new Text("field");
+        Text cardinality = new Text("cardinality");
+        Mutation mutation = new Mutation(field);
         for (Entry<String, ICardinality> entry : estimators.entrySet()) {
-            String factName = entry.getKey();
+            Text factName = new Text(entry.getKey());
             ICardinality estimator = entry.getValue();
-            System.out.println(String.format("%s: %d", factName, estimator.cardinality()));
+            Value cardinalityEstimate = new Value(Long.toString(estimator.cardinality()).getBytes(charset));
+            mutation.put(cardinality, factName, cardinalityEstimate);
         }
+        
+        // New cardinality values overwrite the old values.
+        BatchWriter writer = connector.createBatchWriter(tableManager.getMetadataTable(), 10000000, 10000, 5);
+        writer.addMutation(mutation);
+        writer.close();
     }
 }

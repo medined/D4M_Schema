@@ -122,7 +122,7 @@ public class KeyFactory {
         Validate.notNull(mutationFactory, MUTATION_FACTORY_VALUE_ERROR);
         Map<Key, Value> entries = new TreeMap<Key, Value>();
 
-        for (Mutation mutation : mutationFactory.generateField(row, fieldNames, fieldValues)) {
+        for (Mutation mutation : mutationFactory.generateMetadata(row, fieldNames, fieldValues)) {
             for (ColumnUpdate columnUpdate : mutation.getUpdates()) {
                 if (underTest) {
                     key = new Key(FIELD, FIELD, new Text(columnUpdate.getColumnQualifier()), 0);
