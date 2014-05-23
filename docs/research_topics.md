@@ -2,6 +2,8 @@
 
 >These topics are not ordered.
 
+## If not using SHA1 for row, then a sharding technique can be used.
+
 ## Reverse Sort for Pagination to Previous Pages
 
 http://affy.blogspot.com/2012/11/how-can-i-use-reverse-sort-on-generic.html
