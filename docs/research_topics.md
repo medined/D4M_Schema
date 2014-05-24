@@ -37,3 +37,42 @@ Stream summarizer and cardinality estimator.
 
 ## https://github.com/aggregateknowledge/java-hll
 
+## Features of a Data Exploration application
+
+1. Filter / Query
+2. Business Intelligence (?)
+3. Correlation / Merging
+
+Analytic Viewpoint
+
+1. Filtering (wher)
+2. Aggregation (min, max, average, standard deviation, etc.)
+3. Correlation (join)
+
+Alerting
+
+Grepping
+
+Missing data (missing dates, collection gaps)
+
+Dimension value spread (many values vs few values - cardinality)
+
+Unusual dimension values
+
+Differing Time Scales
+
+Word Coorelation
+
+More like this
+
+Themes, Cluster, Characterize
+
+Vertical alignment of sources per timeslice - visually see gaps in data, relate number of items from each source to another, reorder to compare sources taht are beyond page boundary.
+
+GeoTags
+
+Track Batches
+
+Batch Catalog
+
+Data Source Catalog
