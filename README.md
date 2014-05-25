@@ -24,6 +24,10 @@ and you'll get inspired to knock down some of your own Data Silos. It can done!
 
 [Digging Deeper](docs/digging_deeper.md)
 
+[Data Distribution](docs/data_distribution.md)
+
+[Research Topics](docs/research_topics.md)
+
 D4M's main page says:
 
 <blockquote>D4M is a breakthrough in computer programming that combines the 
