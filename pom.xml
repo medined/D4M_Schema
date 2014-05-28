@@ -12,7 +12,9 @@
     <modules>
         <module>schema</module>
         <module>explorer</module>
+        <!--
         <module>client</module>
+        -->
     </modules>
 
     <properties>
