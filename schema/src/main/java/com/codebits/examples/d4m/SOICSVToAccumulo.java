@@ -64,6 +64,8 @@ public class SOICSVToAccumulo {
         Connector connector = instance.getConnector(user, pass);
 
         TableManager tableManager = new TableManager(connector, connector.tableOperations());
+        tableManager.createTables();
+        tableManager.addSplitsForSha1();
 
         MutationFactory factory = new MutationFactory("\t", "|");
 
