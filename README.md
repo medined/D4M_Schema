@@ -1,6 +1,8 @@
-[![Build Status](https://travis-ci.org/medined/D4M_Schema.svg?branch=master)](https://travis-ci.org/medined/D4M_Schema)
+[![Build Status](https://travis-ci.org/medined/D4M_Schema.svg?branch=master)](https://travis-ci.org/medined/D4M_Schema) - Travis CI
 <br/>
-[![Coverage Status](https://coveralls.io/repos/medined/D4M_Schema/badge.png?branch=master)](https://coveralls.io/r/medined/D4M_Schema?branch=master) - huh? Why did this break?
+[![Build Status](https://api.shippable.com/projects/5385e15ce5ca5fba01621831/badge/master)](https://www.shippable.com/projects/5385e15ce5ca5fba01621831) - Shippable
+<br/>
+[![Coverage Status](https://coveralls.io/repos/medined/D4M_Schema/badge.png?branch=master)](https://coveralls.io/r/medined/D4M_Schema?branch=master)
 <br/>
 
 Check the wiki at <a target='_blank' href='https://github.com/medined/D4M_Schema/wiki'>https://github.com/medined/D4M_Schema/wiki</a>.
