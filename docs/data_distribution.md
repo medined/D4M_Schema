@@ -226,7 +226,9 @@ These five components, combined, go into the _Key_.
 
 ## Using Shards To Split a Row
 
-Each row resides on a single tablet which can cause a problem if any single row has a few million entries. For example, if your table held all ISBN's using this schema:
+Each row resides on a single tablet which can cause a problem if any 
+single row has a few million entries. For example, if your table held 
+all ISBN's using this schema:
 
 ```
 ------------------------------------------------
@@ -236,7 +238,10 @@ Each row resides on a single tablet which can cause a problem if any single row 
 | book | 1401216676   | Batman: A Killing Joke |
 ```
 
-You can see how the _book_ row would have millions of entries. Potentially causing memory issues inside your TServer. Many people add a _shard_ value to the row to introduce potential split points. With shard values, the above table might look like this:
+You can see how the _book_ row would have millions of entries. Potentially 
+causing memory issues inside your TServer. Many people add a _shard_ value 
+to the row to introduce potential split points. With shard values, the 
+above table might look like this:
 
 ```
 ---------------------------------------------------
@@ -246,7 +251,30 @@ You can see how the _book_ row would have millions of entries. Potentially causi
 | book_5 |  1401216676   | Batman: A Killing Joke |
 ```
 
-With this style of row values, Accumulo could use book_5 as a split point so that the row are no longer unmanageable. Of course, this technique adds a bit of complexity to the query process. I'll leave the query issue to a future note.
+With this style of row values, Accumulo could use book_5 as a split point 
+so that the row is no longer unmanageable. Of course, this technique adds a 
+bit of complexity to the query process. I'll leave the query issue to a 
+future note.
+
+It's also possible to place the shard at the beginning of the row value. With
+this technique, the table would like like:
+
+```
+---------------------------------------------------
+| row    | column family | column qualifier       |
+---------------------------------------------------
+| 0_book |  140122317    | Batman: Hush           |
+| 5_book |  1401216676   | Batman: A Killing Joke |
+```
+
+Using the shard component as a prefix does accomplish the goal of providing
+Accumulo with a potential split point. However, you'd need to use a 
+_BatchScanner_ to find all of the 'book' entries instead of using a 
+_Scanner_. Which approach you take totally depends on your situation.
+
+I prefer using the shard component as a suffix so that _Scanner_ can be 
+used. I feel this approach coincides nicely with the TedgeTranspose table 
+of the D4M schema.
 
 Let's explore how shard values can be generated.
 
