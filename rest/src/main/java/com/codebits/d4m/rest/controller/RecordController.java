@@ -29,16 +29,16 @@ public class RecordController {
     public D4MRecord fetchRow(
         @RequestParam(value = "baseTableName", required = false, defaultValue = "edge") String baseTableName
         ,@RequestParam(value = "row", required = true) String row
+        ,@RequestParam(value = "user", required = true) String user
+        ,@RequestParam(value = "password", required = true) String password
     ) {
         D4MRecord rv = new D4MRecord();
         Scanner scanner = null;
 
         try {
-
-            TableManager tableManager = new TableManager(accumuloService.getConnector(), accumuloService.getTableOperations());
+            Connector connector = accumuloService.getConnector(user, password);
+            TableManager tableManager = new TableManager(connector);
             tableManager.setBaseTableName(baseTableName);
-
-            Connector connector = accumuloService.getConnector();
 
             final String tableName = tableManager.getEdgeTable();
 

@@ -1,12 +1,9 @@
 package com.codebits.d4m;
 
-import com.codebits.d4m.rest.service.AccumuloService;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.accumulo.core.client.AccumuloException;
@@ -41,9 +38,9 @@ public class TableManager {
     private final static Text PROPERTY = new Text("property");
     private final Charset charset = Charset.defaultCharset();
 
-    public TableManager(final Connector connector, final TableOperations tableOperations) {
+    public TableManager(final Connector connector) {
         this.connector = connector;
-        this.tableOperations = tableOperations;
+        this.tableOperations = connector.tableOperations();
     }
 
     public void createTables() {

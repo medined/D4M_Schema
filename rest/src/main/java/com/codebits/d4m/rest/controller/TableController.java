@@ -4,6 +4,7 @@ import com.codebits.d4m.TableManager;
 import com.codebits.d4m.rest.model.D4MResponse;
 import com.codebits.d4m.rest.service.AccumuloService;
 import lombok.Setter;
+import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.TableNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +20,15 @@ public class TableController {
 
     @RequestMapping("/tables-create")
     public D4MResponse create(
-        @RequestParam(value = "baseTableName", required = false, defaultValue = "edge") String baseTableName, @RequestParam(value = "addSplitsForSha1", required = false, defaultValue = "false") boolean addSplitsForSha1
+        @RequestParam(value = "baseTableName", required = false, defaultValue = "edge") String baseTableName
+        ,@RequestParam(value = "addSplitsForSha1", required = false, defaultValue = "false") boolean addSplitsForSha1
+        ,@RequestParam(value = "user", required = true) String user
+        ,@RequestParam(value = "password", required = true) String password
     ) {
         D4MResponse rv = new D4MResponse();
         try {
-            TableManager tableManager = new TableManager(accumuloService.getConnector(), accumuloService.getTableOperations());
+            Connector connector = accumuloService.getConnector(user, password);
+            TableManager tableManager = new TableManager(connector);
             tableManager.setBaseTableName(baseTableName);
             tableManager.createTables();
             if (addSplitsForSha1) {
@@ -40,10 +45,13 @@ public class TableController {
     @RequestMapping("/tables-delete")
     public D4MResponse delete(
         @RequestParam(value = "baseTableName", required = false, defaultValue = "edge") String baseTableName
+        ,@RequestParam(value = "user", required = true) String user
+        ,@RequestParam(value = "password", required = true) String password
     ) {
         D4MResponse rv = new D4MResponse();
         try {
-            TableManager tableManager = new TableManager(accumuloService.getConnector(), accumuloService.getTableOperations());
+            Connector connector = accumuloService.getConnector(user, password);
+            TableManager tableManager = new TableManager(connector);
             tableManager.setBaseTableName(baseTableName);
             tableManager.deleteTables();
             rv.setMessage("tables deleted.");
