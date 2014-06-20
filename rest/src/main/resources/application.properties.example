@@ -1,0 +1,12 @@
+
+# Tomcat Properties
+server.port=11000
+
+# Accumulo Properties
+accumulo.instance.name=instance
+accumulo.zookeeper.ensemble=localhost:2181
+accumulo.user=root
+accumulo.password=secret
+
+# Hadoop Properties
+fs.default.name=hdfs://affy-master:9000
