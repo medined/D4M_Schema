@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import lombok.Getter;
 import org.apache.accumulo.core.data.Key;
 
-public class D4MRecord extends D4MResponse {
+public class Record extends D4MResponse {
 
     @Getter
     private final Map<String, String> fields = new TreeMap<>();

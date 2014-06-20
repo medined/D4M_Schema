@@ -2,7 +2,7 @@ package com.codebits.d4m.rest.controller;
 
 import com.codebits.d4m.D4MException;
 import com.codebits.d4m.TableManager;
-import com.codebits.d4m.rest.model.D4MRecord;
+import com.codebits.d4m.rest.model.Record;
 import com.codebits.d4m.rest.service.AccumuloService;
 import java.util.Iterator;
 import java.util.Map;
@@ -26,13 +26,13 @@ public class RecordController {
     private AccumuloService accumuloService = null;
 
     @RequestMapping("/record")
-    public D4MRecord fetchRow(
+    public Record fetchRow(
         @RequestParam(value = "baseTableName", required = false, defaultValue = "edge") String baseTableName
         ,@RequestParam(value = "row", required = true) String row
         ,@RequestParam(value = "user", required = true) String user
         ,@RequestParam(value = "password", required = true) String password
     ) {
-        D4MRecord rv = new D4MRecord();
+        Record rv = new Record();
         Scanner scanner = null;
 
         try {
