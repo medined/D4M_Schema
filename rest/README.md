@@ -11,6 +11,7 @@ http://localhost:11001/trace
 
 ### D4M URLs
 
+http://localhost:11000/tables/list?user=root&password=secret
 http://localhost:11000/tables/create?user=root&password=secret
 http://localhost:11000/tables-create?baseTableName=foo
 http://localhost:11000/tables-create?baseTableName=bar&addSplitsForSha1=true

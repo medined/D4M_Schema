@@ -72,4 +72,5 @@ public class TableController {
         rv.setTables(Tables.getNameToIdMap(accumuloService.getInstance()));
         return rv;
     }
+
 }
