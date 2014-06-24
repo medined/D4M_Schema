@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello Spring Boot!</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body>
+
+        <style>
+pre {
+    padding-left: 100px;
+}            
+        </style>
+        <h1>D4M REST Server</h1>
+        
+        <p>This server has several endpoints to help manage, ingest and query 
+            data using the D4M schema.</p>
+        
+        <p>Every endpoint needs <i>user</i> and <i>password</i> parameters.</p>
+
+        <h2>Prototype</h2>
+        
+        <p>This server is a prototype. Your password is sent, in the clear, over
+            the internet.</p>
+
+        <h2>Response Types</h2>
+        
+        <h3>JSON Respone</h3>
+  
+        Every endpoint response contains at least the following fields:
+        
+        <ul>
+            <li>message: Some message applicable to your request as a String.</li>
+            <li>hostName: The hostname that handled your request as a String.</li>
+            <li>hostIp: The IP address that handled your request as a String.</li>
+            <li>lamportClock: A continously increasing integer number as a Long.</li>
+            <li>wallClock: The wall time of the server handling your request as a Long.</li>
+        </ul>
+
+        <h3>Exception Response</h3>
+        
+        When an exception occurs during the processing of a request, the 
+        stacktrace is returned as JSON. Also a message field contains the 
+        error text.
+        
+        Please provide feedback. How would you want error respones from the
+        server?
+        
+        <p>This server is a protoype. The error message might contain sensitive
+            information. The stacktrace might contain sensitive information. 
+            Below is an example exception message.</p>
+        
+        <pre>
+{
+  "hostName":"C02JR1U1DKQ5.local"
+  ,"hostIp":"10.211.55.1"
+  ,"message":"Unknown table [Tedge]."
+  ,"throwable":{
+    "cause":null
+    ,"stackTrace":[{
+      "methodName":"getTableId"
+      ,"fileName":"Tables.java"
+      ,"lineNumber":66
+      ,"className":"org.apache.accumulo.core.client.impl.Tables"
+      ...}]
+     ,"tableName":"Tedge"
+    ,"message":"Table Tedge does not exist","localizedMessage":"Table Tedge does not exist"
+    ,"suppressed":[]
+  }
+  ,"wallClock":1403626592510
+  ,"fields":{}
+  ,"lamportClock":1
+}
+        </pre>
+        
+        <h2>Endpoints</h2>
+        
+        <p>Every endpoint needs <i>user</i> and <i>password</i> parameters.</p>
+        
+        <h3>Tables</h3>
+        
+        <h4>/tables/create</h4>
+        
+        This endpoint returns "tables created" even if the tables already 
+        existed.
+        
+        D4M uses a set of collaborating tables inside Accumulo. A naming 
+        convention is used when creating them. For example:
+        
+        * T [baseTableName]
+        * T [baseTableName] Degree
+        
+        You can create different sets of D4M tables using the 
+        <i>baseTableName</i> parameter. By default, baseTableName is 'edge'.
+        
+        If <i>addSplitsForSha1</i> is true, the Tedge and TedgeText tables
+        are presplit into 15 tablets - one for each hexadecimal character. This
+        minor optimization helps even when ingesting a few million entries for 
+        development.
+        
+        <dl>
+            <dd>URL</dd>
+            <dt><a target="_blank" href="http://localhost:11000/tables/create?user=root&amp;password=secret&amp;baseTableName=edge&amp;addSplitsForSha1=true"><pre>
+http://localhost:11000/tables/create?
+user=root&amp;
+password=secret&amp;
+baseTableName=edge&amp;
+addSplitsForSha1=true
+</pre></a></dt>
+            <dd>Output</dd>
+            <dt><pre>
+{
+  "hostName" : "C02JR1U1DKQ5.local"
+  ,"hostIp" : "10.211.55.1"
+  ,"message" : "tables created."
+  ,"throwable" : null
+  ,"wallClock" : 1403618279705
+  , "lamportClock":3
+}
+            </pre></dt>
+        </dl>
+        
+        <h4>/tables/delete</h4>
+        
+        This endpoint returns "tables deleted" even if the tables did not 
+        exist.
+        
+        <b>This endpoint has no undelete option. Once gone, this is no way to
+        retrieve information.</b>
+                
+        You can delete different sets of D4M tables using the 
+        <i>baseTableName</i> parameter. By default, baseTableName is 'edge'.
+        
+        <dl>
+            <dd>URL</dd>
+            <dt><a target="_blank" href="http://localhost:11000/tables/delete?user=root&amp;password=secret&amp;baseTableName=edge"><pre>
+http://localhost:11000/tables/delete?
+user=root&amp;
+password=secret&amp;
+baseTableName=edge
+</pre></a></dt>
+            <dd>Output</dd>
+            <dt><pre>
+{
+  "hostName" : "C02JR1U1DKQ5.local"
+  ,"hostIp" : "10.211.55.1"
+  ,"message" : "tables deleted."
+  ,"throwable" : null
+  ,"wallClock" : 1403618279705
+  , "lamportClock":3
+}
+            </pre></dt>
+        </dl>
+        
+        <h4>/tables/list</h4>
+        
+        <dl>
+            <dd>URL</dd>
+            <dt><a target="_blank" href="http://localhost:11000/tables/list?user=root&amp;password=secret"><pre>
+http://localhost:11000/tables/list?
+user=root&amp;
+password=secret
+</pre></a></dt>
+            <dd>Output</dd>
+            <dt><pre>
+{
+  "hostName" : "C02JR1U1DKQ5.local"
+  ,"hostIp" : "10.211.55.1"
+  ,"message" : null
+  ,"throwable" : null
+  ,"wallClock" : 1403482501038
+  ,"tables" : {
+    "!METADATA" : "!0"
+    ,"Tedge" : "m"
+    ,"TedgeDegree" : "o"
+    ,"TedgeMetadata" : "p"
+    ,"TedgeText" : "q"
+    ,"TedgeTranspose" : "n"
+    ,"trace" : "1"
+  }
+  ,"lamportClock" : 1
+}
+            </pre></dt>
+        </dl>
+        
+        <h3>Records</h3>
+        
+        <h4>/records/fetch</h4>
+        
+        This endpoint fetches the entries with a common <i>row</i>.
+
+        <dl>
+            <dd>URL</dd>
+            <dt><a target="_blank" href="http://localhost:11000/record/fetch?user=root&amp;password=secret&amp;row=004bec11d5c47d0c1fa06c54b958ba1416d867b8"><pre>
+http://localhost:11000/record/fetch?
+user=root&amp;
+password=secret&amp;
+row=004bec11d5c47d0c1fa06c54b958ba1416d867b8
+</pre></a></dt>
+            <dd>Output</dd>
+            <dt><pre>
+{
+  "hostName":"C02JR1U1DKQ5.local"
+  ,"hostIp":"10.211.55.1"
+  ,"message":null
+  ,"throwable":null
+  ,"wallClock":1403633622543
+  ,"fields":{
+    "census2010pop":"|758"
+    ,"concit":"|00000"
+    ,"county":"|133"
+    ...
+  }
+  ,"lamportClock":1
+}
+            </pre></dt>
+        </dl>        
+        
+        <p>Powered by <a target="_blank" href="http://projects.spring.io/spring-boot/">Spring Boot</a>.</p>
+        
+    </body>
+</html>

@@ -25,7 +25,7 @@ public class RecordController {
     @Autowired
     private AccumuloService accumuloService = null;
 
-    @RequestMapping("/record")
+    @RequestMapping("/record/fetch")
     public Record fetchRow(
         @RequestParam(value = "baseTableName", required = false, defaultValue = "edge") String baseTableName
         ,@RequestParam(value = "row", required = true) String row
