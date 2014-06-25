@@ -1,18 +1,3 @@
-
-- [Data Distribution Throughout the Accumulo Cluster](#user-content-data-distribution-throughout-the-accumulo-cluster)
-	- [Tables](#user-content-tables)
-	- [Splits](#user-content-splits)
-		- [Adding Splits](#user-content-adding-splits)
-			- [First Split](#user-content-first-split)
-			- [Tablet Movement](#user-content-tablet-movement)
-			- [Second Split](#user-content-second-split)
-	- [What is a Key?](#user-content-what-is-a-key)
-	- [Using Shards To Split a Row](#user-content-using-shards-to-split-a-row)
-		- [When an Accumulo table is created](#user-content-when-an-accumulo-table-is-created)
-			- [Coin Flip Sharding](#user-content-coin-flip-sharding)
-			- [HASH + MOD Sharding (using natural key)](#user-content-hash--mod-sharding-using-natural-key)
-			- [HASH + MOD Sharding (using synthetic key)](#user-content-hash--mod-sharding-using-synthetic-key)
-
 # Data Distribution Throughout the Accumulo Cluster
 
   This document answers these questions:
@@ -21,11 +6,16 @@
  * What is a split point?
  * What is needed before data can be distributed?
 
-A distributed database typically is thought of as having data spread across multiple servers. But how does the data spread out? That's a question I hope to answer - at least for Accumulo.
+A distributed database typically is thought of as having data spread across 
+multiple servers. But how does the data spread out? That's a question I 
+hope to answer - at least for Accumulo.
 
-At a high level of abstraction, the concept is simple. If you have two servers, then 50% of the data should go to server one and 50% should go to server two. The examples below give concrete demonstrations of data distribution.
+At a high level of abstraction, the concept is simple. If you have two servers, 
+then 50% of the data should go to server one and 50% should go to server two. 
+The examples below give concrete demonstrations of data distribution.
 
-Accumulo stores information as key-value pairs (or entries). For a visual reference, below is an empty key-value pair. 
+Accumulo stores information as key-value pairs (or entries). For a visual 
+reference, below is an empty key-value pair. 
 
 ```
 -----------  ---------
@@ -48,7 +38,8 @@ can think of the "key" in this discussion as a primary key. But, fair warning,
 that is a false analogy. One which you'll need to forget as you gain more
 proficiency with key-value databases. 
 
-A new Accumulo table has a single unit of storage called a tablet. When created, the tablet is empty. As more entries are inserted into a table, Accumulo may 
+A new Accumulo table has a single unit of storage called a tablet. When created, 
+the tablet is empty. As more entries are inserted into a table, Accumulo may 
 automatically decide to split the initial tablet into two tablets. As the size 
 of the table continues to grow, the split operation is repeated. Or you can 
 specify how the splitting occurs. We'll discuss this further below.
@@ -67,7 +58,8 @@ the initial tablet.
 ```
 
 Even though the table is empty, it still has a starting key of -infinity and
-an ending key of +infinity. All possible data occurs between the two extremes of infinity.
+an ending key of +infinity. All possible data occurs between the two extremes 
+of infinity.
 
 ```
   -infinity ==> ALL DATA  <== +infinity.
@@ -102,12 +94,12 @@ So far, the start and end keys have not been changed.
 -----------  -------  ---------
 ```
 
-Accumulo stores all entries for a tablet on a single node in the clsuter. Since our
-table has only one tablet, the information can't spread beyond one node. In 
+Accumulo stores all entries for a tablet on a single node in the clsuter. Since 
+our table has only one tablet, the information can't spread beyond one node. In 
 order to distribute information, you'll need to create more than tablet for
 your table.
 
-> The tablet's range is still from -infinity to +infinity. That hasn't changed yet.
+The tablet's range is still from -infinity to +infinity. That hasn't changed.
 
 ## Splits
 
@@ -117,13 +109,17 @@ need two splits. We'll illustrate this idea.
 
 >Split point - the place where one tablet becomes two.
 
-Let's add two split pointsto see what happens. As the split points are added, new tablets are created.
+Let's add two split pointsto see what happens. As the split points are added, 
+new tablets are created.
 
 ### Adding Splits
 
 #### First Split
 
-First, adding split point 02 results in a second tablet being created. It's worth noting that the tablet names are meaningless. Accumulo assigns internal names that you rarely need to know. I picked "A" and "B" because they are easy to read.
+First, adding split point 02 results in a second tablet being created. It's 
+worth noting that the tablet names are meaningless. Accumulo assigns internal 
+names that you rarely need to know. I picked "A" and "B" because they are easy 
+to read.
 
 ```
 -----------  -------  ---------
@@ -136,11 +132,14 @@ First, adding split point 02 results in a second tablet being created. It's wort
 -----------  -------  ---------
 ```
 
-The split point does not need to exist as an entry. This feature means that you can pre-split a table by simply giving Accumulo a list of split points.
+The split point does not need to exist as an entry. This feature means that 
+you can pre-split a table by simply giving Accumulo a list of split points.
 
 #### Tablet Movement
 
-Before continuing, let's take a small step back to see how tablets are moved between servers. At first, the table resides on one server. This makes sense - one tablet is on one server.
+Before continuing, let's take a small step back to see how tablets are moved 
+between servers. At first, the table resides on one server. This makes 
+sense - one tablet is on one server.
 
 ```
 --------------------------------
@@ -154,7 +153,10 @@ Before continuing, let's take a small step back to see how tablets are moved bet
 --------------------------------
 ```
 
-Then the first split point is added. Now there are two tablets. However, they are still on a single server. And this also makes sense. Thinking about adding a split point to a table with millions of entries. While the two tablets reside on one server, adding a split is just an accounting change. 
+Then the first split point is added. Now there are two tablets. However, they 
+are still on a single server. And this also makes sense. Thinking about adding 
+a split point to a table with millions of entries. While the two tablets reside 
+on one server, adding a split is just an accounting change. 
 
 ```
 -----------------------------------------------------------------------
@@ -168,7 +170,8 @@ Then the first split point is added. Now there are two tablets. However, they ar
 -----------------------------------------------------------------------
 ```
 
-At some future point, Accumulo might move the second tablet to another Tablet Server. 
+At some future point, Accumulo might move the second tablet to another Tablet 
+Server. 
 
 ```
 ------------------------------------|  |------------------------------------
@@ -223,7 +226,9 @@ with a key between -infinity and "00" inserts into the first key. The last
 tablet has an ending key of +infinity. Therefore any key between "05" and 
 +infinity inserts into the last tablet.
 
-Accumulo automatically creates split points based on some conditions. For example, if the tablet grows too large. However, that's a whole 'nother conversation.
+Accumulo automatically creates split points based on some conditions. For 
+example, if the tablet grows too large. However, that's a whole 'nother 
+conversation.
 
 ## What is a Key?
 
@@ -237,6 +242,40 @@ bare-bones explanation:
 ```
 
 These five components, combined, go into the _Key_.
+
+## Example of Splits Inside the Metadata Table
+
+Eric Newton provided the following example on the accumulo-user mailing list.
+In this example, the table has four tablets:
+
+ * (-inf, a]
+ * (a, m]
+ * (m, z]
+ * (z, +inf)
+
+The parenthesis symbols represent inclusion while the square brackets represent
+exclusion . So the first table does not include 'a' but the second table does.
+
+Inside Accumulo's metdata table these tablets are described like this:
+
+```
+3p;a ~tab:~pr \x00
+3p;m ~tab:~pr \x01a
+3p;z ~tab:~pr \x01m
+3p<  ~tab:~pr \x01z
+```
+
+    NOTE: I'm showing just a portion of the metadata here.
+
+This table, id "3p" has splits: (-inf, a], (a, m], (m, z], (z, +inf).  "pr" 
+stands for "end-row of previous tablet", which we often shorten to "prevrow". 
+Tilde's sort late in UTF8, which is important for some race conditions when 
+a table is splitting.
+
+The less-than symbol indictes that a tablet has no end row. In other words, 
+they indicate the last tablet of a table.
+
+The < character 
 
 ## Using Shards To Split a Row
 
@@ -301,7 +340,11 @@ horizontally so the coin flip analogy does not work. Let's quickly review why.
 
 #### Coin Flip Sharding
 
-Relational databases spread information across columns (i.e., horizontally). Hopefully, there is in Id value using a synthetic key (SK) and I hope you have them in your data. If not your very first task is to get your DBA's to add  them. Seriously, synthetic keys save you a world of future trouble. Here is a simple relational record.
+Relational databases spread information across columns (i.e., horizontally). 
+Hopefully, there is in Id value using a synthetic key (SK) and I hope you have 
+them in your data. If not your very first task is to get your DBA's to add 
+them. Seriously, synthetic keys save you a world of future trouble. Here is a 
+simple relational record.
 
 ```
 |--------------------------------------
@@ -313,7 +356,9 @@ Relational databases spread information across columns (i.e., horizontally). Hop
 ---------------------------------------
 ```
 
-Key-value database spread information across several rows using the synthetic key to tie them together. In simplified form, the information is stored in three key-value combinations (or three entries).
+Key-value database spread information across several rows using the synthetic 
+key to tie them together. In simplified form, the information is stored in 
+three key-value combinations (or three entries).
 
 ```
 |----------------------------------
@@ -327,7 +372,9 @@ Key-value database spread information across several rows using the synthetic ke
 -----------------------------------
 ```
 
-If the coin flip sharding strategy were used the information might look like the following. The potential split point shows that the entries can be spread across two tablets.
+If the coin flip sharding strategy were used the information might look like 
+the following. The potential split point shows that the entries can be spread 
+across two tablets.
 
 ```
 |-------------------------------------
@@ -339,13 +386,21 @@ If the coin flip sharding strategy were used the information might look like the
 --------------------------------------
 ```
 
-To retrieve the information you'd need to scan both servers! This coin flip sharding technique is not going to scale. Imagine information about a person spread over 40 servers. Collating that information would be prohibitively time-consuming.
+To retrieve the information you'd need to scan both servers! This coin flip 
+sharding technique is not going to scale. Imagine information about a person 
+spread over 40 servers. Collating that information would be prohibitively 
+time-consuming.
 
 #### HASH + MOD Sharding (using natural key)
 
-Of course, there is a better sharding strategy to use. You can base the strategy on one of the fields. Get its hash code and then mod it by the number of partitions. Ultimately, this strategy will fail but let's go through the process to see why. Skip to the next section if you already see the problem.
+Of course, there is a better sharding strategy to use. You can base the 
+strategy on one of the fields. Get its hash code and then mod it by the number 
+of partitions. Ultimately, this strategy will fail but let's go through the 
+process to see why. Skip to the next section if you already see the problem.
 
-"John".hashCode() is 2314539. Then we can mod that by the number of partitions (or servers) in our cluster. Let's pretend we have 5 servers instead of the two we used earlier for variety. Our key-value entries now look thusly:
+"John".hashCode() is 2314539. Then we can mod that by the number of partitions 
+(or servers) in our cluster. Let's pretend we have 5 servers instead of the two 
+we used earlier for variety. Our key-value entries now look thusly:
 
 > 2,314,539 modulo 5 = 4
 
@@ -359,15 +414,23 @@ Of course, there is a better sharding strategy to use. You can base the strategy
 --------------------------------------
 ```
 
-> Note that the shard value is _not_ related to any specific node. It's just a potential split point for Accumulo.
+> Note that the shard value is _not_ related to any specific node. It's just a 
+potential split point for Accumulo.
 
-It's time to look at a specific use case to see if this sharding strategy is sound. What if we need to add a set of friends for John? It's unlikely that the information about John's friends have his first name. But very likely for his synthetic key of 1001 to be there. We can now see choosing the first_name field as the base of the sharding strategy was unwise.
+It's time to look at a specific use case to see if this sharding strategy is 
+sound. What if we need to add a set of friends for John? It's unlikely that the 
+information about John's friends have his first name. But very likely for his 
+synthetic key of 1001 to be there. We can now see choosing the first_name field 
+as the base of the sharding strategy was unwise.
 
 #### HASH + MOD Sharding (using synthetic key)
 
-Using the synthetic key as the basis for the hash provides more continuity between updates. And regardless of how information changes, we'll always put the information in the same shard. 
+Using the synthetic key as the basis for the hash provides more continuity 
+between updates. And regardless of how information changes, we'll always put 
+the information in the same shard. 
 
-"1001".hashCode() is 1507424. If we use the first prime number less than 1,000 then the shard calculation generates a shard value of 957.
+"1001".hashCode() is 1507424. If we use the first prime number less than 1,000 
+then the shard calculation generates a shard value of 957.
 
 So the key-value information is now:
 
@@ -392,4 +455,3 @@ Using this technique makes it simple to add a height field.
 | 1001_957 | height_in_inches | 68          |
 ---------------------------------------------
 ```
-
