@@ -3,7 +3,6 @@ package com.codebits.d4m.rest.controller;
 import com.codebits.d4m.TableManager;
 import com.codebits.d4m.rest.model.D4MResponse;
 import com.codebits.d4m.rest.service.AccumuloService;
-import java.util.SortedMap;
 import lombok.Setter;
 import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.impl.Tables;

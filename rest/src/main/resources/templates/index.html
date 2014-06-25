@@ -216,6 +216,80 @@ row=004bec11d5c47d0c1fa06c54b958ba1416d867b8
             </pre></dt>
         </dl>        
         
+        <h4>/records/grep</h4>
+        
+        This endpoint searches the Transpose table by exact string matching. 
+        It searches both the Key and Value for the string. This is not an
+        efficient search for the D4M schema but performance is not yet a 
+        consideration for this prototype.
+        
+        <i>baseTableName</i> - Selects the set of D4M tables to use. The default
+        value is 'edge'.
+        
+        <i>numQueryThreads</i> - The number of threads used by the BatchScanner.
+        The default value is 10.
+        
+        <i>maxRecords</i> - The maximum number of threads to return. The
+        default value is 10,000. A List is used to store the record results. 
+        This is memory intensive and too many search result will cause an 
+        Out of Memory exception.
+        
+        <i>user</i> - The user name used to connect to Accumulo.
+        
+        <i>password</i> - The password used to connect to Accumulo.
+
+        <i>authorizationList</i> - The list of authorizations used for this
+        queery.
+
+        <i>target</i> - The exact string to search for.
+        
+        <dl>
+            <dd>URL</dd>
+            <dt><a target="_blank" href="http://localhost:11000/record/grep?user=root&amp;password=secret&amp;maxRecords=5&amp;target=NJ"><pre>
+http://localhost:11000/record/grep?
+user=root&amp;
+password=secret&amp;
+maxRecords=5;
+target=NJ
+</pre></a></dt>
+            <dd>Output</dd>
+            <dt><pre>
+{
+  "hostName":"C02JR1U1DKQ5.local"
+  ,"hostIp":"10.211.55.1"
+  ,"message":null
+  ,"throwable":null
+  ,"wallClock":1403633622543
+  ,"records":[
+    {"fn":"state","fv":"NJ","vis":"","id":"0017336b129adf23a1b3fd2615ad6ef3c7fc88a1","ts":1403658298013}
+    ,{"fn":"state","fv":"NJ","vis":"","id":"004b62c236eb22646f13f8e4b9d9d601d3d6f3f7","ts":1403658302782}
+    ,{"fn":"state","fv":"NJ","vis":"","id":"0055c47a0671aeff68427e6bdd0b644228cffd81","ts":1403658299251}
+    ,{"fn":"state","fv":"NJ","vis":"","id":"005e6afe0e2efba40649e4747cd73186bcc2ad11","ts":1403658295401}
+    ,{"fn":"state","fv":"NJ","vis":"","id":"006258bd5c99440e124f941c70889b3567a13be3","ts":1403658303803}
+    ,{"fn":"state","fv":"NJ","vis":"","id":"00660880bbfa10cd220d77b966628d52fd9e1b6d","ts":1403658298567}
+  ],
+  ,"lamportClock":1
+}
+            </pre></dt>
+        </dl>   
+
+        <h3>Management</h3>
+        
+        <h4>/dump</h4>
+        <a target="_blank" href="http://localhost:11000/dump"><pre>http://localhost:11000/dump</pre></a>        
+
+        <h4>/env</h4>
+        <a target="_blank" href="http://localhost:11000/env"><pre>http://localhost:11000/env</pre></a>        
+
+        <h4>/health</h4>
+        <a target="_blank" href="http://localhost:11000/health"><pre>http://localhost:11000/health</pre></a>        
+
+        <h4>/metrics</h4>
+        <a target="_blank" href="http://localhost:11000/metrics"><pre>http://localhost:11000/metrics</pre></a>        
+
+        <h4>/trace</h4>
+        <a target="_blank" href="http://localhost:11000/trace"><pre>http://localhost:11000/trace</pre></a>        
+        
         <p>Powered by <a target="_blank" href="http://projects.spring.io/spring-boot/">Spring Boot</a>.</p>
         
     </body>
