@@ -1,4 +1,18 @@
 
+- [Data Distribution Throughout the Accumulo Cluster](#user-content-data-distribution-throughout-the-accumulo-cluster)
+	- [Tables](#user-content-tables)
+	- [Splits](#user-content-splits)
+		- [Adding Splits](#user-content-adding-splits)
+			- [First Split](#user-content-first-split)
+			- [Tablet Movement](#user-content-tablet-movement)
+			- [Second Split](#user-content-second-split)
+	- [What is a Key?](#user-content-what-is-a-key)
+	- [Using Shards To Split a Row](#user-content-using-shards-to-split-a-row)
+		- [When an Accumulo table is created](#user-content-when-an-accumulo-table-is-created)
+			- [Coin Flip Sharding](#user-content-coin-flip-sharding)
+			- [HASH + MOD Sharding (using natural key)](#user-content-hash--mod-sharding-using-natural-key)
+			- [HASH + MOD Sharding (using synthetic key)](#user-content-hash--mod-sharding-using-synthetic-key)
+
 # Data Distribution Throughout the Accumulo Cluster
 
   This document answers these questions:
