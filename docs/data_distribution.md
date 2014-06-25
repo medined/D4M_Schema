@@ -270,8 +270,8 @@ In this example, the table has four tablets:
  * (m, z]
  * (z, +inf)
 
-The parenthesis symbols represent inclusion while the square brackets represent
-exclusion . So the first table does not include 'a' but the second table does.
+The square bracket symbol represents inclusion while the parenthesis symbol represents
+exclusion. So the first tablet includes 'a' but the second tablet does not.
 
 Inside Accumulo's metdata table these tablets are described like this:
 
