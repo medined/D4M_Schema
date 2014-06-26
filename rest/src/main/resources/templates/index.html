@@ -77,6 +77,12 @@ pre {
         
         <p>Most endpoints need <i>user</i> and <i>password</i> parameters.</p>
 
+        <!-- =============================================== -->
+        <!-- =============================================== -->
+        <!-- FIELD SETS -->
+        <!-- =============================================== -->
+        <!-- =============================================== -->
+
         <h3>Field Sets</h3>
         
         Field Sets control what information is returned from the Tedge table.
@@ -121,15 +127,16 @@ rec01 :place|00484 []    1
         
         The field list can include regular expressions like "n*".
 
+
         <dl>
-            <dd>URL</dd>
-            <dt><a target="_blank" href="http://localhost:11000/fieldset/create?name=medined:mySet&amp;list=name,place"><pre>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/fieldset/create?name=medined:mySet&amp;list=name,place"><pre>
 http://localhost:11000/fieldset/create?
 name=medined:mySet&amp;
 list=name,place
-</pre></a></dt>
-            <dd>Output</dd>
-            <dt><pre>
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
 {
   "hostName" : "C02JR1U1DKQ5.local"
   ,"hostIp" : "10.211.55.1"
@@ -138,18 +145,18 @@ list=name,place
   ,"wallClock" : 1403618279705
   , "lamportClock":3
 }
-            </pre></dt>
+            </pre></dd>
         </dl>
 
         <h4>/fieldset/list</h4>
 
         <dl>
-            <dd>URL</dd>
-            <dt><a target="_blank" href="http://localhost:11000/fieldset/list"><pre>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/fieldset/list"><pre>
 http://localhost:11000/fieldset/list
-</pre></a></dt>
-            <dd>Output</dd>
-            <dt><pre>
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
 {
   "hostName" : "C02JR1U1DKQ5.local"
   ,"hostIp" : "10.211.55.1"
@@ -159,18 +166,18 @@ http://localhost:11000/fieldset/list
   ,"wallClock" : 1403618279705
   , "lamportClock":3
 }
-            </pre></dt>
+            </pre></dd>
         </dl>
 
         <h4>/fieldset/clear</h4>
 
         <dl>
-            <dd>URL</dd>
-            <dt><a target="_blank" href="http://localhost:11000/fieldset/clear"><pre>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/fieldset/clear"><pre>
 http://localhost:11000/fieldset/clear
-</pre></a></dt>
-            <dd>Output</dd>
-            <dt><pre>
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
 {
   "hostName" : "C02JR1U1DKQ5.local"
   ,"hostIp" : "10.211.55.1"
@@ -180,7 +187,7 @@ http://localhost:11000/fieldset/clear
   ,"wallClock" : 1403618279705
   , "lamportClock":3
 }
-            </pre></dt>
+            </pre></dd>
         </dl>
 
         <h4>/fieldset/delete</h4>
@@ -188,12 +195,12 @@ http://localhost:11000/fieldset/clear
         http://localhost:11000/fieldset/delete?name=aa
         
         <dl>
-            <dd>URL</dd>
-            <dt><a target="_blank" href="http://localhost:11000/fieldset/delete?name=medined:myList"><pre>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/fieldset/delete?name=medined:myList"><pre>
 http://localhost:11000/fieldset/delete?name=medined:myList
-</pre></a></dt>
-            <dd>Output</dd>
-            <dt><pre>
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
 {
   "hostName" : "C02JR1U1DKQ5.local"
   ,"hostIp" : "10.211.55.1"
@@ -203,8 +210,14 @@ http://localhost:11000/fieldset/delete?name=medined:myList
   ,"wallClock" : 1403618279705
   , "lamportClock":3
 }
-            </pre></dt>
+            </pre></dd>
         </dl>
+
+        <!-- =============================================== -->
+        <!-- =============================================== -->
+        <!-- TABLES -->
+        <!-- =============================================== -->
+        <!-- =============================================== -->
 
         <h3>Tables</h3>
         
@@ -228,16 +241,16 @@ http://localhost:11000/fieldset/delete?name=medined:myList
         development.
         
         <dl>
-            <dd>URL</dd>
-            <dt><a target="_blank" href="http://localhost:11000/tables/create?user=root&amp;password=secret&amp;baseTableName=edge&amp;addSplitsForSha1=true"><pre>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/tables/create?user=root&amp;password=secret&amp;baseTableName=edge&amp;addSplitsForSha1=true"><pre>
 http://localhost:11000/tables/create?
 user=root&amp;
 password=secret&amp;
 baseTableName=edge&amp;
 addSplitsForSha1=true
-</pre></a></dt>
-            <dd>Output</dd>
-            <dt><pre>
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
 {
   "hostName" : "C02JR1U1DKQ5.local"
   ,"hostIp" : "10.211.55.1"
@@ -246,7 +259,7 @@ addSplitsForSha1=true
   ,"wallClock" : 1403618279705
   , "lamportClock":3
 }
-            </pre></dt>
+            </pre></dd>
         </dl>
         
         <h4>/tables/delete</h4>
@@ -261,15 +274,15 @@ addSplitsForSha1=true
         <i>baseTableName</i> parameter. By default, baseTableName is 'edge'.
         
         <dl>
-            <dd>URL</dd>
-            <dt><a target="_blank" href="http://localhost:11000/tables/delete?user=root&amp;password=secret&amp;baseTableName=edge"><pre>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/tables/delete?user=root&amp;password=secret&amp;baseTableName=edge"><pre>
 http://localhost:11000/tables/delete?
 user=root&amp;
 password=secret&amp;
 baseTableName=edge
-</pre></a></dt>
-            <dd>Output</dd>
-            <dt><pre>
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
 {
   "hostName" : "C02JR1U1DKQ5.local"
   ,"hostIp" : "10.211.55.1"
@@ -278,20 +291,20 @@ baseTableName=edge
   ,"wallClock" : 1403618279705
   , "lamportClock":3
 }
-            </pre></dt>
+            </pre></dd>
         </dl>
         
         <h4>/tables/list</h4>
         
         <dl>
-            <dd>URL</dd>
-            <dt><a target="_blank" href="http://localhost:11000/tables/list?user=root&amp;password=secret"><pre>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/tables/list?user=root&amp;password=secret"><pre>
 http://localhost:11000/tables/list?
 user=root&amp;
 password=secret
-</pre></a></dt>
-            <dd>Output</dd>
-            <dt><pre>
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
 {
   "hostName" : "C02JR1U1DKQ5.local"
   ,"hostIp" : "10.211.55.1"
@@ -309,9 +322,15 @@ password=secret
   }
   ,"lamportClock" : 1
 }
-            </pre></dt>
+            </pre></dd>
         </dl>
         
+        <!-- =============================================== -->
+        <!-- =============================================== -->
+        <!-- RECORDS -->
+        <!-- =============================================== -->
+        <!-- =============================================== -->
+
         <h3>Records</h3>
         
         <h4>/records/fetch</h4>
@@ -319,15 +338,15 @@ password=secret
         This endpoint fetches the entries with a common <i>row</i>.
 
         <dl>
-            <dd>URL</dd>
-            <dt><a target="_blank" href="http://localhost:11000/record/fetch?user=root&amp;password=secret&amp;row=004bec11d5c47d0c1fa06c54b958ba1416d867b8"><pre>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/record/fetch?user=root&amp;password=secret&amp;row=004bec11d5c47d0c1fa06c54b958ba1416d867b8"><pre>
 http://localhost:11000/record/fetch?
 user=root&amp;
 password=secret&amp;
 row=004bec11d5c47d0c1fa06c54b958ba1416d867b8
-</pre></a></dt>
-            <dd>Output</dd>
-            <dt><pre>
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
 {
   "hostName":"C02JR1U1DKQ5.local"
   ,"hostIp":"10.211.55.1"
@@ -342,7 +361,7 @@ row=004bec11d5c47d0c1fa06c54b958ba1416d867b8
   }
   ,"lamportClock":1
 }
-            </pre></dt>
+            </pre></dd>
         </dl>        
         
         <h4>/records/grep</h4>
@@ -373,16 +392,16 @@ row=004bec11d5c47d0c1fa06c54b958ba1416d867b8
         <i>target</i> - The exact string to search for.
         
         <dl>
-            <dd>URL</dd>
-            <dt><a target="_blank" href="http://localhost:11000/record/grep?user=root&amp;password=secret&amp;maxRecords=5&amp;target=NJ"><pre>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/record/grep?user=root&amp;password=secret&amp;maxRecords=5&amp;target=NJ"><pre>
 http://localhost:11000/record/grep?
 user=root&amp;
 password=secret&amp;
 maxRecords=5;
 target=NJ
-</pre></a></dt>
-            <dd>Output</dd>
-            <dt><pre>
+            </pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
 {
   "hostName":"C02JR1U1DKQ5.local"
   ,"hostIp":"10.211.55.1"
@@ -399,8 +418,14 @@ target=NJ
   ],
   ,"lamportClock":1
 }
-            </pre></dt>
+            </pre></dd>
         </dl>
+
+        <!-- =============================================== -->
+        <!-- =============================================== -->
+        <!-- MANAGEMENT -->
+        <!-- =============================================== -->
+        <!-- =============================================== -->
 
         <h3>Management</h3>
         
