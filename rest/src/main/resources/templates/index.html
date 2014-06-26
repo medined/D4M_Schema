@@ -39,12 +39,12 @@ pre {
 
         <h3>Exception Response</h3>
         
-        When an exception occurs during the processing of a request, the 
+        <p>When an exception occurs during the processing of a request, the 
         stacktrace is returned as JSON. Also a message field contains the 
-        error text.
+        error text.</p>
         
-        Please provide feedback. How would you want error respones from the
-        server?
+        <p>Please provide feedback. How would you want error respones from the
+            server?</p>
         
         <p>This server is a protoype. The error message might contain sensitive
             information. The stacktrace might contain sensitive information. 
@@ -85,9 +85,9 @@ pre {
 
         <h3>Field Sets</h3>
         
-        Field Sets control what information is returned from the Tedge table.
+        <p>Field Sets control what information is returned from the Tedge table.
         For example, if no Field Set is specified, then the information of
-        the 'rec01' record might be:
+        the 'rec01' record might be:</p>
         
         <pre>
 rec01 :county|133 []    1
@@ -98,35 +98,34 @@ rec01 :place|00484 []    1
 rec01 :popestimate2010|753 []    1        
         </pre>
         
-        However, your query might only need to see two fields, county and 
-        place, to reduce the response size. 
+        <p>However, your query might only need to see two fields, county and 
+            place, to reduce the response size.</p>
 
         <pre>
 rec01 :county|133 []    1
 rec01 :place|00484 []    1
         </pre>
         
-        You can accomplish this reduction by creating a fieldset then specifying
+        <p>You can accomplish this reduction by creating a fieldset then specifying
         its name using using the /record/fetch and /record/grep endpoints. 
-        Check the documentation to see if other endpoints support Field Sets.
+        Check the documentation to see if other endpoints support Field Sets.</p>
         
         <h4>/fieldset/create</h4>
         
-        If enough Field Sets are created, you will run out of memory since
+        <p>If enough Field Sets are created, you will run out of memory since
         a HashMap is the backing store. But it would need to be thousands of
-        Field Sets, I think.
+        Field Sets, I think.</p>
         
-        Field Sets are stored in RAM. They are not persisted to disk. It's OK
+        <p>Field Sets are stored in RAM. They are not persisted to disk. It's OK
         to simply create (or re-create) every time they are used. There is 
-        very little performance penalty.
+        very little performance penalty.</p>
         
-        There is no security related to Field Set names. Nor any enforced
+        <p>There is no security related to Field Set names. Nor any enforced
         naming convention. I suggest each user use a namespace to 'protect'
         their names. A good Field Set name might simply be a purpose-specific
-        UUID with the Field Set deleted after use.
+        UUID with the Field Set deleted after use.</p>
         
-        The field list can include regular expressions like "n*".
-
+        <p>The field list can include regular expressions like "n*".</p>
 
         <dl>
             <dt>URL</dt>
@@ -223,22 +222,24 @@ http://localhost:11000/fieldset/delete?name=medined:myList
         
         <h4>/tables/create</h4>
         
-        This endpoint returns "tables created" even if the tables already 
-        existed.
+        <p>This endpoint returns "tables created" even if the tables already 
+            existed.</p>
         
-        D4M uses a set of collaborating tables inside Accumulo. A naming 
-        convention is used when creating them. For example:
+        <p>D4M uses a set of collaborating tables inside Accumulo. A naming 
+            convention is used when creating them. For example:</p>
         
-        * T [baseTableName]
-        * T [baseTableName] Degree
+        <ul>
+            <li> T [baseTableName]</li>
+            <li> T [baseTableName] Degree</li>
+        </ul>
         
-        You can create different sets of D4M tables using the 
-        <i>baseTableName</i> parameter. By default, baseTableName is 'edge'.
+        <p>You can create different sets of D4M tables using the 
+            <i>baseTableName</i> parameter. By default, baseTableName is 'edge'.</p>
         
-        If <i>addSplitsForSha1</i> is true, the Tedge and TedgeText tables
+        <p>If <i>addSplitsForSha1</i> is true, the Tedge and TedgeText tables
         are presplit into 15 tablets - one for each hexadecimal character. This
         minor optimization helps even when ingesting a few million entries for 
-        development.
+        development.</p>
         
         <dl>
             <dt>URL</dt>
@@ -264,14 +265,14 @@ addSplitsForSha1=true
         
         <h4>/tables/delete</h4>
         
-        This endpoint returns "tables deleted" even if the tables did not 
-        exist.
+        <p>This endpoint returns "tables deleted" even if the tables did not 
+            exist.</p>
         
-        <b>This endpoint has no undelete option. Once gone, this is no way to
-        retrieve information.</b>
+        <p><b>This endpoint has no undelete option. Once gone, this is no way to
+                retrieve information.</b></p>
                 
-        You can delete different sets of D4M tables using the 
-        <i>baseTableName</i> parameter. By default, baseTableName is 'edge'.
+        <p>You can delete different sets of D4M tables using the 
+            <i>baseTableName</i> parameter. By default, baseTableName is 'edge'.</p>
         
         <dl>
             <dt>URL</dt>
@@ -335,7 +336,7 @@ password=secret
         
         <h4>/records/fetch</h4>
         
-        This endpoint fetches the entries with a common <i>row</i>.
+        <p>This endpoint fetches the entries with a common <i>row</i>.</p>
 
         <dl>
             <dt>URL</dt>
@@ -366,30 +367,30 @@ row=004bec11d5c47d0c1fa06c54b958ba1416d867b8
         
         <h4>/records/grep</h4>
         
-        This endpoint searches the Transpose table by exact string matching. 
+        <p>This endpoint searches the Transpose table by exact string matching. 
         It searches both the Key and Value for the string. This is not an
         efficient search for the D4M schema but performance is not yet a 
-        consideration for this prototype.
+        consideration for this prototype.</p>
         
-        <i>baseTableName</i> - Selects the set of D4M tables to use. The default
-        value is 'edge'.
+        <p><i>baseTableName</i> - Selects the set of D4M tables to use. The default
+            value is 'edge'.</p>
         
-        <i>numQueryThreads</i> - The number of threads used by the BatchScanner.
-        The default value is 10.
+        <p><i>numQueryThreads</i> - The number of threads used by the BatchScanner.
+            The default value is 10.</p>
         
-        <i>maxRecords</i> - The maximum number of threads to return. The
+        <p><i>maxRecords</i> - The maximum number of threads to return. The
         default value is 10,000. A List is used to store the record results. 
         This is memory intensive and too many search result will cause an 
-        Out of Memory exception.
+        Out of Memory exception.</p>
         
-        <i>user</i> - The user name used to connect to Accumulo.
+        <p><i>user</i> - The user name used to connect to Accumulo.</p>
         
-        <i>password</i> - The password used to connect to Accumulo.
+        <p><i>password</i> - The password used to connect to Accumulo.</p>
 
-        <i>authorizationList</i> - The list of authorizations used for this
-        queery.
+        <p><i>authorizationList</i> - The list of authorizations used for this
+            queery.</p>
 
-        <i>target</i> - The exact string to search for.
+        <p><i>target</i> - The exact string to search for.</p>
         
         <dl>
             <dt>URL</dt>
