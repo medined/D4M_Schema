@@ -5,7 +5,7 @@ import java.util.TreeMap;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Tables extends D4MResponse {
+public class TablesModel extends D4MResponse {
 
     @Setter
     @Getter

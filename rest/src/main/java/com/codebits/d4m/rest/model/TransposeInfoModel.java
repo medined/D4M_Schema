@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Getter;
 import org.apache.accumulo.core.data.Key;
 
-public class TransposeInfo extends D4MResponse {
+public class TransposeInfoModel extends D4MResponse {
 
     @Getter
     private final List<TransposeRecord> records = new ArrayList<>();

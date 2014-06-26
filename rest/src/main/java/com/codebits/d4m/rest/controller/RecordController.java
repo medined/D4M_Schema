@@ -1,8 +1,8 @@
 package com.codebits.d4m.rest.controller;
 
 import com.codebits.d4m.TableManager;
-import com.codebits.d4m.rest.model.Record;
-import com.codebits.d4m.rest.model.TransposeInfo;
+import com.codebits.d4m.rest.model.RecordModel;
+import com.codebits.d4m.rest.model.TransposeInfoModel;
 import com.codebits.d4m.rest.service.AccumuloService;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,13 +32,13 @@ public class RecordController {
     private AccumuloService accumuloService = null;
 
     @RequestMapping("/record/fetch")
-    public Record fetchRow(
+    public RecordModel fetchRow(
         @RequestParam(value = "baseTableName", required = false, defaultValue = "edge") String baseTableName
         ,@RequestParam(value = "row", required = true) String row
         ,@RequestParam(value = "user", required = true) String user
         ,@RequestParam(value = "password", required = true) String password
     ) {
-        Record rv = new Record();
+        RecordModel rv = new RecordModel();
         Scanner scanner = null;
 
         try {
@@ -77,7 +77,7 @@ public class RecordController {
     }
     
     @RequestMapping("/record/grep")
-    public TransposeInfo grep(
+    public TransposeInfoModel grep(
         @RequestParam(value = "baseTableName", required = false, defaultValue = "edge") String baseTableName
         ,@RequestParam(value = "numQueryThreads", required = false, defaultValue = "10") int numQueryThreads
         ,@RequestParam(value = "maxRecords", required = false, defaultValue = "10000") int maxRecords
@@ -86,7 +86,7 @@ public class RecordController {
         ,@RequestParam(value = "authorizationList", required = false, defaultValue = "") String authorizationList
         ,@RequestParam(value = "target", required = true) String target
     ) {
-        TransposeInfo rv = new TransposeInfo();
+        TransposeInfoModel rv = new TransposeInfoModel();
         BatchScanner scanner = null;
         int recordCount = 0;
         

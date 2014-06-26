@@ -67,7 +67,7 @@ public class TableController {
         @RequestParam(value = "user", required = true) String user
         ,@RequestParam(value = "password", required = true) String password
     ) {
-        com.codebits.d4m.rest.model.Tables rv = new com.codebits.d4m.rest.model.Tables();        
+        com.codebits.d4m.rest.model.TablesModel rv = new com.codebits.d4m.rest.model.TablesModel();        
         rv.setTables(Tables.getNameToIdMap(accumuloService.getInstance()));
         return rv;
     }
