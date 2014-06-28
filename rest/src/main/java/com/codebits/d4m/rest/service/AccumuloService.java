@@ -8,7 +8,6 @@ import org.apache.accumulo.core.client.AccumuloSecurityException;
 import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.Instance;
 import org.apache.accumulo.core.client.ZooKeeperInstance;
-import org.apache.accumulo.core.client.admin.TableOperations;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

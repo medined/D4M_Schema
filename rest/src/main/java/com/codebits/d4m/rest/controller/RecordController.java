@@ -1,14 +1,18 @@
 package com.codebits.d4m.rest.controller;
 
 import com.codebits.d4m.TableManager;
+import com.codebits.d4m.rest.model.EdgeModel;
 import com.codebits.d4m.rest.model.RecordModel;
 import com.codebits.d4m.rest.model.TransposeInfoModel;
 import com.codebits.d4m.rest.service.AccumuloService;
-import java.util.ArrayList;
+import com.codebits.d4m.rest.service.FieldsetService;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import lombok.Setter;
 import org.apache.accumulo.core.client.BatchScanner;
 import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.IteratorSetting;
@@ -29,7 +33,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class RecordController {
 
     @Autowired
+    @Setter
     private AccumuloService accumuloService = null;
+    
+    @Autowired
+    @Setter
+    private FieldsetService fieldsetService = null;
 
     @RequestMapping("/record/fetch")
     public RecordModel fetchRow(
@@ -37,10 +46,21 @@ public class RecordController {
         ,@RequestParam(value = "row", required = true) String row
         ,@RequestParam(value = "user", required = true) String user
         ,@RequestParam(value = "password", required = true) String password
+        ,@RequestParam(value = "fieldset", required = false) String fieldset
     ) {
         RecordModel rv = new RecordModel();
         Scanner scanner = null;
 
+        Set<String> wantedFields = new TreeSet<>();        
+        if (fieldset != null && !fieldset.isEmpty()) {
+            String fieldList = fieldsetService.getList(fieldset);
+            if (fieldList == null) {
+                rv.setMessage(String.format("Unknown fieldset [%s].", fieldset));
+                return rv;
+           }
+            wantedFields.addAll(Arrays.asList(fieldList.split(",")));
+        }
+        
         try {
             Connector connector = accumuloService.getConnector(user, password);
             TableManager tableManager = new TableManager(connector);
@@ -57,8 +77,20 @@ public class RecordController {
                 while (iterator.hasNext()) {
                     entryFound = true;
                     Map.Entry<Key, Value> entry = iterator.next();
-                    Key key = entry.getKey();
-                    rv.add(key);
+                    boolean wanted = true;
+                    if (!wantedFields.isEmpty()) {
+                        wanted = false;
+                        EdgeModel edge = new EdgeModel(entry.getKey());
+                        for (String s : wantedFields) {
+                            if (edge.getFieldName().matches(s)) {
+                                wanted = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (wanted) {
+                        rv.add(entry.getKey());
+                    }
                 }
                 if (not(entryFound)) {
                     rv.setMessage(String.format("Unknown record [%s].", row));
@@ -109,10 +141,9 @@ public class RecordController {
                 
                 scanner.setRanges(Collections.singleton(new Range((Key) null, null)));
                 
-                GrepIterator gi = new GrepIterator();
                 IteratorSetting is = new IteratorSetting(1, GrepIterator.class);
                 GrepIterator.setTerm(is, target);
-                
+
                 scanner.addScanIterator(is);
 
                 Iterator<Map.Entry<Key, Value>> iterator = scanner.iterator();
@@ -143,10 +174,6 @@ public class RecordController {
         return rv;
     }
 
-    public void setAccumuloService(AccumuloService accumuloService) {
-        this.accumuloService = accumuloService;
-    }
-    
     private boolean not(boolean b) {
         return !b;
     }

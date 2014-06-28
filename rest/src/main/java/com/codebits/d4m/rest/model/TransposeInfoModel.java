@@ -9,7 +9,7 @@ import org.apache.accumulo.core.data.Key;
 public class TransposeInfoModel extends D4MResponse {
 
     @Getter
-    private final List<TransposeRecord> records = new ArrayList<>();
+    private final List<TransposeDTO> records = new ArrayList<>();
 
     protected final Charset charset = Charset.defaultCharset();
     private final String factDelimiter = "|";
@@ -18,7 +18,7 @@ public class TransposeInfoModel extends D4MResponse {
         String factInfo = new String(key.getRow().getBytes(), charset);
         int factDelimitorPosition = factInfo.indexOf(factDelimiter);
 
-        TransposeRecord record = new TransposeRecord();
+        TransposeDTO record = new TransposeDTO();
         record.fn = factInfo.substring(0, factDelimitorPosition);
         record.fv = factInfo.substring(factDelimitorPosition + 1);
         record.vis = key.getColumnVisibility().toString();

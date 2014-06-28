@@ -86,24 +86,24 @@ pre {
         <h3>Field Sets</h3>
         
         <p>Field Sets control what information is returned from the Tedge table.
-        For example, if no Field Set is specified, then the information of
-        the 'rec01' record might be:</p>
+        For example, if no Field Set is specified, then all fields from the
+        'rec01' record are returned:</p>
         
         <pre>
-rec01 :county|133 []    1
-rec01 :cousub|00000 []    1
-rec01 :estimatesbase2010|756 []    1
-rec01 :name|Addison town []    1
-rec01 :place|00484 []    1
-rec01 :popestimate2010|753 []    1        
+rec01 :census2010pop|756 []  1
+rec01 :county|133 []         1
+rec01 :cousub|00000 []       1
+rec01 :name|Addison town []  1
+rec01 :place|00484 []        1
+rec01 :stname|Alabama []     1        
         </pre>
         
         <p>However, your query might only need to see two fields, county and 
             place, to reduce the response size.</p>
 
         <pre>
-rec01 :county|133 []    1
-rec01 :place|00484 []    1
+rec01 :census2010pop|756 []  1
+rec01 :stname|Alabama []     1        
         </pre>
         
         <p>You can accomplish this reduction by creating a fieldset then specifying
@@ -113,26 +113,29 @@ rec01 :place|00484 []    1
         <h4>/fieldset/create</h4>
         
         <p>If enough Field Sets are created, you will run out of memory since
-        a HashMap is the backing store. But it would need to be thousands of
-        Field Sets, I think.</p>
+        a HashMap is the backing store. But it would need to be many thousands
+        of Field Sets, I think.</p>
         
         <p>Field Sets are stored in RAM. They are not persisted to disk. It's OK
         to simply create (or re-create) every time they are used. There is 
         very little performance penalty.</p>
         
-        <p>There is no security related to Field Set names. Nor any enforced
-        naming convention. I suggest each user use a namespace to 'protect'
-        their names. A good Field Set name might simply be a purpose-specific
-        UUID with the Field Set deleted after use.</p>
+        <p>The <i>list</i> of field names is comma-delimited.</p>
+        
+        <p>There is no security related to Field Set names. Creating the same
+            fieldset name simply overwrites the previous definition. Nor any 
+            enforced naming convention. I suggest each user use a namespace to 
+            'protect' their names. A good Field Set name might simply be a 
+            purpose-specific UUID with the Field Set deleted after use.</p>
         
         <p>The field list can include regular expressions like "n*".</p>
 
         <dl>
             <dt>URL</dt>
-            <dd><a target="_blank" href="http://localhost:11000/fieldset/create?name=medined:mySet&amp;list=name,place"><pre>
+            <dd><a target="_blank" href="http://localhost:11000/fieldset/create?name=medined:mySet&amp;list=census2010pop,stname"><pre>
 http://localhost:11000/fieldset/create?
 name=medined:mySet&amp;
-list=name,place
+list=census2010pop,stname
 </pre></a></dd>
             <dt>Output</dt>
             <dd><pre>
