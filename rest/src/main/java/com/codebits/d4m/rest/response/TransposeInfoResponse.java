@@ -1,11 +1,12 @@
-package com.codebits.d4m.rest.model;
+package com.codebits.d4m.rest.response;
 
+import com.codebits.d4m.rest.model.TransposeDTO;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import org.apache.accumulo.core.data.Key;
 
-public class TransposeInfoModel extends D4MResponse {
+public class TransposeInfoResponse extends D4MResponse {
 
     @Getter
     private final List<TransposeDTO> records = new ArrayList<>();

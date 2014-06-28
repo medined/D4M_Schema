@@ -1,7 +1,8 @@
 package com.codebits.d4m.rest.controller;
 
-import com.codebits.d4m.rest.model.FieldSetModel;
-import com.codebits.d4m.rest.model.RecordModel;
+import com.codebits.d4m.rest.response.D4MResponse;
+import com.codebits.d4m.rest.response.FieldSetResponse;
+import com.codebits.d4m.rest.response.RecordResponse;
 import com.codebits.d4m.rest.service.FieldsetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,34 +16,30 @@ public class FieldSetController {
     FieldsetService fieldsetService = null;
     
     @RequestMapping("/fieldset/create")
-    synchronized public RecordModel create(
+    synchronized public D4MResponse create(
         @RequestParam(value = "name", required = true) String name, @RequestParam(value = "list", required = true) String list
     ) {
         fieldsetService.put(name, list);
-        RecordModel rv = new RecordModel();
-        rv.setMessage(String.format("Fieldset created [%s].", name));
-        return rv;
+        return new D4MResponse(String.format("Fieldset created [%s].", name));
     }
 
     @RequestMapping("/fieldset/list")
-    public FieldSetModel list() {
-        return new FieldSetModel(fieldsetService.getLists());
+    public FieldSetResponse list() {
+        return new FieldSetResponse(fieldsetService.getLists());
     }
 
     @RequestMapping("/fieldset/clear")
-    public FieldSetModel clear() {
+    public FieldSetResponse clear() {
         fieldsetService.clear();
-        return new FieldSetModel(fieldsetService.getLists());
+        return new FieldSetResponse(fieldsetService.getLists());
     }
 
     @RequestMapping("/fieldset/delete")
-    synchronized public RecordModel delete(
+    synchronized public D4MResponse delete(
         @RequestParam(value = "name", required = true) String name
     ) {
         fieldsetService.delete(name);
-        RecordModel rv = new RecordModel();
-        rv.setMessage(String.format("Fieldset deleted [%s].", name));
-        return rv;
+        return new D4MResponse(String.format("Fieldset deleted [%s].", name));
     }
 
 }

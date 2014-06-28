@@ -1,10 +1,8 @@
 package com.codebits.d4m.rest.controller;
 
 import com.codebits.d4m.TableManager;
-import com.codebits.d4m.rest.model.EdgeDTO;
-import com.codebits.d4m.rest.model.RecordModel;
 import com.codebits.d4m.rest.model.TransposeDTO;
-import com.codebits.d4m.rest.model.TransposeInfoModel;
+import com.codebits.d4m.rest.response.TransposeInfoResponse;
 import com.codebits.d4m.rest.service.AccumuloService;
 import com.codebits.d4m.rest.service.FieldsetService;
 import java.util.Arrays;
@@ -17,14 +15,12 @@ import lombok.Setter;
 import org.apache.accumulo.core.client.BatchScanner;
 import org.apache.accumulo.core.client.Connector;
 import org.apache.accumulo.core.client.IteratorSetting;
-import org.apache.accumulo.core.client.Scanner;
 import org.apache.accumulo.core.client.TableNotFoundException;
 import org.apache.accumulo.core.data.Key;
 import org.apache.accumulo.core.data.Range;
 import org.apache.accumulo.core.data.Value;
 import org.apache.accumulo.core.iterators.user.GrepIterator;
 import org.apache.accumulo.core.security.Authorizations;
-import org.apache.hadoop.io.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +38,7 @@ public class RecordGrepController {
     private FieldsetService fieldsetService = null;
     
     @RequestMapping("/record/grep")
-    public TransposeInfoModel grep(
+    public TransposeInfoResponse grep(
         @RequestParam(value = "baseTableName", required = false, defaultValue = "edge") String baseTableName
         ,@RequestParam(value = "numQueryThreads", required = false, defaultValue = "10") int numQueryThreads
         ,@RequestParam(value = "maxRecords", required = false, defaultValue = "10000") int maxRecords
@@ -52,7 +48,7 @@ public class RecordGrepController {
         ,@RequestParam(value = "target", required = true) String target
         ,@RequestParam(value = "fieldset", required = false) String fieldset
     ) {
-        TransposeInfoModel rv = new TransposeInfoModel();
+        TransposeInfoResponse rv = new TransposeInfoResponse();
         BatchScanner scanner = null;
         int recordCount = 0;
         

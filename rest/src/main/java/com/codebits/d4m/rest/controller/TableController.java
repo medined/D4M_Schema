@@ -1,7 +1,8 @@
 package com.codebits.d4m.rest.controller;
 
 import com.codebits.d4m.TableManager;
-import com.codebits.d4m.rest.model.D4MResponse;
+import com.codebits.d4m.rest.response.D4MResponse;
+import com.codebits.d4m.rest.response.TablesResponse;
 import com.codebits.d4m.rest.service.AccumuloService;
 import lombok.Setter;
 import org.apache.accumulo.core.client.Connector;
@@ -67,7 +68,7 @@ public class TableController {
         @RequestParam(value = "user", required = true) String user
         ,@RequestParam(value = "password", required = true) String password
     ) {
-        com.codebits.d4m.rest.model.TablesModel rv = new com.codebits.d4m.rest.model.TablesModel();        
+        TablesResponse rv = new TablesResponse();        
         rv.setTables(Tables.getNameToIdMap(accumuloService.getInstance()));
         return rv;
     }

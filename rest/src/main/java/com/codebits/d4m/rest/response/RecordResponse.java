@@ -1,4 +1,4 @@
-package com.codebits.d4m.rest.model;
+package com.codebits.d4m.rest.response;
 
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import lombok.Getter;
 import org.apache.accumulo.core.data.Key;
 
-public class RecordModel extends D4MResponse {
+public class RecordResponse extends D4MResponse {
 
     @Getter
     private final Map<String, String> fields = new TreeMap<>();

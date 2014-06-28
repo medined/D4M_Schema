@@ -1,11 +1,11 @@
-package com.codebits.d4m.rest.model;
+package com.codebits.d4m.rest.response;
 
 import java.util.Map;
 import java.util.TreeMap;
 import lombok.Getter;
 import lombok.Setter;
 
-public class TablesModel extends D4MResponse {
+public class TablesResponse extends D4MResponse {
 
     @Setter
     @Getter

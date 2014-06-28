@@ -1,4 +1,4 @@
-package com.codebits.d4m.rest.model;
+package com.codebits.d4m.rest.response;
 
 import com.codebits.d4m.D4MException;
 import java.net.InetAddress;
@@ -38,6 +38,17 @@ public class D4MResponse {
         } catch (UnknownHostException ex) {
             throw new D4MException("Unable to get hostname.");
         }
+    }
+
+    public D4MResponse(final String message) {
+        lamportClockTracker.incrementAndGet();
+        try {
+            hostName = InetAddress.getLocalHost().getHostName();
+            hostIp = InetAddress.getByName(hostName).getHostAddress();
+        } catch (UnknownHostException ex) {
+            throw new D4MException("Unable to get hostname.");
+        }
+        this.message = message;
     }
 
     public long getLamportClock() {
