@@ -20,7 +20,7 @@ public class FieldSetController {
     ) {
         fieldsetService.put(name, list);
         RecordModel rv = new RecordModel();
-        rv.setMessage(String.format("List created [%s].", name));
+        rv.setMessage(String.format("Fieldset created [%s].", name));
         return rv;
     }
 
@@ -41,7 +41,7 @@ public class FieldSetController {
     ) {
         fieldsetService.delete(name);
         RecordModel rv = new RecordModel();
-        rv.setMessage(String.format("List deleted [%s].", name));
+        rv.setMessage(String.format("Fieldset deleted [%s].", name));
         return rv;
     }
 

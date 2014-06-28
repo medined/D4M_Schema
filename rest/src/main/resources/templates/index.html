@@ -128,7 +128,7 @@ rec01 :stname|Alabama []     1
             'protect' their names. A good Field Set name might simply be a 
             purpose-specific UUID with the Field Set deleted after use.</p>
         
-        <p>The field list can include regular expressions like "n*".</p>
+        <p>The field set can include regular expressions like "n*".</p>
 
         <dl>
             <dt>URL</dt>
@@ -142,7 +142,7 @@ list=census2010pop,stname
 {
   "hostName" : "C02JR1U1DKQ5.local"
   ,"hostIp" : "10.211.55.1"
-  ,"message":"List created [medined:myList]."
+  ,"message":"Fieldset created [medined:mySet]."
   ,"throwable" : null
   ,"wallClock" : 1403618279705
   , "lamportClock":3
@@ -164,7 +164,7 @@ http://localhost:11000/fieldset/list
   ,"hostIp" : "10.211.55.1"
   ,"message" : null
   ,"throwable" : null
-  ,"lists":{"medined:myList":"name,place"}
+  ,"lists":{"medined:mySet":"census2010pop,stname"}
   ,"wallClock" : 1403618279705
   , "lamportClock":3
 }
@@ -199,14 +199,14 @@ http://localhost:11000/fieldset/clear
         <dl>
             <dt>URL</dt>
             <dd><a target="_blank" href="http://localhost:11000/fieldset/delete?name=medined:myList"><pre>
-http://localhost:11000/fieldset/delete?name=medined:myList
+http://localhost:11000/fieldset/delete?name=medined:mySet
 </pre></a></dd>
             <dt>Output</dt>
             <dd><pre>
 {
   "hostName" : "C02JR1U1DKQ5.local"
   ,"hostIp" : "10.211.55.1"
-  ,"message":"List deleted [medined:myList]."
+  ,"message":"Fieldset deleted [medined:mySet]."
   ,"throwable" : null
   ,"lists":{}
   ,"wallClock" : 1403618279705
@@ -362,12 +362,39 @@ row=004bec11d5c47d0c1fa06c54b958ba1416d867b8
     ,"concit":"|00000"
     ,"county":"|133"
     ...
+    ,"stName":"|Alabama"
   }
   ,"lamportClock":1
 }
             </pre></dd>
         </dl>        
         
+        <dl>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/record/fetch?user=root&amp;password=secret&amp;row=004bec11d5c47d0c1fa06c54b958ba1416d867b8&amp;fieldset=medined:mySet"><pre>
+http://localhost:11000/record/fetch?
+user=root&amp;
+password=secret&amp;
+row=004bec11d5c47d0c1fa06c54b958ba1416d867b8&amp;
+fieldset=medined:mySet
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
+{
+  "hostName":"C02JR1U1DKQ5.local"
+  ,"hostIp":"10.211.55.1"
+  ,"message":null
+  ,"throwable":null
+  ,"wallClock":1403633622543
+  ,"fields":{
+    "census2010pop":"|758"
+    ,"stName":"|Alabama"
+  }
+  ,"lamportClock":1
+}
+            </pre></dd>
+        </dl>        
+
         <h4>/records/grep</h4>
         
         <p>This endpoint searches the Transpose table by exact string matching. 
