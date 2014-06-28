@@ -78,13 +78,11 @@ public class RecordFetchController {
                 while (iterator.hasNext()) {
                     entryFound = true;
                     Map.Entry<Key, Value> entry = iterator.next();
-                    System.out.println("Next entry");
                     boolean wanted = true;
                     if (!wantedFields.isEmpty()) {
                         wanted = false;
                         EdgeDTO edge = new EdgeDTO(entry.getKey());
                         for (String s : wantedFields) {
-                            System.out.println(String.format("%s - %s - %b", edge.getFn(), s, edge.getFn().matches(s)));
                             if (edge.getFn().matches(s)) {
                                 wanted = true;
                                 break;
