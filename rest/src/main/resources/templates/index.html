@@ -128,7 +128,9 @@ rec01 :stname|Alabama []     1
             'protect' their names. A good Field Set name might simply be a 
             purpose-specific UUID with the Field Set deleted after use.</p>
         
-        <p>The field set can include regular expressions like "n*".</p>
+        <p>The field set can include regular expressions. For example, "pop.*"
+            might return fields named popestimate2010, popestimate2011, 
+            popestimate2012.</p>
 
         <dl>
             <dt>URL</dt>
@@ -428,9 +430,9 @@ fieldset=medined:mySet
 http://localhost:11000/record/grep?
 user=root&amp;
 password=secret&amp;
-maxRecords=5;
+maxRecords=5;&amp;
 target=NJ
-            </pre></a></dd>
+</pre></a></dd>
             <dt>Output</dt>
             <dd><pre>
 {
@@ -452,6 +454,33 @@ target=NJ
             </pre></dd>
         </dl>
 
+        <dl>
+            <dt>URL (include p.* in fieldset)</dt>
+            <dd><a target="_blank" href="http://localhost:11000/record/grep?user=root&amp;password=secret&amp;maxRecords=5&amp;target=0.0001&amp;fieldset=medined:mySet"><pre>
+http://localhost:11000/record/grep?
+user=root&amp;
+password=secret&amp;
+maxRecords=5;&amp;
+target=0.001&amp;
+fieldset=medined:mySet
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
+{
+  "hostName":"C02JR1U1DKQ5.local"
+  ,"hostIp":"10.211.55.1"
+  ,"message":null
+  ,"throwable":null
+  ,"wallClock":1403633622543
+  ,"records":[
+    {"fn":"prep","fv":"0.0001","vis":"","id":"0018c5f8a17a9efef2822d8aac058dadd3741143","ts":1403979658429}
+    ,{"fn":"prep","fv":"0.0001","vis":"","id":"001bf16d9cc0f04f8d9cdd253503c55a3344f347","ts":1403979253067}
+    ...
+  ],
+  ,"lamportClock":1
+}
+            </pre></dd>
+        </dl>
         <!-- =============================================== -->
         <!-- =============================================== -->
         <!-- MANAGEMENT -->

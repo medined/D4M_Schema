@@ -1,8 +1,9 @@
 package com.codebits.d4m.rest.controller;
 
 import com.codebits.d4m.TableManager;
-import com.codebits.d4m.rest.model.EdgeModel;
+import com.codebits.d4m.rest.model.EdgeDTO;
 import com.codebits.d4m.rest.model.RecordModel;
+import com.codebits.d4m.rest.model.TransposeDTO;
 import com.codebits.d4m.rest.model.TransposeInfoModel;
 import com.codebits.d4m.rest.service.AccumuloService;
 import com.codebits.d4m.rest.service.FieldsetService;
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RecordController {
+public class RecordFetchController {
 
     @Autowired
     @Setter
@@ -77,12 +78,14 @@ public class RecordController {
                 while (iterator.hasNext()) {
                     entryFound = true;
                     Map.Entry<Key, Value> entry = iterator.next();
+                    System.out.println("Next entry");
                     boolean wanted = true;
                     if (!wantedFields.isEmpty()) {
                         wanted = false;
-                        EdgeModel edge = new EdgeModel(entry.getKey());
+                        EdgeDTO edge = new EdgeDTO(entry.getKey());
                         for (String s : wantedFields) {
-                            if (edge.getFieldName().matches(s)) {
+                            System.out.println(String.format("%s - %s - %b", edge.getFn(), s, edge.getFn().matches(s)));
+                            if (edge.getFn().matches(s)) {
                                 wanted = true;
                                 break;
                             }
@@ -92,7 +95,7 @@ public class RecordController {
                         rv.add(entry.getKey());
                     }
                 }
-                if (not(entryFound)) {
+                if (!entryFound) {
                     rv.setMessage(String.format("Unknown record [%s].", row));
                 }
             } catch (TableNotFoundException e) {
@@ -108,73 +111,4 @@ public class RecordController {
         return rv;
     }
     
-    @RequestMapping("/record/grep")
-    public TransposeInfoModel grep(
-        @RequestParam(value = "baseTableName", required = false, defaultValue = "edge") String baseTableName
-        ,@RequestParam(value = "numQueryThreads", required = false, defaultValue = "10") int numQueryThreads
-        ,@RequestParam(value = "maxRecords", required = false, defaultValue = "10000") int maxRecords
-        ,@RequestParam(value = "user", required = true) String user
-        ,@RequestParam(value = "password", required = true) String password
-        ,@RequestParam(value = "authorizationList", required = false, defaultValue = "") String authorizationList
-        ,@RequestParam(value = "target", required = true) String target
-    ) {
-        TransposeInfoModel rv = new TransposeInfoModel();
-        BatchScanner scanner = null;
-        int recordCount = 0;
-        
-        Authorizations authorizations = null;
-        if (authorizationList.isEmpty()) {
-            authorizations = new Authorizations();
-        } else {
-            authorizations = new Authorizations(authorizationList);
-        }
-
-        try {
-            Connector connector = accumuloService.getConnector(user, password);
-            TableManager tableManager = new TableManager(connector);
-            tableManager.setBaseTableName(baseTableName);
-
-            final String tableName = tableManager.getTransposeTable();
-
-            try {
-                scanner = connector.createBatchScanner(tableName, authorizations, numQueryThreads);
-                
-                scanner.setRanges(Collections.singleton(new Range((Key) null, null)));
-                
-                IteratorSetting is = new IteratorSetting(1, GrepIterator.class);
-                GrepIterator.setTerm(is, target);
-
-                scanner.addScanIterator(is);
-
-                Iterator<Map.Entry<Key, Value>> iterator = scanner.iterator();
-                boolean entryFound = false;
-                while (iterator.hasNext()) {
-                    entryFound = true;
-                    Map.Entry<Key, Value> entry = iterator.next();
-                    Key key = entry.getKey();
-                    rv.add(key);
-                    recordCount++;
-                    if (recordCount > maxRecords) {
-                        break;
-                    }
-                }
-                if (not(entryFound)) {
-                    rv.setMessage(String.format("target not found [%s].", target));
-                }
-            } catch (TableNotFoundException e) {
-                rv.setMessage(String.format("Unknown table [%s].", tableName));
-                rv.setThrowable(e);
-            }
-
-        } finally {
-            if (scanner != null) {
-                scanner.close();
-            }
-        }
-        return rv;
-    }
-
-    private boolean not(boolean b) {
-        return !b;
-    }
 }
