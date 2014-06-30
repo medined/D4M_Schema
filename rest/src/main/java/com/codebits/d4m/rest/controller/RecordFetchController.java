@@ -41,6 +41,7 @@ public class RecordFetchController {
         ,@RequestParam(value = "row", required = true) String row
         ,@RequestParam(value = "user", required = true) String user
         ,@RequestParam(value = "password", required = true) String password
+        ,@RequestParam(value = "authorizationList", required = false, defaultValue = "") String authorizationList
         ,@RequestParam(value = "fieldset", required = false) String fieldset
     ) {
         RecordResponse rv = new RecordResponse();
@@ -56,6 +57,13 @@ public class RecordFetchController {
             wantedFields.addAll(Arrays.asList(fieldList.split(",")));
         }
         
+        Authorizations authorizations = null;
+        if (authorizationList.isEmpty()) {
+            authorizations = new Authorizations();
+        } else {
+            authorizations = new Authorizations(authorizationList);
+        }
+
         Connector connector = accumuloService.getConnector(user, password);
         TableManager tableManager = new TableManager(connector);
         tableManager.setBaseTableName(baseTableName);
@@ -63,7 +71,7 @@ public class RecordFetchController {
         final String tableName = tableManager.getEdgeTable();
 
         try {
-            scanner = connector.createScanner(tableName, new Authorizations());
+            scanner = connector.createScanner(tableName, authorizations);
             scanner.setRange(Range.exact(new Text(row)));
 
             Iterator<Map.Entry<Key, Value>> iterator = scanner.iterator();
