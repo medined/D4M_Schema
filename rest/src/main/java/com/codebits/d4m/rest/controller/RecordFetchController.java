@@ -56,45 +56,42 @@ public class RecordFetchController {
             wantedFields.addAll(Arrays.asList(fieldList.split(",")));
         }
         
+        Connector connector = accumuloService.getConnector(user, password);
+        TableManager tableManager = new TableManager(connector);
+        tableManager.setBaseTableName(baseTableName);
+
+        final String tableName = tableManager.getEdgeTable();
+
         try {
-            Connector connector = accumuloService.getConnector(user, password);
-            TableManager tableManager = new TableManager(connector);
-            tableManager.setBaseTableName(baseTableName);
+            scanner = connector.createScanner(tableName, new Authorizations());
+            scanner.setRange(Range.exact(new Text(row)));
 
-            final String tableName = tableManager.getEdgeTable();
-
-            try {
-                scanner = connector.createScanner(tableName, new Authorizations());
-                scanner.setRange(Range.exact(new Text(row)));
-
-                Iterator<Map.Entry<Key, Value>> iterator = scanner.iterator();
-                boolean entryFound = false;
-                while (iterator.hasNext()) {
-                    entryFound = true;
-                    Map.Entry<Key, Value> entry = iterator.next();
-                    boolean wanted = true;
-                    if (!wantedFields.isEmpty()) {
-                        wanted = false;
-                        EdgeDTO edge = new EdgeDTO(entry.getKey());
-                        for (String s : wantedFields) {
-                            if (edge.getFn().matches(s)) {
-                                wanted = true;
-                                break;
-                            }
+            Iterator<Map.Entry<Key, Value>> iterator = scanner.iterator();
+            boolean entryFound = false;
+            while (iterator.hasNext()) {
+                entryFound = true;
+                Map.Entry<Key, Value> entry = iterator.next();
+                boolean wanted = true;
+                if (!wantedFields.isEmpty()) {
+                    wanted = false;
+                    EdgeDTO edge = new EdgeDTO(entry.getKey());
+                    for (String s : wantedFields) {
+                        if (edge.getFn().matches(s)) {
+                            wanted = true;
+                            break;
                         }
                     }
-                    if (wanted) {
-                        rv.add(entry.getKey());
-                    }
                 }
-                if (!entryFound) {
-                    rv.setMessage(String.format("Unknown record [%s].", row));
+                if (wanted) {
+                    rv.add(entry.getKey());
                 }
-            } catch (TableNotFoundException e) {
-                rv.setMessage(String.format("Unknown table [%s].", tableName));
-                rv.setThrowable(e);
             }
-
+            if (!entryFound) {
+                rv.setMessage(String.format("Unknown record [%s].", row));
+            }
+        } catch (TableNotFoundException e) {
+            rv.setMessage(String.format("Unknown table [%s].", tableName));
+            rv.setThrowable(e);
         } finally {
             if (scanner != null) {
                 scanner.close();
