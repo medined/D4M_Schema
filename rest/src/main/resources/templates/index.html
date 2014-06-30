@@ -76,7 +76,92 @@ pre {
         <h2>Endpoints</h2>
         
         <p>Most endpoints need <i>user</i> and <i>password</i> parameters.</p>
+        
+        <!-- =============================================== -->
+        <!-- =============================================== -->
+        <!-- FIELDS -->
+        <!-- =============================================== -->
+        <!-- =============================================== -->
 
+        <h3>Fields</h3>
+        
+        <p>The TedgeMetadata table stores various ancillary information about
+        the data stored in the D4M schema. For example, a list of the
+        fields. These endpoints provide access to that field metadata.</p>
+        
+        <h4>/field/list</h4>
+        
+        <p>This endpoint returns all of the fields being used and the cardinality
+            of each. You can use a target parameter to filter the results.</p>
+        
+        <p>baseTableName - Normally, 'edge', this value is used to link the set
+            of Accumulo tables that make up the D4M schema.<p>
+        
+        <p>user - the user name used for the Accumulo connection.</p>
+            
+        <p>password - the password used for the Accumulo connection.</p>
+        
+        <p>authorizationList - a comma-delimited set of authorizations used
+            when scanning the Accumulo table.</p>
+        
+        <p>target - a regular expression used to filter field names. Field
+            names are returned only if they match the 'target'. The default
+            value is '.*' so that all field names are returned.
+        
+        <dl>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/field/list?user=root&amp;password=secret"><pre>
+http://localhost:11000/field/list?
+user=root&amp;
+password=secret
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
+{
+  "hostName" : "C02JR1U1DKQ5.local"
+  ,"hostIp" : "10.211.55.1"
+  ,"message": null
+  ,"fields" : {
+    "a00100":"167334"
+    ,"a00200":"167334"
+    ....
+    ,"sumlev":"1104",
+    "zipcode":"167334"
+  }
+  ,"throwable" : null
+  ,"wallClock" : 1403618279705
+  ,"lamportClock" : 3
+}
+            </pre></dd>
+        </dl>
+
+                <dl>
+            <dt>URL</dt>
+            <dd><a target="_blank" href="http://localhost:11000/field/list?user=root&amp;password=secret"><pre>
+http://localhost:11000/field/list?
+user=root&amp;
+password=secret&amp;
+target=c.*
+</pre></a></dd>
+            <dt>Output</dt>
+            <dd><pre>
+{
+  "hostName" : "C02JR1U1DKQ5.local"
+  ,"hostIp" : "10.211.55.1"
+  ,"message": null
+  ,"fields" : {
+    "cousub":"1104"
+    ,"county":"1104"
+    ,"census2010pop":"1104"
+    ,"concit":"1104"
+  }
+  ,"throwable" : null
+  ,"wallClock" : 1403618279705
+  ,"lamportClock" : 3
+}
+            </pre></dd>
+        </dl>
+        
         <!-- =============================================== -->
         <!-- =============================================== -->
         <!-- FIELD SETS -->
