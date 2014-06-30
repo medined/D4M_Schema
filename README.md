@@ -8,7 +8,7 @@
 Check the wiki at <a target='_blank' href='https://github.com/medined/D4M_Schema/wiki'>https://github.com/medined/D4M_Schema/wiki</a>.
 
 A big shout of thanks to the folks at MIT for both writing
-the software and helping me to understand the schema.
+the software and helping me to understand the schema. The official D4M website is <a target="blank" href="http://d4m.mit.edu/">http://d4m.mit.edu/</a>. The primary paper describing D4M is <a target="_blank" href="http://www.icassp2012.com/Papers/ViewPapers.asp?PaperNum=2970">http://www.icassp2012.com/Papers/ViewPapers.asp?PaperNum=2970</a>.
 
 There are many articles talking about the benefits of Big Data and how it can 
 knock down Data Silos and pool data together into a Data Lake. Most  are short 
