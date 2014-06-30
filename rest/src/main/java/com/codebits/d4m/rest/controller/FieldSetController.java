@@ -2,7 +2,6 @@ package com.codebits.d4m.rest.controller;
 
 import com.codebits.d4m.rest.response.D4MResponse;
 import com.codebits.d4m.rest.response.FieldSetResponse;
-import com.codebits.d4m.rest.response.RecordResponse;
 import com.codebits.d4m.rest.service.FieldsetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
