@@ -40,6 +40,9 @@ public class CreateTablesAndLoadData {
         StateCSVToAccumulo stateLoader = new StateCSVToAccumulo();
         stateLoader.process("../data/SUB-EST2012_1.csv");
 
+        TaxYear2007ToAccumulo taxLoader = new TaxYear2007ToAccumulo();
+        taxLoader.process("../data/Tax_Year_2007_County_Income_Data.csv");
+
         FieldPaginationDriver fieldPaginationDriver = new FieldPaginationDriver();
         fieldPaginationDriver.process();
     }
