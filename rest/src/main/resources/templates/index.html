@@ -27,7 +27,7 @@ pre {
         
         <h3>JSON Respone</h3>
   
-        Every endpoint response contains at least the following fields:
+        <p>Every endpoint response contains at least the following fields:</p>
         
         <ul>
             <li>message: Some message applicable to your request as a String.</li>
@@ -95,7 +95,7 @@ pre {
             of each. You can use a target parameter to filter the results.</p>
         
         <p>baseTableName - Normally, 'edge', this value is used to link the set
-            of Accumulo tables that make up the D4M schema.<p>
+            of Accumulo tables that make up the D4M schema.</p>
         
         <p>user - the user name used for the Accumulo connection.</p>
             
@@ -106,7 +106,7 @@ pre {
         
         <p>target - a regular expression used to filter field names. Field
             names are returned only if they match the 'target'. The default
-            value is '.*' so that all field names are returned.
+            value is '.*' so that all field names are returned.</p>
         
         <dl>
             <dt>URL</dt>
@@ -137,7 +137,7 @@ password=secret
 
                 <dl>
             <dt>URL</dt>
-            <dd><a target="_blank" href="http://localhost:11000/field/list?user=root&amp;password=secret"><pre>
+            <dd><a target="_blank" href="http://localhost:11000/field/list?user=root&amp;password=secret&amp;target=c.*"><pre>
 http://localhost:11000/field/list?
 user=root&amp;
 password=secret&amp;
@@ -515,7 +515,7 @@ fieldset=medined:mySet
 http://localhost:11000/record/grep?
 user=root&amp;
 password=secret&amp;
-maxRecords=5;&amp;
+maxRecords=5&amp;
 target=NJ
 </pre></a></dd>
             <dt>Output</dt>
@@ -566,6 +566,7 @@ fieldset=medined:mySet
 }
             </pre></dd>
         </dl>
+        
         <!-- =============================================== -->
         <!-- =============================================== -->
         <!-- MANAGEMENT -->
