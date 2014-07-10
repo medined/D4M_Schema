@@ -1,3 +1,5 @@
+# D4M Schema
+
 [![Build Status](https://travis-ci.org/medined/D4M_Schema.svg?branch=master)](https://travis-ci.org/medined/D4M_Schema) - Travis CI
 <br/>
 [![Build Status](https://api.shippable.com/projects/5385e15ce5ca5fba01621831/badge/master)](https://www.shippable.com/projects/5385e15ce5ca5fba01621831) - Shippable
@@ -16,7 +18,9 @@ on specifics. In this project, I'll use D4M (http:/d4m.mit.edu/) to fill in
 some blanks. Hopefully, you'll find some ideas here you haven't seen before 
 and you'll get inspired to knock down some of your own Data Silos. It can done!
 
->D4M uses a Schema on Read philosophy. Check out <a target='_blank'  href='http://ibmdatamag.com/2013/05/why-is-schema-on-read-so-useful/'>Why is Schema on Read So Useful?</a> for background information.
+>D4M uses a Schema on Read philosophy. Check out 
+<a target='_blank'  href='http://ibmdatamag.com/2013/05/why-is-schema-on-read-so-useful/'>Why is Schema on Read So Useful?</a> 
+for background information.
 
 [Getting Started](docs/getting_started.md)
 
@@ -93,9 +97,10 @@ Accumulo Mutations
    TedgeField     * CITY_NAME                        * field                            * 1
    TedgeTranspose * CITY_NAME|AKRON                  * 9a127928-b661-4e46-9103-3fc024f4 * 1
    TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
-   TedgeTxt       * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON
-                                                                                          \t
-                                                                                          STATE_NAME|MAINE
+   
+   TedgeTxt       * 9a127...24f4 * RawData                          * CITY_NAME|AKRON
+                                                                      \t
+                                                                      STATE_NAME|MAINE
 ```
 
 Then see what changes when an additional record for the BOAZ city.
@@ -123,13 +128,13 @@ A  TedgeTranspose * CITY_NAME|BOAZ                   * a1b4d569-ee45-4466-af2a-0
    TedgeTranspose * STATE_NAME|MAINE                 * 9a127928-b661-4e46-9103-3fc024f4 * 1
 A  TedgeTranspose * STATE_NAME|MAINE                 * a1b4d569-ee45-4466-af2a-0960ccc1 * 1
 
-   TedgeText      * 9a127928-b661-4e46-9103-3fc024f4 * RawData                          * CITY_NAME|AKRON
-                                                                                          \t
-                                                                                          STATE_NAME|MAINE
+   TedgeText      * 9a127...24f4 * RawData                          * CITY_NAME|AKRON
+                                                                      \t
+                                                                      STATE_NAME|MAINE
 
-A  TedgeText      * a1b4d569-ee45-4466-af2a-0960ccc1 * RawData                          * CITY_NAME|BOAZ
-                                                                                          \t
-                                                                                          STATE_NAME|MAINE
+A  TedgeText      * a1b4d...ccc1 * RawData                          * CITY_NAME|BOAZ
+                                                                      \t
+                                                                      STATE_NAME|MAINE
 ```
 
 The 'A' lines were added. The 'M' line was modified. The rest stayed the same. 
@@ -187,3 +192,10 @@ easier.
  * Rapidly changing leading values which provides automatic load balancing and 
 easy pre-splitting. For example, reversing an ingest date so that the faster
 changing seconds come first.
+
+## Why is Column Family Empty?
+
+Column Families can have lots of uses beyond just storing data. They can work well with custom iterators. With Column Families outside the purview of D4M, application developers have flexibility to add functionality without affecting the interaction with Matlab and Octave.
+
+For one concrete example, consider an ingest system dealing with information about shift workers. In this ficticious company they have three shifts named A, B and C. During the ingest process entries for each shift have their Column Family value set to the shift name. Further, suppose that a Locality Group has been defined for each shift. This ensures that information about each shift is stored together on disk. This, hopefully, would make queries faster.
+
