@@ -34,7 +34,7 @@
         <version.spring.security>3.2.3.RELEASE</version.spring.security>
         <version.streamlib>2.6.0</version.streamlib>
         <version.xalan>2.7.1</version.xalan>
-        <version.xerces>2.9.1</version.xerces>
+        <version.xerces>2.12.0</version.xerces>
         <version.zookeeeper>3.4.6</version.zookeeeper>
     </properties>
 
