@@ -31,7 +31,7 @@
         <version.lombok>1.12.6</version.lombok>
         <version.mockito>1.9.5</version.mockito>
         <version.spring>4.0.3.RELEASE</version.spring>
-        <version.spring.security>3.2.3.RELEASE</version.spring.security>
+        <version.spring.security>5.4.0</version.spring.security>
         <version.streamlib>2.6.0</version.streamlib>
         <version.xalan>2.7.1</version.xalan>
         <version.xerces>2.9.1</version.xerces>
